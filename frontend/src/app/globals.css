@@ -1,0 +1,268 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ig-primary: #000000;
+  --ig-secondary: #262626;
+  --ig-border: #363636;
+  --ig-hover: #1a1a1a;
+  --ig-text-primary: #ffffff;
+  --ig-text-secondary: #a8a8a8;
+  --ig-blue: #0095f6;
+  --ig-blue-hover: #1877f2;
+  --ig-red: #ed4956;
+  --ig-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: var(--ig-primary);
+  color: var(--ig-text-primary);
+  overflow-x: hidden;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom scrollbar for main content */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ig-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ig-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ig-text-secondary);
+}
+
+/* Gradient text effect */
+.gradient-text {
+  background: var(--ig-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Instagram-style button */
+.ig-button {
+  background: var(--ig-blue);
+  color: white;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ig-button:hover {
+  background: var(--ig-blue-hover);
+  transform: scale(1.02);
+}
+
+.ig-button:active {
+  transform: scale(0.98);
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Smooth animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.5s ease-out;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.5s ease-out;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Glassmorphism effect */
+.glass {
+  background: rgba(38, 38, 38, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Snap scroll for feed */
+.snap-container {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+.snap-item {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Loading skeleton */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--ig-secondary) 0%,
+    var(--ig-border) 50%,
+    var(--ig-secondary) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Tag styles */
+.tag {
+  background: var(--ig-secondary);
+  color: var(--ig-text-secondary);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.tag:hover {
+  background: var(--ig-border);
+  color: var(--ig-text-primary);
+  transform: scale(1.05);
+}
+
+/* Icon button */
+.icon-button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--ig-text-primary);
+}
+
+.icon-button:hover {
+  background: var(--ig-hover);
+  transform: scale(1.1);
+}
+
+.icon-button:active {
+  transform: scale(0.95);
+}
+
+/* Input styles */
+.ig-input {
+  background: var(--ig-secondary);
+  border: 1px solid var(--ig-border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: var(--ig-text-primary);
+  font-size: 14px;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.ig-input:focus {
+  outline: none;
+  border-color: var(--ig-text-secondary);
+  background: var(--ig-hover);
+}
+
+.ig-input::placeholder {
+  color: var(--ig-text-secondary);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+}
