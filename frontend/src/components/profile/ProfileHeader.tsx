@@ -53,15 +53,15 @@ export default function ProfileHeader() {
                     <div className="flex items-center justify-center md:justify-start gap-8 md:gap-10 text-base">
                         <div className="flex gap-1">
                             <span className="font-bold">{profile.stats.posts}</span>
-                            <span>posts</span>
+                            <span>Posts</span>
                         </div>
                         <div className="flex gap-1">
                             <span className="font-bold">{profile.stats.followers}</span>
-                            <span>followers</span>
+                            <span>Projects</span>
                         </div>
                         <div className="flex gap-1">
                             <span className="font-bold">{profile.stats.following}</span>
-                            <span>following</span>
+                            <span>TechStack</span>
                         </div>
                     </div>
 
