@@ -145,23 +145,27 @@ A professionally engineered healthcare solution that streamlines patient–docto
         id: 5,
         title: "Niyaz Unveiled",
         type: "Writing",
-        description: "A tapestry of love and poetic intrigue. Founder and curator of an online platform.",
+        description: "A tapestry of love and poetic intrigue. Founder and curator of an online literary platform.",
         fullDescription: `
-**Niyaz Unveiled: A Literary Journey**
+**Niyaz Unveiled: A Tapestry of Love and Poetic Intrigue**
 
-An online sanctuary for short stories, poems, and creative writing. "Niyaz Unveiled" explores the depths of human emotion through words.
+A thoughtfully curated digital literary platform dedicated to poetry and short stories, fostering emotional expression and creative storytelling. Founded and managed as an independent initiative, the platform highlights original voices while building a meaningful reader–writer community.
 
-**Highlights:**
-*   **Curated Collections:** Handpicked stories and poems.
-*   **Community Engagement:** Platform for aspiring writers to share and discuss.
-*   **Visual Storytelling:** Combining text with evocative imagery.
-*   **Regular Publications:** Weekly updates with fresh content.
+**Key Creative & Professional Highlights:**
+*   **Founder & Editorial Lead:** Conceptualized, launched, and managed the platform’s vision, tone, and publishing standards.
+*   **Content Creation & Curation:** Authored original poetry and stories while curating submissions from emerging writers.
+*   **Community Building:** Cultivated an engaged readership through consistent publishing, writer collaboration, and feedback-driven growth.
+*   **Digital Presence & SEO Strategy:** Leveraged SEO-focused content planning and social media outreach to expand reach and visibility.
+*   **Brand & Platform Management:** Oversaw website content, branding, and ongoing platform evolution to maintain a cohesive literary identity.
+
+This project demonstrates strong skills in creative leadership, digital publishing, storytelling, and audience engagement.
 `,
         image: "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?q=80&w=1000&auto=format&fit=crop",
-        tags: ["Poetry", "Stories", "Content Creation"],
+        tags: ["Poetry", "Stories", "Content Creation", "Editorial"],
         likes: 342,
         comments: 56,
-        date: "Ongoing"
+        date: "Ongoing",
+        link: "https://www.skniyaznoorpoetryandlovestories.com/"
     }
 ];
 
