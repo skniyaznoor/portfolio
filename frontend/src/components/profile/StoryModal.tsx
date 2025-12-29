@@ -30,13 +30,13 @@ export default function StoryModal({ isOpen, onClose, quote = "The only way to d
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-[100] bg-black flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[100] bg-black/40 backdrop-blur-md flex items-center justify-center p-4">
             <div className="absolute top-0 left-0 w-full h-1 bg-white/20">
                 <div
                     className="h-full bg-white ease-linear"
                     style={{
                         width: `${progress}%`,
-                        transitionDuration: '30s',
+                        transitionDuration: '15s',
                         transitionProperty: 'width'
                     }}
                 />
