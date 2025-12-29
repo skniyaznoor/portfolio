@@ -1,13 +1,31 @@
 export const profile = {
     name: "SK Niyaz Noor",
-    username: "niyaz_unveiled",
+    username: "skniyaznoor",
     title: "Web Developer | Content Writer",
-    bio: "Building digital experiences & weaving tapestries of love and poetic intrigue. 🚀✨",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Niyaz",
+    bio: "Building digital experiences & weaving tapestries of love and poetic intrigue. ✨",
+    avatar: "images/profileimage.jpg",
     stats: {
         posts: 12,
         followers: "1.2k",
         following: 450
+    },
+    contact: {
+        phones: ["+91 6372271191", "+91 9337202956"],
+        emails: ["skniyaznoor23@gmail.com"]
+    },
+    addresses: {
+        correspondence: {
+            addressLine: "KIIT Square, Phase 2, Patia",
+            city: "Bhubaneswar",
+            state: "Odisha",
+            pin: 751024
+        },
+        permanent: {
+            addressLine: "Singhar Sahi, Dharmasala",
+            district: "Jajpur",
+            state: "Odisha",
+            pin: 755008
+        }
     }
 };
 

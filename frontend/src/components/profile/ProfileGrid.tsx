@@ -7,17 +7,17 @@ export default function ProfileGrid() {
     return (
         <div className="max-w-4xl mx-auto px-4">
             {/* Tabs */}
-            <div className="border-t border-[#262626] mt-10 mb-4">
-                <div className="flex justify-center gap-12 text-xs font-semibold tracking-widest text-gray-400">
-                    <button className="flex items-center gap-2 py-4 border-t border-white text-white -mt-px">
+            <div className="border-t border-[var(--border)] mt-10 mb-4">
+                <div className="flex justify-center gap-12 text-xs font-semibold tracking-widest text-[var(--secondary)]">
+                    <button className="flex items-center gap-2 py-4 border-t border-[var(--foreground)] text-[var(--foreground)] -mt-px">
                         <Grid className="w-3 h-3" />
                         POSTS
                     </button>
-                    <button className="flex items-center gap-2 py-4 border-t border-transparent hover:text-white transition-colors">
+                    <button className="flex items-center gap-2 py-4 border-t border-transparent hover:text-[var(--foreground)] transition-colors">
                         <Bookmark className="w-3 h-3" />
                         SAVED
                     </button>
-                    <button className="flex items-center gap-2 py-4 border-t border-transparent hover:text-white transition-colors">
+                    <button className="flex items-center gap-2 py-4 border-t border-transparent hover:text-[var(--foreground)] transition-colors">
                         <UserSquare className="w-3 h-3" />
                         TAGGED
                     </button>
@@ -27,7 +27,7 @@ export default function ProfileGrid() {
             {/* Grid */}
             <div className="grid grid-cols-3 gap-1 md:gap-4">
                 {projects.map((project) => (
-                    <div key={project.id} className="relative aspect-square group cursor-pointer bg-[#1a1a1a]">
+                    <div key={project.id} className="relative aspect-square group cursor-pointer bg-[var(--card)]">
                         <Image
                             src={project.image}
                             alt={project.title}

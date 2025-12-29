@@ -7,12 +7,24 @@
   --border: #262626;
   --accent: #0095f6;
   --secondary: #8e8e8e;
+  --hover-overlay: rgba(255, 255, 255, 0.1);
   --instagram-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+:root[data-theme="light"] {
+  --background: #ffffff;
+  --foreground: #000000;
+  --card: #ffffff;
+  --border: #dbdbdb;
+  --secondary: #737373;
+  --hover-overlay: rgba(0, 0, 0, 0.05);
 }
 
 @layer base {
   body {
-    @apply bg-black text-white antialiased;
+    background-color: var(--background);
+    color: var(--foreground);
+    @apply antialiased transition-colors duration-300;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
 }

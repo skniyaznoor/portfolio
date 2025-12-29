@@ -1,19 +1,11 @@
 import Navigation from '@/components/layout/Navigation';
-import ProfileHeader from '@/components/profile/ProfileHeader';
-import ProfileGrid from '@/components/profile/ProfileGrid';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen bg-black text-white">
-      {/* Sidebar Navigation */}
+    <main className="flex min-h-screen">
       <Navigation />
-
-      {/* Main Content Area */}
-      <div className="flex-1 xl:ml-64 ml-20">
-        <div className="w-full py-8">
-          <ProfileHeader />
-          <ProfileGrid />
-        </div>
+      <div className="flex-1 xl:ml-64 ml-20 flex items-center justify-center">
+        <h1 className="text-2xl font-bold">Hello</h1>
       </div>
     </main>
   );
