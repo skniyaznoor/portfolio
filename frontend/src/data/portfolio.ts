@@ -8,8 +8,8 @@ export const profile = {
     avatar: "images/profileimage.jpg",
     stats: {
         posts: 12,
-        followers: "1.2k",
-        following: 450
+        followers: "5",
+        following: "12+"
     },
     contact: {
         phones: ["+91 6372271191", "+91 9337202956"],

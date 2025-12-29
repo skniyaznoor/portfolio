@@ -44,9 +44,9 @@ export default function ProfileHeader() {
                             >
                                 Resume
                             </a>
-                            <button className="p-2 text-[var(--foreground)] hover:opacity-70">
+                            {/* <button className="p-2 text-[var(--foreground)] hover:opacity-70">
                                 <Settings className="w-6 h-6" />
-                            </button>
+                            </button> */}
                             <button onClick={(e) => { e.stopPropagation(); toggleTheme(); }} className="p-2 text-[var(--foreground)] hover:opacity-70">
                                 {theme === 'dark' ? <Sun className="w-6 h-6" /> : <Moon className="w-6 h-6" />}
                             </button>
@@ -55,10 +55,10 @@ export default function ProfileHeader() {
 
                     {/* Stats Row */}
                     <div className="flex items-center justify-center md:justify-start gap-8 md:gap-10 text-base">
-                        <div className="flex gap-1">
+                        {/* <div className="flex gap-1">
                             <span className="font-bold">{profile.stats.posts}</span>
                             <span>Posts</span>
-                        </div>
+                        </div> */}
                         <div className="flex gap-1">
                             <span className="font-bold">{profile.stats.followers}</span>
                             <span>Projects</span>

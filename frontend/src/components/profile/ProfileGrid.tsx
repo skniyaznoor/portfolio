@@ -9,7 +9,7 @@ import ProjectModal from './ProjectModal';
 type Tab = 'posts' | 'projects' | 'techstack';
 
 export default function ProfileGrid() {
-    const [activeTab, setActiveTab] = useState<Tab>('posts');
+    const [activeTab, setActiveTab] = useState<Tab>('projects');
     const [visibleTechStackCount, setVisibleTechStackCount] = useState(9);
     const [visibleProjectCount, setVisibleProjectCount] = useState(9);
     const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
@@ -19,7 +19,7 @@ export default function ProfileGrid() {
             {/* Tabs */}
             <div className="border-t border-[var(--border)] mt-10 mb-4">
                 <div className="flex justify-center gap-12 text-xs font-semibold tracking-widest text-[var(--secondary)]">
-                    <button
+                    {/* <button
                         onClick={() => setActiveTab('posts')}
                         className={`flex items-center gap-2 py-4 border-t -mt-px transition-colors ${activeTab === 'posts'
                             ? "border-[var(--foreground)] text-[var(--foreground)]"
@@ -28,7 +28,7 @@ export default function ProfileGrid() {
                     >
                         <Grid className="w-3 h-3" />
                         POSTS
-                    </button>
+                    </button> */}
                     <button
                         onClick={() => setActiveTab('projects')}
                         className={`flex items-center gap-2 py-4 border-t -mt-px transition-colors ${activeTab === 'projects'
@@ -54,7 +54,7 @@ export default function ProfileGrid() {
 
             {/* Content Grid */}
             <div className="grid grid-cols-3 gap-1 md:gap-4 pb-20">
-                {activeTab === 'posts' && explorePosts.map((post) => (
+                {/* {activeTab === 'posts' && explorePosts.map((post) => (
                     <div key={post.id} className="relative aspect-square group cursor-pointer bg-[var(--card)]">
                         <Image
                             src={post.image}
@@ -73,7 +73,7 @@ export default function ProfileGrid() {
                             </div>
                         </div>
                     </div>
-                ))}
+                ))} */}
 
                 {activeTab === 'projects' && (
                     <div className="col-span-3">
