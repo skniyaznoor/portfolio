@@ -4,12 +4,15 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { Heart, MessageCircle, Grid, Bookmark, UserSquare, Layers } from 'lucide-react';
 import { projects, explorePosts, stories } from '@/data/portfolio';
+import ProjectModal from './ProjectModal';
 
 type Tab = 'posts' | 'projects' | 'techstack';
 
 export default function ProfileGrid() {
     const [activeTab, setActiveTab] = useState<Tab>('posts');
     const [visibleTechStackCount, setVisibleTechStackCount] = useState(9);
+    const [visibleProjectCount, setVisibleProjectCount] = useState(9);
+    const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
 
     return (
         <div className="max-w-4xl mx-auto px-4">
@@ -72,23 +75,43 @@ export default function ProfileGrid() {
                     </div>
                 ))}
 
-                {activeTab === 'projects' && projects.map((project) => (
-                    <div key={project.id} className="relative aspect-square group cursor-pointer bg-[var(--card)]">
-                        <Image
-                            src={project.image}
-                            alt={project.title}
-                            fill
-                            className="object-cover"
-                        />
-                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-white p-4 text-center">
-                            <h3 className="font-bold text-lg mb-1">{project.title}</h3>
-                            <p className="text-xs text-gray-300 mb-2">{project.type}</p>
-                            {/* <div className="flex gap-2 text-sm">
-                                <span className="flex items-center gap-1"><Heart className="w-4 h-4 fill-white" /> {project.likes}</span>
-                            </div> */}
+                {activeTab === 'projects' && (
+                    <div className="col-span-3">
+                        <div className="grid grid-cols-3 gap-1 md:gap-4">
+                            {projects.slice(0, visibleProjectCount).map((project) => (
+                                <div
+                                    key={project.id}
+                                    className="relative aspect-square group cursor-pointer bg-[var(--card)]"
+                                    onClick={() => setSelectedProject(project)}
+                                >
+                                    <Image
+                                        src={project.image}
+                                        alt={project.title}
+                                        fill
+                                        className="object-cover"
+                                    />
+                                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-white p-4 text-center">
+                                        <h3 className="font-bold text-lg mb-1">{project.title}</h3>
+                                        <p className="text-xs text-gray-300 mb-2">{project.type}</p>
+                                        {/* <div className="flex gap-2 text-sm">
+                                            <span className="flex items-center gap-1"><Heart className="w-4 h-4 fill-white" /> {project.likes}</span>
+                                        </div> */}
+                                    </div>
+                                </div>
+                            ))}
                         </div>
+                        {visibleProjectCount < projects.length && (
+                            <div className="flex justify-center mt-8">
+                                <button
+                                    onClick={() => setVisibleProjectCount(prev => prev + 6)}
+                                    className="px-6 py-2 bg-[var(--accent)] text-white font-semibold rounded-full hover:opacity-90 transition-opacity"
+                                >
+                                    Load More
+                                </button>
+                            </div>
+                        )}
                     </div>
-                ))}
+                )}
 
                 {activeTab === 'techstack' && (
                     <div className="col-span-3">
@@ -119,6 +142,13 @@ export default function ProfileGrid() {
                     </div>
                 )}
             </div>
+
+            {/* Project Modal */}
+            <ProjectModal
+                project={selectedProject}
+                onClose={() => setSelectedProject(null)}
+            />
         </div>
     );
 }
+

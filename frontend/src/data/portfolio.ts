@@ -34,18 +34,46 @@ export const projects = [
         id: 1,
         title: "Dynamic Form Package",
         type: "Software Engineering",
-        description: "Developed a reusable dynamic form package for Laravel using the Filament admin panel. Enabled rendering dynamic forms and managing dynamic database structures.",
+        description: "Developed a reusable dynamic form package for Laravel using the Filament admin panel.",
+        fullDescription: `
+**Dynamic Form Package for Laravel Using Filament**
+
+Modern admin panels often require complex, frequently changing forms. Hardcoding form schemas leads to duplicated logic and rigid structures. I designed a Dynamic Form Package for Laravel, tightly integrated with Filament, enabling forms to be defined, rendered, and validated dynamically at runtime.
+
+**Key Features:**
+*   **Dynamic Schema Generation:** Maps field definitions directly to Filament components.
+*   **Flexible Data Persistence:** Stores submissions using structured JSON or configurable tables.
+*   **Runtime Validation:** Generates Laravel validation rules dynamically.
+*   **Conditional Logic:** Supports dependent fields and progressive disclosure.
+
+**Impact:**
+*   ~40–60% reduction in development time.
+*   Eliminated duplicated form code.
+*   Reduced database migrations to near zero.
+`,
         image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop",
         tags: ["Laravel", "Filament", "PHP"],
         likes: 124,
         comments: 18,
-        date: "Oct 2024"
+        date: "Oct 2024",
+        link: "https://github.com/skniyaznoor/filament-quick-form"
     },
     {
         id: 2,
         title: "Exam Portal",
         type: "Software Engineering",
-        description: "Built a secure and interactive online examination system using React.js and Laravel. Features time-based restrictions and question randomization.",
+        description: "Built a secure and interactive online examination system using React.js and Laravel.",
+        fullDescription: `
+**Secure Online Examination System**
+
+A comprehensive solution for conducting secure online exams. Built with React.js for a responsive frontend and Laravel for a robust backend.
+
+**Key Features:**
+*   **Time-based Restrictions:** Auto-submission and strict timing controls.
+*   **Question Randomization:** Unique question sets for every student to prevent cheating.
+*   **Real-time Monitoring:** Admin dashboard to track active exams.
+*   **Result Analytics:** Instant grading and detailed performance reports.
+`,
         image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1000&auto=format&fit=crop",
         tags: ["React", "Laravel", "Security"],
         likes: 89,
@@ -56,7 +84,18 @@ export const projects = [
         id: 3,
         title: "Live Broadcast App",
         type: "Software Engineering",
-        description: "Developed a live streaming platform using Next.js and Node.js with deep integration of Google APIs and YouTube Live.",
+        description: "Developed a live streaming platform using Next.js and Node.js with deep integration of Google APIs.",
+        fullDescription: `
+**Live Streaming & Broadcast Platform**
+
+A high-performance live broadcasting application leveraging Next.js and Node.js. Designed for seamless real-time interaction and content delivery.
+
+**Key Features:**
+*   **YouTube Live Integration:** Deep integration with Google APIs for simulcasting.
+*   **Real-time Chat:** Socket.io powered chat for viewer engagement.
+*   **Low Latency:** Optimized stream delivery using modern protocols.
+*   **User Management:** Role-based access for streamers and moderators.
+`,
         image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1000&auto=format&fit=crop",
         tags: ["Next.js", "Node.js", "Streaming"],
         likes: 210,
@@ -67,7 +106,18 @@ export const projects = [
         id: 4,
         title: "Healthcare App",
         type: "Software Engineering",
-        description: "Built a web and mobile healthcare application connecting patients and doctors. Adhered to HIPAA/GDPR standards.",
+        description: "Built a web and mobile healthcare application connecting patients and doctors.",
+        fullDescription: `
+**Comprehensive Healthcare Platform**
+
+Bridging the gap between patients and healthcare providers. This application ensures secure, compliant, and efficient medical consultations.
+
+**Key Features:**
+*   **HIPAA/GDPR Compliance:** Strict adherence to data privacy standards.
+*   **Telemedicine:** Integrated video calling for remote consultations.
+*   **Appointment Scheduling:** Smart booking system with calendar sync.
+*   **E-Prescriptions:** Digital prescription management and pharmacy integration.
+`,
         image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1000&auto=format&fit=crop",
         tags: ["Next.js", "Laravel", "Healthcare"],
         likes: 156,
@@ -78,7 +128,18 @@ export const projects = [
         id: 5,
         title: "Niyaz Unveiled",
         type: "Writing",
-        description: "A tapestry of love and poetic intrigue. Founder and curator of an online platform dedicated to short stories and poems.",
+        description: "A tapestry of love and poetic intrigue. Founder and curator of an online platform.",
+        fullDescription: `
+**Niyaz Unveiled: A Literary Journey**
+
+An online sanctuary for short stories, poems, and creative writing. "Niyaz Unveiled" explores the depths of human emotion through words.
+
+**Highlights:**
+*   **Curated Collections:** Handpicked stories and poems.
+*   **Community Engagement:** Platform for aspiring writers to share and discuss.
+*   **Visual Storytelling:** Combining text with evocative imagery.
+*   **Regular Publications:** Weekly updates with fresh content.
+`,
         image: "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?q=80&w=1000&auto=format&fit=crop",
         tags: ["Poetry", "Stories", "Content Creation"],
         likes: 342,
