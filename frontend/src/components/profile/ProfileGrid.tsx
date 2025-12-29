@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { Heart, MessageCircle, Grid, Bookmark, UserSquare, Layers } from 'lucide-react';
+import { Heart, MessageCircle, Grid, Bookmark, UserSquare, Layers, Loader2 } from 'lucide-react';
 import { projects, explorePosts, stories } from '@/data/portfolio';
 import ProjectModal from './ProjectModal';
 
@@ -13,6 +13,53 @@ export default function ProfileGrid() {
     const [visibleTechStackCount, setVisibleTechStackCount] = useState(9);
     const [visibleProjectCount, setVisibleProjectCount] = useState(9);
     const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const loadMoreRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const first = entries[0];
+                if (first.isIntersecting) {
+                    handleLoadMore();
+                }
+            },
+            { threshold: 0.1 }
+        );
+
+        if (loadMoreRef.current) {
+            observer.observe(loadMoreRef.current);
+        }
+
+        return () => {
+            if (loadMoreRef.current) {
+                observer.unobserve(loadMoreRef.current);
+            }
+        };
+    }, [activeTab, visibleProjectCount, visibleTechStackCount]);
+
+    const handleLoadMore = () => {
+        if (isLoading) return;
+
+        if (activeTab === 'projects' && visibleProjectCount < projects.length) {
+            setIsLoading(true);
+            setTimeout(() => {
+                setVisibleProjectCount(prev => prev + 6);
+                setIsLoading(false);
+            }, 500);
+        } else if (activeTab === 'techstack' && visibleTechStackCount < stories.length) {
+            setIsLoading(true);
+            setTimeout(() => {
+                setVisibleTechStackCount(prev => prev + 6);
+                setIsLoading(false);
+            }, 500);
+        }
+    };
+
+    const hasMore = activeTab === 'projects'
+        ? visibleProjectCount < projects.length
+        : visibleTechStackCount < stories.length;
 
     return (
         <div className="max-w-4xl mx-auto px-4">
@@ -100,16 +147,6 @@ export default function ProfileGrid() {
                                 </div>
                             ))}
                         </div>
-                        {visibleProjectCount < projects.length && (
-                            <div className="flex justify-center mt-8">
-                                <button
-                                    onClick={() => setVisibleProjectCount(prev => prev + 6)}
-                                    className="px-6 py-2 bg-[var(--accent)] text-white font-semibold rounded-full hover:opacity-90 transition-opacity"
-                                >
-                                    Load More
-                                </button>
-                            </div>
-                        )}
                     </div>
                 )}
 
@@ -129,19 +166,21 @@ export default function ProfileGrid() {
                                 </div>
                             ))}
                         </div>
-                        {visibleTechStackCount < stories.length && (
-                            <div className="flex justify-center mt-8">
-                                <button
-                                    onClick={() => setVisibleTechStackCount(prev => prev + 6)}
-                                    className="px-6 py-2 bg-[var(--accent)] text-white font-semibold rounded-full hover:opacity-90 transition-opacity"
-                                >
-                                    Load More
-                                </button>
-                            </div>
-                        )}
                     </div>
                 )}
             </div>
+
+            {/* Infinite Scroll Sentinel */}
+            {hasMore && (
+                <div
+                    ref={loadMoreRef}
+                    className="h-20 flex items-center justify-center mb-10"
+                >
+                    {isLoading && (
+                        <Loader2 className="w-6 h-6 animate-spin text-[var(--accent)]" />
+                    )}
+                </div>
+            )}
 
             {/* Project Modal */}
             <ProjectModal
@@ -151,4 +190,5 @@ export default function ProfileGrid() {
         </div>
     );
 }
+
 
