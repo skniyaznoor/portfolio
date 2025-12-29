@@ -6,10 +6,12 @@ import { Settings, Sun, Moon } from 'lucide-react';
 import { profile } from '@/data/portfolio';
 import { useTheme } from '@/context/ThemeContext';
 import StoryModal from './StoryModal';
+import EducationModal from './EducationModal';
 
 export default function ProfileHeader() {
     const { theme, toggleTheme } = useTheme();
     const [isStoryOpen, setIsStoryOpen] = useState(false);
+    const [isEducationOpen, setIsEducationOpen] = useState(false);
 
     return (
         <>
@@ -44,9 +46,13 @@ export default function ProfileHeader() {
                             >
                                 Resume
                             </a>
-                            {/* <button className="p-2 text-[var(--foreground)] hover:opacity-70">
+                            <button
+                                onClick={() => setIsEducationOpen(true)}
+                                title="Education details"
+                                className="p-2 text-[var(--foreground)] hover:opacity-70 cursor-pointer"
+                            >
                                 <Settings className="w-6 h-6" />
-                            </button> */}
+                            </button>
                             <button onClick={(e) => { e.stopPropagation(); toggleTheme(); }} className="p-2 text-[var(--foreground)] hover:opacity-70">
                                 {theme === 'dark' ? <Sun className="w-6 h-6" /> : <Moon className="w-6 h-6" />}
                             </button>
@@ -98,6 +104,10 @@ export default function ProfileHeader() {
                 isOpen={isStoryOpen}
                 onClose={() => setIsStoryOpen(false)}
                 quote="Code is like humor. When you have to explain it, it’s bad."
+            />
+            <EducationModal
+                isOpen={isEducationOpen}
+                onClose={() => setIsEducationOpen(false)}
             />
         </>
     );
