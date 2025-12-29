@@ -55,7 +55,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                     {/* Header */}
                     <div className="p-6 border-b border-[var(--border)] hidden md:block">
                         <div className="flex items-start justify-between gap-4">
-                            <div>
+                            <div className='max-w-[60%]'>
                                 <h2 className="text-2xl font-bold text-[var(--foreground)]">{project.title}</h2>
                                 <p className="text-[var(--secondary)] font-medium">{project.type}</p>
                             </div>

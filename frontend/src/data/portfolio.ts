@@ -1,3 +1,5 @@
+import { link } from "fs";
+
 export const profile = {
     name: "SK Niyaz Noor",
     username: "skniyaznoor",
@@ -64,62 +66,77 @@ Modern admin panels often require complex, frequently changing forms. Hardcoding
         type: "Software Engineering",
         description: "Built a secure and interactive online examination system using React.js and Laravel.",
         fullDescription: `
-**Secure Online Examination System**
+**Secure & Interactive Online Examination System**
 
-A comprehensive solution for conducting secure online exams. Built with React.js for a responsive frontend and Laravel for a robust backend.
+A robust platform designed for conducting assessments in a controlled, cheat-resistant environment. Built with React.js and Laravel, it ensures high performance and a seamless user experience for educational and corporate assessments.
 
 **Key Features:**
-*   **Time-based Restrictions:** Auto-submission and strict timing controls.
-*   **Question Randomization:** Unique question sets for every student to prevent cheating.
-*   **Real-time Monitoring:** Admin dashboard to track active exams.
-*   **Result Analytics:** Instant grading and detailed performance reports.
+*   **Anti-Cheat Mechanisms:** Tab-switch detection and disabled copy-paste/right-click.
+*   **Time-Based Control:** Real-time countdown with server-side enforcement and auto-submission.
+*   **Question Randomization:** Shuffled questions and options per student session.
+*   **Real-Time Saving:** Asynchronous answer persistence to prevent data loss.
+*   **Auto-Evaluation:** Instant grading and detailed result analytics.
+
+**Tech Stack:** React.js, Laravel, MySQL, JWT, RESTful APIs.
 `,
         image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1000&auto=format&fit=crop",
         tags: ["React", "Laravel", "Security"],
         likes: 89,
         comments: 12,
-        date: "2024"
+        date: "2024",
+        link: "https://www.worldskillcenter.org/"
     },
     {
         id: 3,
-        title: "Live Broadcast App",
+        title: "Live Broadcast & Online Course Platform",
         type: "Software Engineering",
-        description: "Developed a live streaming platform using Next.js and Node.js with deep integration of Google APIs.",
+        description: "A scalable live streaming and online course platform built with Next.js and Node.js, enabling real-time learning and content delivery.",
         fullDescription: `
-**Live Streaming & Broadcast Platform**
+**Live Broadcast & Online Course Platform**
 
-A high-performance live broadcasting application leveraging Next.js and Node.js. Designed for seamless real-time interaction and content delivery.
+A production-grade platform designed for live teaching, recorded courses, and real-time audience interaction. Built with Next.js and Node.js, the system supports educators, trainers, and content creators to deliver structured online courses alongside live broadcasts.
 
-**Key Features:**
-*   **YouTube Live Integration:** Deep integration with Google APIs for simulcasting.
-*   **Real-time Chat:** Socket.io powered chat for viewer engagement.
-*   **Low Latency:** Optimized stream delivery using modern protocols.
-*   **User Management:** Role-based access for streamers and moderators.
+**Key Technical & Professional Features:**
+*   **Live & Recorded Classes:** Seamless switching between live streams and on-demand course content.
+*   **Google & YouTube Live Integration:** Deep integration with Google APIs for live streaming, simulcasting, and video management.
+*   **Real-Time Interaction:** Socket.io powered live chat, Q&A, and audience engagement during sessions.
+*   **Course Management System:** Create, organize, and manage courses, modules, lessons, and access levels.
+*   **Role-Based Access Control:** Separate roles for instructors, students, moderators, and administrators.
+*   **Scalable Architecture:** Optimized for low latency and high concurrency using modern streaming and backend practices.
+*   **Secure Authentication:** Token-based authentication ensuring protected course and stream access.
+
+**Tech Stack:** Next.js, Node.js, Socket.io, Google APIs, REST APIs.
 `,
         image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1000&auto=format&fit=crop",
-        tags: ["Next.js", "Node.js", "Streaming"],
+        tags: ["Next.js", "Node.js", "Streaming", "EdTech"],
         likes: 210,
         comments: 45,
-        date: "2024"
+        date: "2024",
+        link: "https://klansity.com/"
     },
     {
         id: 4,
-        title: "Healthcare App",
+        title: "Healthcare Management & Telemedicine App",
         type: "Software Engineering",
-        description: "Built a web and mobile healthcare application connecting patients and doctors.",
+        description: "A secure healthcare platform connecting patients and doctors through telemedicine, scheduling, and digital health records.",
         fullDescription: `
-**Comprehensive Healthcare Platform**
+**Healthcare Management & Telemedicine Platform**
 
-Bridging the gap between patients and healthcare providers. This application ensures secure, compliant, and efficient medical consultations.
+A professionally engineered healthcare solution that streamlines patient–doctor interactions while ensuring data security, compliance, and scalability. Designed for clinics, hospitals, and digital health startups.
 
-**Key Features:**
-*   **HIPAA/GDPR Compliance:** Strict adherence to data privacy standards.
-*   **Telemedicine:** Integrated video calling for remote consultations.
-*   **Appointment Scheduling:** Smart booking system with calendar sync.
-*   **E-Prescriptions:** Digital prescription management and pharmacy integration.
+**Key Technical & Professional Features:**
+*   **Telemedicine & Video Consultations:** Secure real-time video calls enabling remote diagnosis and follow-ups.
+*   **Appointment & Schedule Management:** Intelligent booking system with availability management and calendar synchronization.
+*   **Electronic Health Records (EHR):** Centralized and secure storage of patient medical history and reports.
+*   **E-Prescriptions & Reports:** Digital prescription generation and downloadable medical reports.
+*   **Compliance & Security:** Designed with HIPAA and GDPR principles, including encrypted data storage and access control.
+*   **Role-Based Dashboards:** Dedicated interfaces for doctors, patients, and administrators.
+*   **Scalable API Architecture:** Backend services built to support future integrations with labs, pharmacies, and insurance systems.
+
+**Tech Stack:** Next.js, Laravel, REST APIs, Secure Authentication.
 `,
         image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1000&auto=format&fit=crop",
-        tags: ["Next.js", "Laravel", "Healthcare"],
+        tags: ["Next.js", "Laravel", "Healthcare", "Telemedicine"],
         likes: 156,
         comments: 22,
         date: "2024"
