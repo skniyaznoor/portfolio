@@ -9,6 +9,7 @@ type Tab = 'posts' | 'projects' | 'techstack';
 
 export default function ProfileGrid() {
     const [activeTab, setActiveTab] = useState<Tab>('posts');
+    const [visibleTechStackCount, setVisibleTechStackCount] = useState(9);
 
     return (
         <div className="max-w-4xl mx-auto px-4">
@@ -18,8 +19,8 @@ export default function ProfileGrid() {
                     <button
                         onClick={() => setActiveTab('posts')}
                         className={`flex items-center gap-2 py-4 border-t -mt-px transition-colors ${activeTab === 'posts'
-                                ? "border-[var(--foreground)] text-[var(--foreground)]"
-                                : "border-transparent hover:text-[var(--foreground)]"
+                            ? "border-[var(--foreground)] text-[var(--foreground)]"
+                            : "border-transparent hover:text-[var(--foreground)]"
                             }`}
                     >
                         <Grid className="w-3 h-3" />
@@ -28,8 +29,8 @@ export default function ProfileGrid() {
                     <button
                         onClick={() => setActiveTab('projects')}
                         className={`flex items-center gap-2 py-4 border-t -mt-px transition-colors ${activeTab === 'projects'
-                                ? "border-[var(--foreground)] text-[var(--foreground)]"
-                                : "border-transparent hover:text-[var(--foreground)]"
+                            ? "border-[var(--foreground)] text-[var(--foreground)]"
+                            : "border-transparent hover:text-[var(--foreground)]"
                             }`}
                     >
                         <Bookmark className="w-3 h-3" />
@@ -38,8 +39,8 @@ export default function ProfileGrid() {
                     <button
                         onClick={() => setActiveTab('techstack')}
                         className={`flex items-center gap-2 py-4 border-t -mt-px transition-colors ${activeTab === 'techstack'
-                                ? "border-[var(--foreground)] text-[var(--foreground)]"
-                                : "border-transparent hover:text-[var(--foreground)]"
+                            ? "border-[var(--foreground)] text-[var(--foreground)]"
+                            : "border-transparent hover:text-[var(--foreground)]"
                             }`}
                     >
                         <Layers className="w-3 h-3" />
@@ -89,19 +90,34 @@ export default function ProfileGrid() {
                     </div>
                 ))}
 
-                {activeTab === 'techstack' && stories.map((tech) => (
-                    <div key={tech.id} className="relative aspect-square group cursor-pointer bg-[var(--card)] flex flex-col items-center justify-center p-4 border border-[var(--border)]">
-                        <div className="relative w-16 h-16 md:w-24 md:h-24 mb-4">
-                            <Image
-                                src={tech.image}
-                                alt={tech.label}
-                                fill
-                                className="object-contain"
-                            />
+                {activeTab === 'techstack' && (
+                    <div className="col-span-3">
+                        <div className="grid grid-cols-3 gap-1 md:gap-4">
+                            {stories.slice(0, visibleTechStackCount).map((tech) => (
+                                <div key={tech.id} className="relative aspect-square group cursor-pointer bg-[var(--card)] flex flex-col items-center justify-center p-4 border border-[var(--border)]">
+                                    <div className="relative w-16 h-16 md:w-24 md:h-24 mb-4">
+                                        <img
+                                            src={tech.image}
+                                            alt={tech.label}
+                                            className="w-full h-full object-contain"
+                                        />
+                                    </div>
+                                    <span className="font-semibold text-[var(--foreground)]">{tech.label}</span>
+                                </div>
+                            ))}
                         </div>
-                        <span className="font-semibold text-[var(--foreground)]">{tech.label}</span>
+                        {visibleTechStackCount < stories.length && (
+                            <div className="flex justify-center mt-8">
+                                <button
+                                    onClick={() => setVisibleTechStackCount(prev => prev + 6)}
+                                    className="px-6 py-2 bg-[var(--accent)] text-white font-semibold rounded-full hover:opacity-90 transition-opacity"
+                                >
+                                    Load More
+                                </button>
+                            </div>
+                        )}
                     </div>
-                ))}
+                )}
             </div>
         </div>
     );

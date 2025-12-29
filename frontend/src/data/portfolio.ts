@@ -88,12 +88,21 @@ export const projects = [
 ];
 
 export const stories = [
-    { id: 1, label: "React", image: "https://api.dicebear.com/7.x/icons/svg?seed=react" },
-    { id: 2, label: "Next.js", image: "https://api.dicebear.com/7.x/icons/svg?seed=nextjs" },
-    { id: 3, label: "Laravel", image: "https://api.dicebear.com/7.x/icons/svg?seed=laravel" },
-    { id: 4, label: "Node.js", image: "https://api.dicebear.com/7.x/icons/svg?seed=nodejs" },
-    { id: 5, label: "Python", image: "https://api.dicebear.com/7.x/icons/svg?seed=python" },
-    { id: 6, label: "Writing", image: "https://api.dicebear.com/7.x/icons/svg?seed=writing" },
+    { id: 1, label: "React", image: "https://cdn.simpleicons.org/react/61DAFB" },
+    { id: 2, label: "Next.js", image: "https://cdn.simpleicons.org/nextdotjs/000000" },
+    { id: 3, label: "Laravel", image: "https://cdn.simpleicons.org/laravel/FF2D20" },
+    { id: 4, label: "Node.js", image: "https://cdn.simpleicons.org/nodedotjs/339933" },
+    { id: 5, label: "Python", image: "https://cdn.simpleicons.org/python/3776AB" },
+    { id: 6, label: "Writing", image: "https://cdn.simpleicons.org/medium/000000" },
+    { id: 7, label: "TypeScript", image: "https://cdn.simpleicons.org/typescript/3178C6" },
+    { id: 8, label: "Docker", image: "https://cdn.simpleicons.org/docker/2496ED" },
+    // { id: 9, label: "AWS", image: "https://cdn.simpleicons.org/amazonaws/232F3E" },
+    { id: 10, label: "GraphQL", image: "https://cdn.simpleicons.org/graphql/E10098" },
+    { id: 11, label: "Tailwind", image: "https://cdn.simpleicons.org/tailwindcss/06B6D4" },
+    { id: 12, label: "PostgreSQL", image: "https://cdn.simpleicons.org/postgresql/4169E1" },
+    // { id: 13, label: "Redis", image: "https://cdn.simpleicons.org/redis/DC382D" },
+    { id: 14, label: "Git", image: "https://cdn.simpleicons.org/git/F05032" },
+    { id: 15, label: "Figma", image: "https://cdn.simpleicons.org/figma/F24E1E" },
 ];
 
 export const explorePosts = [
