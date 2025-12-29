@@ -16,19 +16,19 @@ export default function Suggestions() {
             {/* User Profile */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                    <img src={profile.avatar} alt={profile.username} className="w-12 h-12 rounded-full" />
+                    <img src={`/${profile.avatar}`} alt={profile.username} className="w-12 h-12 rounded-full object-cover" />
                     <div>
-                        <p className="font-semibold text-sm">{profile.username}</p>
-                        <p className="text-[#a8a8a8] text-sm">{profile.name}</p>
+                        <p className="font-semibold text-sm text-[var(--foreground)]">{profile.username}</p>
+                        <p className="text-[var(--secondary)] text-sm">{profile.name}</p>
                     </div>
                 </div>
-                <button className="text-[#0095f6] text-xs font-semibold hover:text-white transition-colors">Switch</button>
+                <button className="text-[var(--accent)] text-xs font-semibold hover:text-[var(--foreground)] transition-colors">Switch</button>
             </div>
 
             {/* Suggestions Header */}
             <div className="flex items-center justify-between">
-                <p className="text-[#a8a8a8] font-semibold text-sm">Suggested for you</p>
-                <button className="text-white text-xs font-semibold hover:text-[#a8a8a8] transition-colors">See All</button>
+                <p className="text-[var(--secondary)] font-semibold text-sm">Suggested for you</p>
+                <button className="text-[var(--foreground)] text-xs font-semibold hover:text-[var(--secondary)] transition-colors">See All</button>
             </div>
 
             {/* Suggestions List */}
@@ -36,19 +36,19 @@ export default function Suggestions() {
                 {suggestions.map((item) => (
                     <div key={item.name} className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                            <img src={item.image} alt={item.name} className="w-8 h-8 rounded-full bg-[#1a1a1a] p-1" />
+                            <img src={item.image} alt={item.name} className="w-8 h-8 rounded-full bg-[var(--card)] p-1" />
                             <div>
-                                <p className="font-semibold text-sm">{item.name}</p>
-                                <p className="text-[#a8a8a8] text-xs">{item.role}</p>
+                                <p className="font-semibold text-sm text-[var(--foreground)]">{item.name}</p>
+                                <p className="text-[var(--secondary)] text-xs">{item.role}</p>
                             </div>
                         </div>
-                        <button className="text-[#0095f6] text-xs font-semibold hover:text-white transition-colors">Follow</button>
+                        <button className="text-[var(--accent)] text-xs font-semibold hover:text-[var(--foreground)] transition-colors">Follow</button>
                     </div>
                 ))}
             </div>
 
             {/* Footer Links */}
-            <div className="text-[#737373] text-xs space-y-4">
+            <div className="text-[var(--secondary)] text-xs space-y-4">
                 <p className="flex flex-wrap gap-x-2">
                     <span>About</span><span>Help</span><span>Press</span><span>API</span><span>Jobs</span><span>Privacy</span><span>Terms</span>
                 </p>
