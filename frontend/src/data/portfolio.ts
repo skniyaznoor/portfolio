@@ -95,3 +95,69 @@ export const stories = [
     { id: 5, label: "Python", image: "https://api.dicebear.com/7.x/icons/svg?seed=python" },
     { id: 6, label: "Writing", image: "https://api.dicebear.com/7.x/icons/svg?seed=writing" },
 ];
+
+export const explorePosts = [
+    {
+        id: 101,
+        image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1000&auto=format&fit=crop",
+        likes: 1234,
+        comments: 45,
+        type: "large"
+    },
+    {
+        id: 102,
+        image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1000&auto=format&fit=crop",
+        likes: 892,
+        comments: 32,
+        type: "small"
+    },
+    {
+        id: 103,
+        image: "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?q=80&w=1000&auto=format&fit=crop",
+        likes: 2100,
+        comments: 120,
+        type: "small"
+    },
+    {
+        id: 104,
+        image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1000&auto=format&fit=crop",
+        likes: 1543,
+        comments: 88,
+        type: "large"
+    },
+    {
+        id: 105,
+        image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=1000&auto=format&fit=crop",
+        likes: 980,
+        comments: 55,
+        type: "small"
+    },
+    {
+        id: 106,
+        image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1000&auto=format&fit=crop",
+        likes: 342,
+        comments: 12,
+        type: "small"
+    },
+    {
+        id: 107,
+        image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop",
+        likes: 4500,
+        comments: 300,
+        type: "large"
+    },
+    {
+        id: 108,
+        image: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1000&auto=format&fit=crop",
+        likes: 670,
+        comments: 23,
+        type: "small"
+    },
+    {
+        id: 109,
+        image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?q=80&w=1000&auto=format&fit=crop",
+        likes: 890,
+        comments: 44,
+        type: "small"
+    }
+];
