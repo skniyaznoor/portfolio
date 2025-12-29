@@ -83,9 +83,9 @@ export default function ProfileGrid() {
                         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-white p-4 text-center">
                             <h3 className="font-bold text-lg mb-1">{project.title}</h3>
                             <p className="text-xs text-gray-300 mb-2">{project.type}</p>
-                            <div className="flex gap-2 text-sm">
+                            {/* <div className="flex gap-2 text-sm">
                                 <span className="flex items-center gap-1"><Heart className="w-4 h-4 fill-white" /> {project.likes}</span>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 ))}

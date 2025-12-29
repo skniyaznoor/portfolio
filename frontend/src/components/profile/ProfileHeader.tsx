@@ -37,9 +37,13 @@ export default function ProfileHeader() {
                     <div className="flex flex-col md:flex-row items-center gap-4">
                         <h1 className="text-xl md:text-2xl font-normal">{profile.username}</h1>
                         <div className="flex items-center gap-2">
-                            {/* <button className="px-4 py-1.5 bg-[var(--border)] hover:bg-[var(--secondary)] text-[var(--foreground)] text-sm font-semibold rounded-lg transition-colors">
-                                Edit profile
-                            </button> */}
+                            <a
+                                href="/pdf/skniyaznoor.pdf"
+                                download
+                                className="px-4 py-1.5 bg-[var(--border)] hover:bg-[var(--secondary)] text-[var(--foreground)] text-sm font-semibold rounded-lg transition-colors"
+                            >
+                                Resume
+                            </a>
                             <button className="p-2 text-[var(--foreground)] hover:opacity-70">
                                 <Settings className="w-6 h-6" />
                             </button>
