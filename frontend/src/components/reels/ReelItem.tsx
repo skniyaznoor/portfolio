@@ -12,6 +12,7 @@ interface ReelItemProps {
 const ReelItem: React.FC<ReelItemProps> = ({ project }) => {
     const [isMuted, setIsMuted] = useState(true);
     const [isLiked, setIsLiked] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(false);
     const [showLikeHeart, setShowLikeHeart] = useState(false);
     const [showCopied, setShowCopied] = useState(false);
     const [lastTap, setLastTap] = useState(0);
@@ -42,6 +43,16 @@ const ReelItem: React.FC<ReelItemProps> = ({ project }) => {
             setTimeout(() => setShowCopied(false), 2000);
         });
     };
+
+    const cleanDescription = (text: string) => {
+        return text.replace(/\*\*/g, '').replace(/\*/g, '').trim();
+    };
+
+    const fullCleanedDescription = project.fullDescription ? cleanDescription(project.fullDescription) : "";
+    const isLongDescription = fullCleanedDescription.length > 120; // Reduced for reel view
+    const truncatedDescription = isLongDescription
+        ? `${fullCleanedDescription.slice(0, 120)}...`
+        : fullCleanedDescription;
 
     return (
         <div className="relative w-full h-full bg-black flex items-center justify-center snap-start">
@@ -89,7 +100,7 @@ const ReelItem: React.FC<ReelItemProps> = ({ project }) => {
                             onClick={handleShare}
                             className="p-2 transition-transform active:scale-110"
                         >
-                            <Send className="w-7 h-7 text-white -rotate-12" />
+                            <Send className="w-7 h-7 text-white -rotate-0" />
                         </button>
                         {showCopied && (
                             <div className="absolute right-full mr-2 top-1/2 -translate-y-1/2 bg-white text-black text-[10px] font-bold px-2 py-1 rounded-md flex items-center gap-1 animate-fadeIn whitespace-nowrap">
@@ -154,9 +165,27 @@ const ReelItem: React.FC<ReelItemProps> = ({ project }) => {
                         )}
                     </div>
 
-                    <div className="text-white text-[13px] mb-2 leading-relaxed max-w-[85%]">
+                    <div
+                        className="text-white text-[13px] mb-2 leading-relaxed max-w-[85%] cursor-pointer"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setIsExpanded(!isExpanded);
+                        }}
+                    >
                         <span className="font-semibold block mb-0.5">{project.title}</span>
                         {project.description}
+                        {fullCleanedDescription && (
+                            <div className="mt-1">
+                                <p className={`text-white/90 text-[13px] ${!isExpanded ? 'line-clamp-2' : ''}`}>
+                                    {isExpanded ? fullCleanedDescription : truncatedDescription}
+                                </p>
+                                {isLongDescription && (
+                                    <button className="text-white/60 text-[12px] font-bold mt-1">
+                                        {isExpanded ? 'less' : 'more'}
+                                    </button>
+                                )}
+                            </div>
+                        )}
                     </div>
 
                     <div className="flex flex-wrap gap-1 mb-4">
