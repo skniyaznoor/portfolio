@@ -15,7 +15,7 @@ export default function ProfileHeader() {
 
     return (
         <>
-            <header className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-24 px-4 py-8 max-w-4xl mx-auto">
+            <header className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-24 px-4 py-8 max-w-[935px] mx-auto">
                 {/* Profile Avatar */}
                 <div className="flex-shrink-0 cursor-pointer group" onClick={() => setIsStoryOpen(true)}>
                     <div className="p-[3px] rounded-full bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] group-hover:scale-105 transition-transform duration-300">

@@ -62,7 +62,7 @@ export default function ProfileGrid() {
         : visibleTechStackCount < stories.length;
 
     return (
-        <div className="max-w-4xl mx-auto px-4">
+        <div className="max-w-[935px] mx-auto px-4">
             {/* Tabs */}
             <div className="border-t border-[var(--border)] mt-10 mb-4">
                 <div className="flex justify-center gap-12 text-xs font-semibold tracking-widest text-[var(--secondary)]">

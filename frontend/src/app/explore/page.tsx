@@ -40,7 +40,7 @@ export default function ExplorePage() {
         <main className="flex min-h-screen">
             <Navigation />
             <div className="flex-1 xl:ml-64 ml-20">
-                <div className="max-w-5xl mx-auto px-4 w-full">
+                <div className="max-w-[935px] mx-auto px-4 w-full">
                     <SearchHeader
                         onSearch={setSearchQuery}
                         onFilter={handleFilterChange}
