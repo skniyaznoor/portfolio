@@ -4,21 +4,10 @@ import React from 'react';
 import Image from 'next/image';
 import { X, Heart, Calendar, Tag } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import { Project } from '@/data/portfolio';
 
 interface ProjectModalProps {
-    project: {
-        id: number;
-        title: string;
-        type: string;
-        description: string;
-        fullDescription?: string;
-        image: string;
-        tags: string[];
-        likes: number;
-        comments: number;
-        date: string;
-        link?: string;
-    } | null;
+    project: Project | null;
     onClose: () => void;
 }
 

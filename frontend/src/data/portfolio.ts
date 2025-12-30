@@ -1,4 +1,3 @@
-import { link } from "fs";
 
 export const profile = {
     name: "SK Niyaz Noor",
@@ -31,7 +30,21 @@ export const profile = {
     }
 };
 
-export const projects = [
+export interface Project {
+    id: number;
+    title: string;
+    type: string;
+    description: string;
+    fullDescription: string;
+    image: string;
+    tags: string[];
+    likes: number;
+    comments: number;
+    date: string;
+    link?: string;
+}
+
+export const projects: Project[] = [
     {
         id: 1,
         title: "Dynamic Form Package",

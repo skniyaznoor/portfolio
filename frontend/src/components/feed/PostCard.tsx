@@ -2,22 +2,11 @@
 
 import React, { useState } from 'react';
 import { Heart, MessageCircle, Send, Bookmark, MoreHorizontal } from 'lucide-react';
-import { profile } from '@/data/portfolio';
+import { profile, Project } from '@/data/portfolio';
 import StoryModal from '../profile/StoryModal';
 
 interface PostCardProps {
-    post: {
-        id: number;
-        title: string;
-        type: string;
-        description: string;
-        fullDescription: string;
-        image: string;
-        tags: string[];
-        likes: number;
-        comments: number;
-        date: string;
-    };
+    post: Project;
 }
 
 export default function PostCard({ post }: PostCardProps) {
@@ -26,11 +15,24 @@ export default function PostCard({ post }: PostCardProps) {
     const [localLikes, setLocalLikes] = useState(post.likes);
     const [isExpanded, setIsExpanded] = useState(false);
 
+    const cleanDescription = (text: string) => {
+        return text.replace(/\*\*/g, '').replace(/\*/g, '').trim();
+    };
+
+    const description = cleanDescription(post.fullDescription);
+    const shortDescription = description.length > 80 ? `${description.slice(0, 80)}...` : description;
+
     const handleLike = () => {
+
         setIsLiked(!isLiked);
         setLocalLikes(prev => isLiked ? prev - 1 : prev + 1);
     };
 
+    const handleTitleClick = () => {
+        if (post.link) {
+            window.open(post.link, '_blank');
+        }
+    };
 
     return (
         <div className="border-b border-[var(--border)] pb-8 mb-8">
@@ -46,7 +48,12 @@ export default function PostCard({ post }: PostCardProps) {
                         <div className="flex items-center gap-1">
                             <span className="font-semibold text-sm text-[var(--foreground)]">{profile.username}</span>
                         </div>
-                        <span className="text-xs text-[var(--secondary)]">{post.title}</span>
+                        <span
+                            className={`text-xs text-[var(--secondary)] ${post.link ? 'cursor-pointer hover:underline' : ''}`}
+                            onClick={handleTitleClick}
+                        >
+                            {post.title}
+                        </span>
                     </div>
                 </div>
                 <button className="text-[var(--foreground)] disabled:opacity-50 cursor-not-allowed group relative" title="Feature coming soon">
@@ -95,13 +102,13 @@ export default function PostCard({ post }: PostCardProps) {
             {/* Content */}
             <div className="px-1 space-y-2">
                 <p className="font-semibold text-sm text-[var(--foreground)]">{localLikes.toLocaleString()} likes</p>
-                <div className="text-sm text-[var(--foreground)] leading-relaxed">
+                <div className="text-sm text-[var(--foreground)] leading-relaxed whitespace-pre-line">
                     <span className="font-semibold mr-2">{profile.username}</span>
-                    {isExpanded ? post.fullDescription : `${post.fullDescription.slice(0, 100)}...`}
-                    {post.fullDescription.length > 100 && (
+                    {isExpanded ? description : shortDescription}
+                    {description.length > 80 && (
                         <button
                             onClick={() => setIsExpanded(!isExpanded)}
-                            className="text-[var(--secondary)] ml-1 hover:text-[var(--foreground)] transition-colors text-xs font-medium"
+                            className="text-[var(--secondary)] ml-1 hover:text-[var(--foreground)] transition-colors text-xs font-medium focus:outline-none"
                         >
                             {isExpanded ? 'less' : 'more'}
                         </button>
