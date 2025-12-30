@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { Heart, Send, Music, Volume2, VolumeX, Check } from 'lucide-react';
+import { Heart, Send, Music, Volume2, VolumeX, Check, ChevronDown } from 'lucide-react';
 import { Project, profile } from '@/data/portfolio';
 import StoryModal from '../profile/StoryModal';
 
@@ -18,6 +18,38 @@ const ReelItem: React.FC<ReelItemProps> = ({ project }) => {
     const [showCopied, setShowCopied] = useState(false);
     const [lastTap, setLastTap] = useState(0);
     const [isStoryOpen, setIsStoryOpen] = useState(false);
+    const [showScrollHint, setShowScrollHint] = useState(false);
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        let timer: NodeJS.Timeout;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const entry = entries[0];
+                if (entry.isIntersecting) {
+                    timer = setTimeout(() => {
+                        setShowScrollHint(true);
+                    }, 30000);
+                } else {
+                    setShowScrollHint(false);
+                    if (timer) clearTimeout(timer);
+                }
+            },
+            { threshold: 0.8 }
+        );
+
+        if (containerRef.current) {
+            observer.observe(containerRef.current);
+        }
+
+        return () => {
+            if (timer) clearTimeout(timer);
+            if (containerRef.current) {
+                observer.unobserve(containerRef.current);
+            }
+        };
+    }, []);
 
     const handleDoubleTap = () => {
         const now = Date.now();
@@ -51,13 +83,16 @@ const ReelItem: React.FC<ReelItemProps> = ({ project }) => {
     };
 
     const fullCleanedDescription = project.fullDescription ? cleanDescription(project.fullDescription) : "";
-    const isLongDescription = fullCleanedDescription.length > 120; // Reduced for reel view
+    const isLongDescription = fullCleanedDescription.length > 120;
     const truncatedDescription = isLongDescription
         ? `${fullCleanedDescription.slice(0, 120)}...`
         : fullCleanedDescription;
 
     return (
-        <div className="relative w-full h-full bg-black flex items-center justify-center snap-start">
+        <div
+            ref={containerRef}
+            className="relative w-full h-full bg-black flex items-center justify-center snap-start"
+        >
             {/* Background Image */}
             <div
                 className="relative w-full h-full aspect-[9/16] cursor-pointer touch-none select-none"
@@ -207,6 +242,13 @@ const ReelItem: React.FC<ReelItemProps> = ({ project }) => {
                         </div>
                     </div>
                 </div>
+
+                {showScrollHint && (
+                    <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 z-30 animate-bounce text-white/80 pointer-events-none">
+                        <span className="text-[10px] font-bold uppercase tracking-widest">Swipe up</span>
+                        <ChevronDown className="w-5 h-5" />
+                    </div>
+                )}
             </div>
 
             <StoryModal
