@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { Heart, Send, Music, Volume2, VolumeX, Check } from 'lucide-react';
 import { Project, profile } from '@/data/portfolio';
+import StoryModal from '../profile/StoryModal';
 
 interface ReelItemProps {
     project: Project;
@@ -16,6 +17,7 @@ const ReelItem: React.FC<ReelItemProps> = ({ project }) => {
     const [showLikeHeart, setShowLikeHeart] = useState(false);
     const [showCopied, setShowCopied] = useState(false);
     const [lastTap, setLastTap] = useState(0);
+    const [isStoryOpen, setIsStoryOpen] = useState(false);
 
     const handleDoubleTap = () => {
         const now = Date.now();
@@ -100,7 +102,7 @@ const ReelItem: React.FC<ReelItemProps> = ({ project }) => {
                             onClick={handleShare}
                             className="p-2 transition-transform active:scale-110"
                         >
-                            <Send className="w-7 h-7 text-white -rotate-0" />
+                            <Send className="w-7 h-7 text-white rotate-15" />
                         </button>
                         {showCopied && (
                             <div className="absolute right-full mr-2 top-1/2 -translate-y-1/2 bg-white text-black text-[10px] font-bold px-2 py-1 rounded-md flex items-center gap-1 animate-fadeIn whitespace-nowrap">
@@ -141,14 +143,16 @@ const ReelItem: React.FC<ReelItemProps> = ({ project }) => {
                 {/* Content Details (Bottom Left) */}
                 <div className="absolute left-4 bottom-6 right-16 z-10">
                     <div className="flex items-center gap-2 mb-3">
-                        <div className="w-8 h-8 rounded-full border border-white/20 overflow-hidden shrink-0">
-                            <Image
-                                src={`/${profile.avatar}`}
-                                alt={profile.name}
-                                width={32}
-                                height={32}
-                                className="object-cover"
-                            />
+                        <div className="story-ring p-[1px] rounded-full cursor-pointer" onClick={() => setIsStoryOpen(true)}>
+                            <div className="w-8 h-8 rounded-full border border-white/20 overflow-hidden shrink-0">
+                                <Image
+                                    src={`/${profile.avatar}`}
+                                    alt={profile.name}
+                                    width={32}
+                                    height={32}
+                                    className="object-cover"
+                                />
+                            </div>
                         </div>
                         <span className="text-white font-semibold text-sm truncate">
                             {profile.username}
@@ -204,6 +208,12 @@ const ReelItem: React.FC<ReelItemProps> = ({ project }) => {
                     </div>
                 </div>
             </div>
+
+            <StoryModal
+                isOpen={isStoryOpen}
+                onClose={() => setIsStoryOpen(false)}
+                quote="Code is like humor. When you have to explain it, it’s bad."
+            />
 
             <style jsx>{`
                 @keyframes marquee-slow {
