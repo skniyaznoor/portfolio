@@ -77,7 +77,7 @@ export default function TaskProgress({
         return () => {
             if (progressInterval) clearInterval(progressInterval);
         };
-    }, []);
+    }, [taskList]);
 
     return (
         <div className="w-full h-full bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-900 dark:to-indigo-950 rounded-2xl p-6 shadow-lg flex flex-col overflow-hidden border border-indigo-100 dark:border-indigo-900/50">
@@ -104,10 +104,10 @@ export default function TaskProgress({
                         <div
                             key={task.id}
                             className={`p-4 rounded-xl transition-all duration-500 ${isCompleted
-                                    ? 'bg-green-100 dark:bg-green-900/30 border-2 border-green-500 dark:border-green-600'
-                                    : isActive
-                                        ? 'bg-indigo-100 dark:bg-indigo-900/30 border-2 border-indigo-500 dark:border-indigo-600 scale-105'
-                                        : 'bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700'
+                                ? 'bg-green-100 dark:bg-green-900/30 border-2 border-green-500 dark:border-green-600'
+                                : isActive
+                                    ? 'bg-indigo-100 dark:bg-indigo-900/30 border-2 border-indigo-500 dark:border-indigo-600 scale-105'
+                                    : 'bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700'
                                 }`}
                         >
                             <div className="flex items-center gap-3">
@@ -121,10 +121,10 @@ export default function TaskProgress({
                                 <div className="flex-1">
                                     <p
                                         className={`font-semibold text-sm ${isCompleted
-                                                ? 'text-green-700 dark:text-green-300 line-through'
-                                                : isActive
-                                                    ? 'text-indigo-700 dark:text-indigo-300'
-                                                    : 'text-gray-700 dark:text-gray-300'
+                                            ? 'text-green-700 dark:text-green-300 line-through'
+                                            : isActive
+                                                ? 'text-indigo-700 dark:text-indigo-300'
+                                                : 'text-gray-700 dark:text-gray-300'
                                             }`}
                                     >
                                         {task.title}

@@ -48,6 +48,10 @@ export default function ProjectChat({
 
     const conversationRef = useRef(messages);
 
+    useEffect(() => {
+        conversationRef.current = messages;
+    }, [messages]);
+
     const totalMessages = messages.length;
     const userTypingSpeed = 30;
     const aiTypingSpeed = 25;
@@ -134,8 +138,8 @@ export default function ProjectChat({
                     <div
                         key={i}
                         className={`max-w-[85%] px-3 py-2 rounded-xl text-xs animate-fadeIn ${msg.sender === 'user'
-                                ? 'self-end bg-[#0095f6] text-white'
-                                : 'self-start bg-gray-100 dark:bg-[#334155] text-gray-900 dark:text-gray-100'
+                            ? 'self-end bg-[#0095f6] text-white'
+                            : 'self-start bg-gray-100 dark:bg-[#334155] text-gray-900 dark:text-gray-100'
                             }`}
                     >
                         {msg.text}

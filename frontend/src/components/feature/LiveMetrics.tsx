@@ -129,7 +129,7 @@ export default function LiveMetrics({
         return () => {
             if (interval) clearInterval(interval);
         };
-    }, []);
+    }, [metricList]);
 
     return (
         <div className="w-full h-full bg-gradient-to-br from-slate-50 to-gray-100 dark:from-gray-900 dark:to-slate-950 rounded-2xl p-6 shadow-lg flex flex-col overflow-hidden border border-gray-200 dark:border-gray-800">

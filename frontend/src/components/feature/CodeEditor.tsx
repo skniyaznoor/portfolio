@@ -146,8 +146,8 @@ export default function CodeEditor({
                         <div
                             key={file.id}
                             className={`flex items-center gap-2 px-3 py-1 rounded-t text-xs transition-all ${index === activeFileIndex
-                                    ? 'bg-[#1e1e1e] text-white'
-                                    : 'bg-[#2d2d2d] text-gray-500'
+                                ? 'bg-[#1e1e1e] text-white'
+                                : 'bg-[#2d2d2d] text-gray-500'
                                 }`}
                         >
                             <span className="text-blue-400">{getIcon(file.icon)}</span>
@@ -166,7 +166,7 @@ export default function CodeEditor({
                                 {index + 1}
                             </span>
                             <pre className="text-gray-300 whitespace-pre-wrap">
-                                <code dangerouslySetInnerHTML={{ __html: highlightSyntax(line) }} />
+                                {highlightLine(line)}
                             </pre>
                         </div>
                     ))}
@@ -176,7 +176,7 @@ export default function CodeEditor({
                                 {displayedLines.length + 1}
                             </span>
                             <pre className="text-gray-300 whitespace-pre-wrap">
-                                <code dangerouslySetInnerHTML={{ __html: highlightSyntax(currentLine) }} />
+                                {highlightLine(currentLine)}
                                 <span className="animate-pulse text-white">▌</span>
                             </pre>
                         </div>
@@ -196,11 +196,60 @@ export default function CodeEditor({
     );
 }
 
-function highlightSyntax(line: string): string {
-    return line
-        .replace(/\b(import|export|from|const|let|var|function|return|async|await|if|else)\b/g, '<span style="color: #c586c0">$1</span>')
-        .replace(/\b(React|fetch|process|env)\b/g, '<span style="color: #4ec9b0">$1</span>')
-        .replace(/"([^"]*)"/g, '<span style="color: #ce9178">"$1"</span>')
-        .replace(/\/\/.*$/g, '<span style="color: #6a9955">$&</span>')
-        .replace(/\b(\d+)\b/g, '<span style="color: #b5cea8">$1</span>');
+function highlightLine(line: string) {
+    const keywords = /\b(import|export|from|const|let|var|function|return|async|await|if|else)\b/g;
+    const types = /\b(React|fetch|process|env)\b/g;
+    const strings = /"([^"]*)"/g;
+    const numbers = /\b(\d+)\b/g;
+
+    const parts: React.ReactNode[] = [];
+    let lastIndex = 0;
+    let match;
+
+    const matches: Array<{ index: number; length: number; type: string; text: string }> = [];
+
+    // Collect all matches
+    while ((match = keywords.exec(line)) !== null) {
+        matches.push({ index: match.index, length: match[0].length, type: 'keyword', text: match[0] });
+    }
+    keywords.lastIndex = 0;
+
+    while ((match = types.exec(line)) !== null) {
+        matches.push({ index: match.index, length: match[0].length, type: 'type', text: match[0] });
+    }
+    types.lastIndex = 0;
+
+    while ((match = strings.exec(line)) !== null) {
+        matches.push({ index: match.index, length: match[0].length, type: 'string', text: match[0] });
+    }
+    strings.lastIndex = 0;
+
+    while ((match = numbers.exec(line)) !== null) {
+        matches.push({ index: match.index, length: match[0].length, type: 'number', text: match[0] });
+    }
+
+    // Sort matches by index
+    matches.sort((a, b) => a.index - b.index);
+
+    // Build parts array
+    matches.forEach((m, i) => {
+        if (m.index > lastIndex) {
+            parts.push(<span key={`text-${i}`}>{line.slice(lastIndex, m.index)}</span>);
+        }
+
+        const style =
+            m.type === 'keyword' ? { color: '#c586c0' } :
+                m.type === 'type' ? { color: '#4ec9b0' } :
+                    m.type === 'string' ? { color: '#ce9178' } :
+                        m.type === 'number' ? { color: '#b5cea8' } : {};
+
+        parts.push(<span key={`${m.type}-${i}`} style={style}>{m.text}</span>);
+        lastIndex = m.index + m.length;
+    });
+
+    if (lastIndex < line.length) {
+        parts.push(<span key="text-end">{line.slice(lastIndex)}</span>);
+    }
+
+    return parts.length > 0 ? parts : line;
 }
