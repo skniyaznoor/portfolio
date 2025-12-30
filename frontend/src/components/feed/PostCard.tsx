@@ -22,7 +22,16 @@ interface PostCardProps {
 
 export default function PostCard({ post }: PostCardProps) {
     const [isStoryOpen, setIsStoryOpen] = useState(false);
-    
+    const [isLiked, setIsLiked] = useState(false);
+    const [localLikes, setLocalLikes] = useState(post.likes);
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const handleLike = () => {
+        setIsLiked(!isLiked);
+        setLocalLikes(prev => isLiked ? prev - 1 : prev + 1);
+    };
+
+
     return (
         <div className="border-b border-[var(--border)] pb-8 mb-8">
             {/* Header */}
@@ -40,8 +49,11 @@ export default function PostCard({ post }: PostCardProps) {
                         <span className="text-xs text-[var(--secondary)]">{post.title}</span>
                     </div>
                 </div>
-                <button className="hover:text-[var(--secondary)] text-[var(--foreground)]">
-                    <MoreHorizontal className="w-5 h-5" />
+                <button className="text-[var(--foreground)] disabled:opacity-50 cursor-not-allowed group relative" title="Feature coming soon">
+                    <MoreHorizontal className="w-5 h-5 transition-colors group-hover:text-[var(--secondary)]" />
+                    <span className="absolute right-0 top-8 bg-[var(--card)] border border-[var(--border)] text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap z-50 pointer-events-none">
+                        Disabled
+                    </span>
                 </button>
             </div>
 
@@ -53,27 +65,47 @@ export default function PostCard({ post }: PostCardProps) {
             {/* Actions */}
             <div className="flex items-center justify-between py-3 px-1">
                 <div className="flex items-center gap-4">
-                    <button className="hover:text-[var(--secondary)] text-[var(--foreground)] transition-colors">
-                        <Heart className="w-6 h-6" />
+                    <button
+                        onClick={handleLike}
+                        className={`transition-all duration-300 transform active:scale-125 ${isLiked ? 'text-red-500' : 'hover:text-[var(--secondary)] text-[var(--foreground)]'}`}
+                    >
+                        <Heart className={`w-6 h-6 ${isLiked ? 'fill-current' : ''}`} />
                     </button>
-                    <button className="hover:text-[var(--secondary)] text-[var(--foreground)] transition-colors">
-                        <MessageCircle className="w-6 h-6" />
+                    <button className="text-[var(--foreground)] cursor-not-allowed group relative" title="Coming Soon">
+                        <MessageCircle className="w-6 h-6 transition-colors group-hover:text-[var(--secondary)]" />
+                        <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[var(--card)] border border-[var(--border)] text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap pointer-events-none">
+                            Disabled
+                        </span>
                     </button>
-                    <button className="hover:text-[var(--secondary)] text-[var(--foreground)] transition-colors">
-                        <Send className="w-6 h-6" />
+                    <button className="text-[var(--foreground)] cursor-not-allowed group relative" title="Coming Soon">
+                        <Send className="w-6 h-6 transition-colors group-hover:text-[var(--secondary)]" />
+                        <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[var(--card)] border border-[var(--border)] text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap pointer-events-none">
+                            Disabled
+                        </span>
                     </button>
                 </div>
-                <button className="hover:text-[var(--secondary)] text-[var(--foreground)] transition-colors">
-                    <Bookmark className="w-6 h-6" />
+                <button className="text-[var(--foreground)] cursor-not-allowed group relative" title="Coming Soon">
+                    <Bookmark className="w-6 h-6 transition-colors group-hover:text-[var(--secondary)]" />
+                    <span className="absolute -top-8 right-0 bg-[var(--card)] border border-[var(--border)] text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap pointer-events-none">
+                        Disabled
+                    </span>
                 </button>
             </div>
 
             {/* Content */}
             <div className="px-1 space-y-2">
-                <p className="font-semibold text-sm text-[var(--foreground)]">{post.likes.toLocaleString()} likes</p>
-                <div className="text-sm text-[var(--foreground)]">
+                <p className="font-semibold text-sm text-[var(--foreground)]">{localLikes.toLocaleString()} likes</p>
+                <div className="text-sm text-[var(--foreground)] leading-relaxed">
                     <span className="font-semibold mr-2">{profile.username}</span>
-                    {post.fullDescription}
+                    {isExpanded ? post.fullDescription : `${post.fullDescription.slice(0, 100)}...`}
+                    {post.fullDescription.length > 100 && (
+                        <button
+                            onClick={() => setIsExpanded(!isExpanded)}
+                            className="text-[var(--secondary)] ml-1 hover:text-[var(--foreground)] transition-colors text-xs font-medium"
+                        >
+                            {isExpanded ? 'less' : 'more'}
+                        </button>
+                    )}
                 </div>
                 <div className="flex flex-wrap gap-2 mt-2">
                     {post.tags.map((tag) => (
