@@ -66,7 +66,7 @@ Modern admin panels often require complex, frequently changing forms. Hardcoding
 *   Eliminated duplicated form code.
 *   Reduced database migrations to near zero.
 `,
-        image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop",
+        image: "/feedStories/photo-1555066931-4365d14bab8c.avif",
         tags: ["Laravel", "Filament", "PHP"],
         likes: 12546,
         comments: 18,
@@ -92,7 +92,7 @@ A robust platform designed for conducting assessments in a controlled, cheat-res
 
 **Tech Stack:** React.js, Laravel, MySQL, JWT, RESTful APIs.
 `,
-        image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1000&auto=format&fit=crop",
+        image: "/feedStories/photo-1434030216411-0b793f4b4173.avif",
         tags: ["React", "Laravel", "Security"],
         likes: 65231,
         comments: 12,
@@ -120,7 +120,7 @@ A production-grade platform designed for live teaching, recorded courses, and re
 
 **Tech Stack:** Next.js, Node.js, Socket.io, Google APIs, REST APIs.
 `,
-        image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1000&auto=format&fit=crop",
+        image: "/feedStories/photo-1516035069371-29a1b244cc32.avif",
         tags: ["Next.js", "Node.js", "Streaming", "EdTech"],
         likes: 85210,
         comments: 45,
@@ -148,7 +148,7 @@ A professionally engineered healthcare solution that streamlines patient–docto
 
 **Tech Stack:** Next.js, Laravel, REST APIs, Secure Authentication.
 `,
-        image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1000&auto=format&fit=crop",
+        image: "/feedStories/photo-1576091160550-2173dba999ef.avif",
         tags: ["Next.js", "Laravel", "Healthcare", "Telemedicine"],
         likes: 98653,
         comments: 22,
@@ -173,7 +173,7 @@ A thoughtfully curated digital literary platform dedicated to poetry and short s
 
 This project demonstrates strong skills in creative leadership, digital publishing, storytelling, and audience engagement.
 `,
-        image: "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?q=80&w=1000&auto=format&fit=crop",
+        image: "/feedStories/photo-1471107340929-a87cd0f5b5f3.avif",
         tags: ["Poetry", "Stories", "Content Creation", "Editorial"],
         likes: 986325,
         comments: 56,
@@ -204,61 +204,61 @@ export const feedStories = [
     {
         id: 1,
         label: "Dynamic",
-        image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop",
+        image: "/feedStories/photo-1555066931-4365d14bab8c.avif",
         description: "Automating the complex, one field at a time."
     },
     {
         id: 2,
         label: "Exam Portal",
-        image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1000&auto=format&fit=crop",
+        image: "/feedStories/photo-1434030216411-0b793f4b4173.avif",
         description: "Securing the future of digital assessments."
     },
     {
         id: 3,
         label: "Next Streaming",
-        image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1000&auto=format&fit=crop",
+        image: "/feedStories/photo-1516035069371-29a1b244cc32.avif",
         description: "Broadcasting knowledge to every corner of the globe."
     },
     {
         id: 4,
         label: "Healthcare",
-        image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1000&auto=format&fit=crop",
+        image: "/feedStories/photo-1576091160550-2173dba999ef.avif",
         description: "Bridging the gap between code and care."
     },
     {
         id: 5,
         label: "Unveiled",
-        image: "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?q=80&w=1000&auto=format&fit=crop",
+        image: "/feedStories/photo-1471107340929-a87cd0f5b5f3.avif",
         description: "Where every word tells a story of its own."
     },
     {
         id: 6,
         label: "Abstract Art",
-        image: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?q=80&w=1000&auto=format&fit=crop",
+        image: "/feedStories/photo-1460661419201-fd4cecdf8a8b.avif",
         description: "Painting emotions with the strokes of a pen."
     },
     {
         id: 7,
         label: "Silent Path",
-        image: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=1000&auto=format&fit=crop",
+        image: "/feedStories/photo-1470770841072-f978cf4d019e.avif",
         description: "A journey through the quiet corners of the soul."
     },
     {
         id: 8,
         label: "Dev Journal",
-        image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1000&auto=format&fit=crop",
+        image: "/feedStories/photo-1517694712202-14dd9538aa97.avif",
         description: "Documenting the messy, beautiful process of building."
     },
     {
         id: 9,
         label: "Midnight",
-        image: "https://images.unsplash.com/photo-1505682634904-d7c8d95ccd50?q=80&w=1000&auto=format&fit=crop",
+        image: "/feedStories/photo-1697051073851-684b4dfe8dc7.avif",
         description: "Poetry that only wakes up when the world sleeps."
     },
     {
         id: 10,
         label: "Tech Echoes",
-        image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1000&auto=format&fit=crop",
+        image: "/feedStories/photo-1519389950473-47ba0277781c.avif",
         description: "Exploring the intersection of humanity and technology."
     },
 ];
