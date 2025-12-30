@@ -134,7 +134,6 @@ export default function CodeEditor({
 
     return (
         <div className="w-full h-full bg-[#1e1e1e] rounded-2xl shadow-lg flex flex-col overflow-hidden border border-gray-800">
-            {/* Editor Header */}
             <div className="bg-[#2d2d2d] px-4 py-2 flex items-center gap-2 border-b border-gray-700">
                 <div className="flex gap-1.5">
                     <div className="w-3 h-3 rounded-full bg-red-500" />
@@ -157,7 +156,6 @@ export default function CodeEditor({
                 </div>
             </div>
 
-            {/* Editor Content */}
             <div className="flex-1 p-4 font-mono text-sm overflow-y-auto">
                 <div className="space-y-1">
                     {displayedLines.map((line, index) => (
@@ -184,7 +182,6 @@ export default function CodeEditor({
                 </div>
             </div>
 
-            {/* Footer */}
             <div className="bg-[#007acc] px-4 py-1 flex items-center justify-between text-xs text-white">
                 <div className="flex items-center gap-4">
                     <span>✓ {activeFile.language}</span>
@@ -200,20 +197,18 @@ function highlightLine(line: string) {
     const parts: React.ReactNode[] = [];
     let lastIndex = 0;
 
-    // Patterns
     const patterns = [
         { type: 'string', regex: /"([^"\\]*(\\.[^"\\]*)*)"/g, color: '#ce9178' },
-        { type: 'comment', regex: /\/\/.*$/g, color: '#6a9955' }, // Comments should be high priority
+        { type: 'comment', regex: /\/\/.*$/g, color: '#6a9955' },
         { type: 'keyword', regex: /\b(import|export|from|const|let|var|function|return|async|await|if|else)\b/g, color: '#c586c0' },
         { type: 'type', regex: /\b(React|fetch|process|env)\b/g, color: '#4ec9b0' },
-        { type: 'number', regex: /\b(\d+(?:\.\d+)+(?:-\w+)?|\d+)\b/g, color: '#b5cea8' }, // Handles semver (e.g., 1.0.0-beta) and normal numbers
+        { type: 'number', regex: /\b(\d+(?:\.\d+)+(?:-\w+)?|\d+)\b/g, color: '#b5cea8' },
     ];
 
     const matches: Array<{ index: number; length: number; type: string; color: string; text: string }> = [];
 
     patterns.forEach(p => {
         let match;
-        // Reset regex lastIndex for each pattern
         p.regex.lastIndex = 0;
         while ((match = p.regex.exec(line)) !== null) {
             matches.push({
@@ -226,20 +221,17 @@ function highlightLine(line: string) {
         }
     });
 
-    // Sort matches by index. If indices are equal, prioritize strings and comments, then by length (longest first).
     matches.sort((a, b) => {
         if (a.index !== b.index) return a.index - b.index;
 
-        // Prioritize strings and comments if they start at the same position
         const priorityOrder = { 'string': 0, 'comment': 1, 'keyword': 2, 'type': 3, 'number': 4 };
         if (priorityOrder[a.type as keyof typeof priorityOrder] !== priorityOrder[b.type as keyof typeof priorityOrder]) {
             return priorityOrder[a.type as keyof typeof priorityOrder] - priorityOrder[b.type as keyof typeof priorityOrder];
         }
 
-        return b.length - a.length; // Longest match wins for same type and start index
+        return b.length - a.length;
     });
 
-    // Filter out overlapping matches, keeping the highest priority/first one
     const filteredMatches: typeof matches = [];
     let lastEnd = 0;
     for (const m of matches) {
@@ -250,12 +242,9 @@ function highlightLine(line: string) {
     }
 
     filteredMatches.forEach((m, i) => {
-        // Gap text
         if (m.index > lastIndex) {
             parts.push(<span key={`text-${i}`}>{line.slice(lastIndex, m.index)}</span>);
         }
-
-        // Match text
         parts.push(
             <span key={`match-${i}`} style={{ color: m.color }}>
                 {m.text}
@@ -264,7 +253,6 @@ function highlightLine(line: string) {
         lastIndex = m.index + m.length;
     });
 
-    // Remaining text
     if (lastIndex < line.length) {
         parts.push(<span key="text-end">{line.slice(lastIndex)}</span>);
     }

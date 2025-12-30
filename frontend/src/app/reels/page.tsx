@@ -44,7 +44,7 @@ export default function Page() {
                 }
             }
         }
-    }, [searchParams, reelsContent.length, currentIndex]); // Added currentIndex to dependencies
+    }, [searchParams, reelsContent.length]);
 
     useEffect(() => {
         const container = containerRef.current;
@@ -52,18 +52,23 @@ export default function Page() {
 
         const observerOptions = {
             root: container,
-            threshold: 0.6, // Item is active when 60% visible
+            threshold: 0.6,
         };
+
+        let timeoutId: NodeJS.Timeout;
 
         const observerCallback = (entries: IntersectionObserverEntry[]) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     const index = Array.from(container.children).indexOf(entry.target);
-                    if (index !== -1) {
-                        setCurrentIndex(index);
-                        const url = new URL(window.location.href);
-                        url.searchParams.set('index', index.toString());
-                        window.history.replaceState({}, '', url.toString());
+                    if (index !== -1 && index !== currentIndex) {
+                        clearTimeout(timeoutId);
+                        timeoutId = setTimeout(() => {
+                            setCurrentIndex(index);
+                            const url = new URL(window.location.href);
+                            url.searchParams.set('index', index.toString());
+                            window.history.replaceState({}, '', url.toString());
+                        }, 50);
                     }
                 }
             });
@@ -72,18 +77,21 @@ export default function Page() {
         const observer = new IntersectionObserver(observerCallback, observerOptions);
         Array.from(container.children).forEach((child) => observer.observe(child));
 
-        return () => observer.disconnect();
-    }, [reelsContent.length]);
+        return () => {
+            observer.disconnect();
+            clearTimeout(timeoutId);
+        };
+    }, [reelsContent.length, currentIndex]);
 
     return (
         <main className="flex h-screen overflow-hidden">
             <Navigation />
 
-            {/* Reels Container */}
             <div className="flex-1 xl:ml-64 ml-20 relative h-full flex justify-center">
                 <div
                     ref={containerRef}
-                    className="w-full max-w-[935px] h-full overflow-y-scroll snap-y snap-mandatory no-scrollbar"
+                    className="w-full max-w-[935px] h-full overflow-y-scroll snap-y snap-mandatory no-scrollbar scroll-smooth"
+                    style={{ scrollSnapType: 'y mandatory', WebkitOverflowScrolling: 'touch' }}
                 >
                     {reelsContent.map((item, index) => (
                         item.type === 'project' ? (

@@ -91,9 +91,9 @@ const ReelItem: React.FC<ReelItemProps> = ({ project }) => {
     return (
         <div
             ref={containerRef}
-            className="relative w-full h-full bg-black flex items-center justify-center snap-start"
+            className="relative w-full h-full bg-black flex items-center justify-center snap-start snap-always"
+            style={{ scrollSnapStop: 'always' }}
         >
-            {/* Background Image */}
             <div
                 className="relative w-full h-full aspect-[9/16] cursor-pointer touch-none select-none"
                 onClick={handleDoubleTap}
@@ -106,17 +106,14 @@ const ReelItem: React.FC<ReelItemProps> = ({ project }) => {
                     priority
                 />
 
-                {/* Large Heart Animation on Double Tap */}
                 {showLikeHeart && (
                     <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
                         <Heart className="w-24 h-24 text-red-500 fill-red-500 animate-like-heart" />
                     </div>
                 )}
 
-                {/* Gradient Overlays */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
 
-                {/* Vertical Actions (Right Side) */}
                 <div className="absolute right-4 bottom-20 flex flex-col items-center gap-6 z-10">
                     <button
                         onClick={handleLike}
@@ -158,7 +155,6 @@ const ReelItem: React.FC<ReelItemProps> = ({ project }) => {
                         )}
                     </button>
 
-                    {/* Small Profile Image with spinning animation */}
                     <div className="mt-2 relative">
                         <div className="w-9 h-9 rounded-md border-2 border-white/80 overflow-hidden">
                             <Image
@@ -175,7 +171,6 @@ const ReelItem: React.FC<ReelItemProps> = ({ project }) => {
                     </div>
                 </div>
 
-                {/* Content Details (Bottom Left) */}
                 <div className="absolute left-4 bottom-6 right-16 z-10">
                     <div className="flex items-center gap-2 mb-3">
                         <div className="story-ring p-[1px] rounded-full cursor-pointer" onClick={() => setIsStoryOpen(true)}>
