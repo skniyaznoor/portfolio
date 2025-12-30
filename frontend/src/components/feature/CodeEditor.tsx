@@ -197,56 +197,74 @@ export default function CodeEditor({
 }
 
 function highlightLine(line: string) {
-    const keywords = /\b(import|export|from|const|let|var|function|return|async|await|if|else)\b/g;
-    const types = /\b(React|fetch|process|env)\b/g;
-    const strings = /"([^"]*)"/g;
-    const numbers = /\b(\d+)\b/g;
-
     const parts: React.ReactNode[] = [];
     let lastIndex = 0;
-    let match;
 
-    const matches: Array<{ index: number; length: number; type: string; text: string }> = [];
+    // Patterns
+    const patterns = [
+        { type: 'string', regex: /"([^"\\]*(\\.[^"\\]*)*)"/g, color: '#ce9178' },
+        { type: 'comment', regex: /\/\/.*$/g, color: '#6a9955' }, // Comments should be high priority
+        { type: 'keyword', regex: /\b(import|export|from|const|let|var|function|return|async|await|if|else)\b/g, color: '#c586c0' },
+        { type: 'type', regex: /\b(React|fetch|process|env)\b/g, color: '#4ec9b0' },
+        { type: 'number', regex: /\b(\d+(?:\.\d+)+(?:-\w+)?|\d+)\b/g, color: '#b5cea8' }, // Handles semver (e.g., 1.0.0-beta) and normal numbers
+    ];
 
-    // Collect all matches
-    while ((match = keywords.exec(line)) !== null) {
-        matches.push({ index: match.index, length: match[0].length, type: 'keyword', text: match[0] });
+    const matches: Array<{ index: number; length: number; type: string; color: string; text: string }> = [];
+
+    patterns.forEach(p => {
+        let match;
+        // Reset regex lastIndex for each pattern
+        p.regex.lastIndex = 0;
+        while ((match = p.regex.exec(line)) !== null) {
+            matches.push({
+                index: match.index,
+                length: match[0].length,
+                type: p.type,
+                color: p.color,
+                text: match[0]
+            });
+        }
+    });
+
+    // Sort matches by index. If indices are equal, prioritize strings and comments, then by length (longest first).
+    matches.sort((a, b) => {
+        if (a.index !== b.index) return a.index - b.index;
+
+        // Prioritize strings and comments if they start at the same position
+        const priorityOrder = { 'string': 0, 'comment': 1, 'keyword': 2, 'type': 3, 'number': 4 };
+        if (priorityOrder[a.type as keyof typeof priorityOrder] !== priorityOrder[b.type as keyof typeof priorityOrder]) {
+            return priorityOrder[a.type as keyof typeof priorityOrder] - priorityOrder[b.type as keyof typeof priorityOrder];
+        }
+
+        return b.length - a.length; // Longest match wins for same type and start index
+    });
+
+    // Filter out overlapping matches, keeping the highest priority/first one
+    const filteredMatches: typeof matches = [];
+    let lastEnd = 0;
+    for (const m of matches) {
+        if (m.index >= lastEnd) {
+            filteredMatches.push(m);
+            lastEnd = m.index + m.length;
+        }
     }
-    keywords.lastIndex = 0;
 
-    while ((match = types.exec(line)) !== null) {
-        matches.push({ index: match.index, length: match[0].length, type: 'type', text: match[0] });
-    }
-    types.lastIndex = 0;
-
-    while ((match = strings.exec(line)) !== null) {
-        matches.push({ index: match.index, length: match[0].length, type: 'string', text: match[0] });
-    }
-    strings.lastIndex = 0;
-
-    while ((match = numbers.exec(line)) !== null) {
-        matches.push({ index: match.index, length: match[0].length, type: 'number', text: match[0] });
-    }
-
-    // Sort matches by index
-    matches.sort((a, b) => a.index - b.index);
-
-    // Build parts array
-    matches.forEach((m, i) => {
+    filteredMatches.forEach((m, i) => {
+        // Gap text
         if (m.index > lastIndex) {
             parts.push(<span key={`text-${i}`}>{line.slice(lastIndex, m.index)}</span>);
         }
 
-        const style =
-            m.type === 'keyword' ? { color: '#c586c0' } :
-                m.type === 'type' ? { color: '#4ec9b0' } :
-                    m.type === 'string' ? { color: '#ce9178' } :
-                        m.type === 'number' ? { color: '#b5cea8' } : {};
-
-        parts.push(<span key={`${m.type}-${i}`} style={style}>{m.text}</span>);
+        // Match text
+        parts.push(
+            <span key={`match-${i}`} style={{ color: m.color }}>
+                {m.text}
+            </span>
+        );
         lastIndex = m.index + m.length;
     });
 
+    // Remaining text
     if (lastIndex < line.length) {
         parts.push(<span key="text-end">{line.slice(lastIndex)}</span>);
     }

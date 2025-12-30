@@ -38,39 +38,42 @@ export default function Page() {
         if (index) {
             const parsedIndex = parseInt(index);
             if (!isNaN(parsedIndex) && parsedIndex >= 0 && parsedIndex < reelsContent.length) {
-                setCurrentIndex(parsedIndex);
-                scrollToIndex(parsedIndex);
+                if (parsedIndex !== currentIndex) {
+                    setCurrentIndex(parsedIndex);
+                    scrollToIndex(parsedIndex);
+                }
             }
         }
-    }, [searchParams, reelsContent.length]); // Added reelsContent.length to dependencies for completeness
+    }, [searchParams, reelsContent.length, currentIndex]); // Added currentIndex to dependencies
 
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
 
-        const handleScroll = () => {
-            if (isScrolling.current) return;
-
-            const scrollTop = container.scrollTop;
-            // Assuming each reel item takes up the full height of the container
-            const itemHeight = container.clientHeight;
-            const newIndex = Math.round(scrollTop / itemHeight);
-
-            if (newIndex !== currentIndex && newIndex >= 0 && newIndex < reelsContent.length) {
-                isScrolling.current = true;
-                setCurrentIndex(newIndex);
-                router.push(`/reels?index=${newIndex}`, { scroll: false });
-
-                // Prevent immediate re-triggering of scroll event
-                setTimeout(() => {
-                    isScrolling.current = false;
-                }, 500); // Adjust timeout as needed
-            }
+        const observerOptions = {
+            root: container,
+            threshold: 0.6, // Item is active when 60% visible
         };
 
-        container.addEventListener('scroll', handleScroll, { passive: true });
-        return () => container.removeEventListener('scroll', handleScroll);
-    }, [currentIndex, reelsContent.length, router]);
+        const observerCallback = (entries: IntersectionObserverEntry[]) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const index = Array.from(container.children).indexOf(entry.target);
+                    if (index !== -1) {
+                        setCurrentIndex(index);
+                        const url = new URL(window.location.href);
+                        url.searchParams.set('index', index.toString());
+                        window.history.replaceState({}, '', url.toString());
+                    }
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+        Array.from(container.children).forEach((child) => observer.observe(child));
+
+        return () => observer.disconnect();
+    }, [reelsContent.length]);
 
     return (
         <main className="flex h-screen overflow-hidden">
