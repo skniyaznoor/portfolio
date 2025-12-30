@@ -20,7 +20,7 @@ export default function PostCard({ post }: PostCardProps) {
     };
 
     const description = cleanDescription(post.fullDescription);
-    const shortDescription = description.length > 80 ? `${description.slice(0, 80)}...` : description;
+    const shortDescription = description.length > 280 ? `${description.slice(0, 280)}...` : description;
 
     const handleLike = () => {
 
@@ -105,7 +105,7 @@ export default function PostCard({ post }: PostCardProps) {
                 <div className="text-sm text-[var(--foreground)] leading-relaxed whitespace-pre-line">
                     <span className="font-semibold mr-2">{profile.username}</span>
                     {isExpanded ? description : shortDescription}
-                    {description.length > 80 && (
+                    {description.length > 280 && (
                         <button
                             onClick={() => setIsExpanded(!isExpanded)}
                             className="text-[var(--secondary)] ml-1 hover:text-[var(--foreground)] transition-colors text-xs font-medium focus:outline-none"
