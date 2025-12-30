@@ -11,7 +11,7 @@ export default function Home() {
       <div className="flex-1 xl:ml-64 ml-20 flex justify-center">
         <div className="max-w-[630px] w-full px-4 pt-8">
           <Stories />
-          <div className="mt-8 max-w-[470px] mx-auto">
+          <div className="mt-8">
             {projects.map((project) => (
               <PostCard key={project.id} post={project} />
             ))}
