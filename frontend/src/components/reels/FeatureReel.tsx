@@ -29,7 +29,7 @@ const FeatureReel: React.FC<FeatureReelProps> = ({ featureType, projectTitle }) 
 
     return (
         <div
-            className="relative w-full h-full flex items-center justify-center snap-start snap-always bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-black"
+            className="relative w-full h-full flex items-center justify-center snap-start snap-always"
             style={{ scrollSnapStop: 'always' }}
         >
             <div className="w-full h-full max-w-[500px] aspect-[9/16] p-6 flex items-center justify-center">

@@ -22,19 +22,19 @@ export default function ProjectChat({
     const defaultConversation: Message[] = [
         {
             sender: 'user',
-            text: `Tell me about ${projectTitle}`,
+            text: `Tell me about Dynamic Form Builder`,
         },
         {
             sender: 'ai',
-            text: 'This project showcases modern web development practices with a focus on user experience.',
+            text: 'A dynamic form builder npm package allows developers to generate forms at runtime using JSON or configuration data instead of hard-coding them. It simplifies form creation, validation, and conditional logic, and is commonly used in React or Angular applications for flexible, data-driven forms.',
         },
         {
             sender: 'user',
-            text: 'What technologies were used?',
+            text: 'Which dynamic form builder is best for React / Angular?',
         },
         {
             sender: 'ai',
-            text: 'Built with Next.js, React, and TypeScript for a robust, type-safe application.',
+            text: 'For React, popular dynamic form builders include libraries like react-dynamic-form-builder and react-jsonschema-form, which make it easy to generate forms from JSON and integrate with React’s state and validation. For Angular, options like @dynamic-forms/bootstrap and ngx-dynamic-form-builder are widely used, offering strong support for Angular’s reactive forms and validation features. The best choice depends on your project’s complexity and UI needs, but these libraries are among the most commonly recommended for their flexibility and ecosystem support.',
         },
     ];
 
@@ -114,8 +114,7 @@ export default function ProjectChat({
     }, [charIndex, msgIndex, typedText, inputCharIndex]);
 
     return (
-        <div className="w-full h-full bg-white dark:bg-[#1e293b] rounded-2xl p-4 shadow-lg flex flex-col justify-between overflow-hidden border border-gray-100 dark:border-gray-700/50">
-            {/* Header */}
+        <div className="w-full h-full bg-gray-100 dark:bg-[#1e293b] rounded-2xl p-4 shadow-lg flex flex-col justify-between overflow-hidden border border-gray-100 dark:border-gray-700/50">
             <div className="flex items-center mb-3 pb-3 border-b border-gray-200 dark:border-gray-700">
                 <Image
                     src={userAvatar}
@@ -132,7 +131,6 @@ export default function ProjectChat({
                 </div>
             </div>
 
-            {/* Messages */}
             <div className="flex-grow flex flex-col gap-2 overflow-y-auto pr-1 scrollbar-thin">
                 {displayedMessages.map((msg, i) => (
                     <div
@@ -154,7 +152,6 @@ export default function ProjectChat({
                 )}
             </div>
 
-            {/* Input */}
             <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
                 <div className="flex items-center gap-2 bg-gray-50 dark:bg-[#0f172a] rounded-lg px-3 py-2">
                     <input
