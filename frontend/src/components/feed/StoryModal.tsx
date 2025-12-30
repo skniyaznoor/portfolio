@@ -82,7 +82,7 @@ export default function StoryModal({ stories, initialIndex, onClose }: StoryModa
     if (!currentStory) return null;
 
     return (
-        <div className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center backdrop-blur-md overflow-hidden">
+        <div className="fixed inset-0 z-[100] bg-black/40 flex items-center justify-center backdrop-blur-md overflow-hidden">
             <button
                 onClick={onClose}
                 className="absolute top-6 right-6 text-white/70 hover:text-white transition-all z-[150] hover:scale-110"

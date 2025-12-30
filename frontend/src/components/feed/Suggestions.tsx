@@ -5,7 +5,7 @@ import { profile } from '@/data/portfolio';
 const suggestions = [
     { name: 'React.js', role: 'Frontend Framework', image: 'https://api.dicebear.com/7.x/icons/svg?seed=react' },
     { name: 'Next.js', role: 'Fullstack Framework', image: 'https://api.dicebear.com/7.x/icons/svg?seed=nextjs' },
-    { name: 'Tailwind CSS', role: 'Styling', image: 'https://api.dicebear.com/7.x/icons/svg?seed=tailwind' },
+    { name: 'Tailwind', role: 'Styling', image: 'https://api.dicebear.com/7.x/icons/svg?seed=tailwind' },
     { name: 'Laravel', role: 'Backend Framework', image: 'https://api.dicebear.com/7.x/icons/svg?seed=laravel' },
 ];
 
