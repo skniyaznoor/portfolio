@@ -68,7 +68,7 @@ Modern admin panels often require complex, frequently changing forms. Hardcoding
 `,
         image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop",
         tags: ["Laravel", "Filament", "PHP"],
-        likes: 124,
+        likes: 12546,
         comments: 18,
         date: "Oct 2024",
         link: "https://github.com/skniyaznoor/filament-quick-form"
@@ -94,7 +94,7 @@ A robust platform designed for conducting assessments in a controlled, cheat-res
 `,
         image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1000&auto=format&fit=crop",
         tags: ["React", "Laravel", "Security"],
-        likes: 89,
+        likes: 65231,
         comments: 12,
         date: "2024",
         link: "https://www.worldskillcenter.org/"
@@ -122,7 +122,7 @@ A production-grade platform designed for live teaching, recorded courses, and re
 `,
         image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1000&auto=format&fit=crop",
         tags: ["Next.js", "Node.js", "Streaming", "EdTech"],
-        likes: 210,
+        likes: 85210,
         comments: 45,
         date: "2024",
         link: "https://klansity.com/"
@@ -150,7 +150,7 @@ A professionally engineered healthcare solution that streamlines patient–docto
 `,
         image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1000&auto=format&fit=crop",
         tags: ["Next.js", "Laravel", "Healthcare", "Telemedicine"],
-        likes: 156,
+        likes: 98653,
         comments: 22,
         date: "2024"
     },
@@ -175,7 +175,7 @@ This project demonstrates strong skills in creative leadership, digital publishi
 `,
         image: "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?q=80&w=1000&auto=format&fit=crop",
         tags: ["Poetry", "Stories", "Content Creation", "Editorial"],
-        likes: 342,
+        likes: 986325,
         comments: 56,
         date: "Ongoing",
         link: "https://www.skniyaznoorpoetryandlovestories.com/"
@@ -198,6 +198,69 @@ export const stories = [
     // { id: 13, label: "Redis", image: "https://cdn.simpleicons.org/redis/DC382D" },
     { id: 14, label: "Git", image: "https://cdn.simpleicons.org/git/F05032" },
     { id: 15, label: "Figma", image: "https://cdn.simpleicons.org/figma/F24E1E" },
+];
+
+export const feedStories = [
+    {
+        id: 1,
+        label: "Dynamic",
+        image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop",
+        description: "Automating the complex, one field at a time."
+    },
+    {
+        id: 2,
+        label: "Exam Portal",
+        image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1000&auto=format&fit=crop",
+        description: "Securing the future of digital assessments."
+    },
+    {
+        id: 3,
+        label: "Next Streaming",
+        image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1000&auto=format&fit=crop",
+        description: "Broadcasting knowledge to every corner of the globe."
+    },
+    {
+        id: 4,
+        label: "Healthcare",
+        image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1000&auto=format&fit=crop",
+        description: "Bridging the gap between code and care."
+    },
+    {
+        id: 5,
+        label: "Unveiled",
+        image: "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?q=80&w=1000&auto=format&fit=crop",
+        description: "Where every word tells a story of its own."
+    },
+    {
+        id: 6,
+        label: "Abstract Art",
+        image: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?q=80&w=1000&auto=format&fit=crop",
+        description: "Painting emotions with the strokes of a pen."
+    },
+    {
+        id: 7,
+        label: "Silent Path",
+        image: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=1000&auto=format&fit=crop",
+        description: "A journey through the quiet corners of the soul."
+    },
+    {
+        id: 8,
+        label: "Dev Journal",
+        image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1000&auto=format&fit=crop",
+        description: "Documenting the messy, beautiful process of building."
+    },
+    {
+        id: 9,
+        label: "Midnight",
+        image: "https://images.unsplash.com/photo-1505682634904-d7c8d95ccd50?q=80&w=1000&auto=format&fit=crop",
+        description: "Poetry that only wakes up when the world sleeps."
+    },
+    {
+        id: 10,
+        label: "Tech Echoes",
+        image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1000&auto=format&fit=crop",
+        description: "Exploring the intersection of humanity and technology."
+    },
 ];
 
 export const explorePosts = [
