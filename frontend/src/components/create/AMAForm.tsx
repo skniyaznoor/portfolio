@@ -1,14 +1,17 @@
 "use client";
 
-import { useState } from 'react';
-import { Send, MessageCircle, Sparkles, Wand2, Ghost, Zap, Sun, Moon } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Send, MessageCircle, Sparkles, Wand2, Ghost, Zap, Sun, Moon, Smile } from 'lucide-react';
 import { useTheme } from '@/context/ThemeContext';
+import EmojiPicker, { Theme } from 'emoji-picker-react';
 
 export default function AMAForm() {
-    const { theme, toggleTheme } = useTheme();
+    const { theme } = useTheme();
     const [question, setQuestion] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [charCount, setCharCount] = useState(0);
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+    const emojiPickerRef = useRef<HTMLDivElement>(null);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -22,38 +25,41 @@ export default function AMAForm() {
         }
     };
 
+    const onEmojiClick = (emojiData: any) => {
+        const newQuestion = question + emojiData.emoji;
+        if (newQuestion.length <= 300) {
+            setQuestion(newQuestion);
+            setCharCount(newQuestion.length);
+        }
+    };
+
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (emojiPickerRef.current && !emojiPickerRef.current.contains(event.target as Node)) {
+                setShowEmojiPicker(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
     return (
         <div className="max-w-[480px] w-full animate-slideUp">
             <div className="text-center mb-10">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6 group cursor-pointer" onClick={toggleTheme}>
-                    <Zap className="w-3.5 h-3.5 text-blue-400 fill-blue-400 group-hover:scale-125 transition-transform" />
-                    <span className="text-[10px] uppercase tracking-widest font-bold text-blue-400">Interaction Portal</span>
-                    <div className="ml-2 pl-2 border-l border-blue-500/20">
-                        {theme === 'dark' ? <Sun className="w-3 h-3 text-blue-400" /> : <Moon className="w-3 h-3 text-blue-400" />}
-                    </div>
-                </div>
-                <h1 className="text-4xl font-extrabold tracking-tight text-[var(--foreground)] mb-4">
-                    Direct Line to <span className="bg-[var(--instagram-gradient)] bg-clip-text text-transparent italic">Niyaz</span>
+                <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-[var(--foreground)] mb-4">
+                    Direct Line to <span className="text-[#f09433] italic px-1">Niyaz</span>
                 </h1>
-                <p className="text-[var(--secondary)] text-base max-w-[320px] mx-auto leading-relaxed">
+                <p className="text-[var(--secondary)] text-base max-w-[320px] mx-auto leading-relaxed font-medium">
                     Have a question about my work or just want to say hi? Drop a line below.
                 </p>
             </div>
 
             <div className="relative">
-                <div className={`absolute -inset-1 bg-gradient-to-r from-[#f09433] via-[#dc2743] to-[#bc1888] rounded-[40px] blur-sm animate-pulse ${theme === 'dark' ? 'opacity-20' : 'opacity-10'}`}></div>
+                <div className={`absolute -inset-1 rounded-[40px] blur-sm animate-pulse`}></div>
 
-                <div className={`relative glass-card bg-[var(--card)]/90 border-[var(--border)] rounded-[38px] p-8 backdrop-blur-xl transition-all duration-500 ${theme === 'dark'
-                        ? 'shadow-[0_20px_50px_rgba(0,0,0,0.5)]'
-                        : 'shadow-[0_20px_50px_rgba(0,0,0,0.1)]'
-                    }`}>
+                <div className={`relative glass-card bg-[var(--card)]/90 border-[var(--border)] rounded-[38px] p-8 backdrop-blur-xl transition-all duration-500`}>
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="flex flex-col items-center gap-3 mb-8">
-                            <div className="w-16 h-16 rounded-3xl bg-[var(--instagram-gradient)] flex items-center justify-center p-[2px] shadow-lg transform -rotate-3 transition-transform hover:rotate-0">
-                                <div className="w-full h-full bg-[var(--card)] rounded-[22px] flex items-center justify-center">
-                                    <MessageCircle className="w-8 h-8 text-[var(--foreground)]" />
-                                </div>
-                            </div>
                             <div className="text-center">
                                 <h2 className="text-xl font-bold text-[var(--foreground)] tracking-tight">Ask me anything!</h2>
                                 <p className="text-xs text-[var(--secondary)] font-medium">I'm usually online and ready to chat</p>
@@ -68,19 +74,38 @@ export default function AMAForm() {
                                     setCharCount(e.target.value.length);
                                 }}
                                 placeholder="Type your message here..."
-                                className="w-full min-h-[160px] bg-[var(--foreground)]/[0.03] border border-[var(--border)] rounded-3xl p-6 text-[var(--foreground)] text-lg placeholder:text-[var(--secondary)]/40 focus:outline-none focus:ring-2 focus:ring-[#0095f6]/30 focus:border-[#0095f6]/50 transition-all resize-none leading-relaxed"
-                                maxLength={280}
+                                className="w-full min-h-[300px] bg-[var(--foreground)]/[0.03] border border-[var(--border)] rounded-3xl p-6 text-[var(--foreground)] text-lg placeholder:text-[var(--secondary)]/40 focus:outline-none focus:ring-2 focus:ring-[#0095f6]/30 focus:border-[#0095f6]/50 transition-all resize-none leading-relaxed"
+                                maxLength={300}
                                 required
                             />
 
                             <div className="absolute bottom-4 left-4 flex gap-2">
-                                <div className="p-2 rounded-full bg-[var(--foreground)]/5 border border-[var(--border)] text-[var(--secondary)] hover:text-[var(--foreground)] transition-colors cursor-pointer" title="Add Emoji">
-                                    <Sparkles className="w-4 h-4" />
+                                <div className="relative" ref={emojiPickerRef}>
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+                                        className="p-2 rounded-full bg-[var(--foreground)]/5 border border-[var(--border)] text-[var(--secondary)] hover:text-[var(--foreground)] transition-colors cursor-pointer"
+                                        title="Add Emoji"
+                                    >
+                                        <Smile className="w-4 h-4" />
+                                    </button>
+
+                                    {showEmojiPicker && (
+                                        <div className="absolute bottom-full left-0 mb-2 z-50">
+                                            <EmojiPicker
+                                                onEmojiClick={onEmojiClick}
+                                                theme={theme === 'dark' ? Theme.DARK : Theme.LIGHT}
+                                                lazyLoadEmojis={true}
+                                                width={300}
+                                                height={400}
+                                            />
+                                        </div>
+                                    )}
                                 </div>
                             </div>
 
                             <div className="absolute bottom-4 right-6 text-[10px] font-mono text-[var(--secondary)]/40 uppercase tracking-tighter">
-                                {charCount}/280
+                                {charCount}/300
                             </div>
 
                             <div className={`absolute inset-0 bg-[#0095f6] rounded-3xl flex flex-col items-center justify-center transition-all duration-500 z-20 ${isSubmitted ? 'opacity-100 scale-100 rotate-0' : 'opacity-0 scale-95 rotate-2 pointer-events-none'}`}>
