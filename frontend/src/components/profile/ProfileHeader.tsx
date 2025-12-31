@@ -96,9 +96,9 @@ export default function ProfileHeader() {
                         <div className="text-[var(--secondary)]">
                             ✉️ {profile.contact.emails[0]}
                         </div>
-                        <div className="text-[var(--secondary)]">
+                        <a href={profile.link} target="_blank" rel="noopener noreferrer" className="text-[var(--secondary)]">
                             🌐 {profile.link}
-                        </div>
+                        </a>
                     </div>
                 </div>
             </header>
