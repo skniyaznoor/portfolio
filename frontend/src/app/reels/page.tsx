@@ -20,7 +20,7 @@ export default function Page() {
         const featureType = featureTypes[index % featureTypes.length];
         return [
             { type: 'project' as const, data: project, key: `project-${project.id}` },
-            { type: 'feature' as const, featureType, projectTitle: project.title, key: `feature-${project.id}` }
+            { type: 'feature' as const, featureType, data: project, key: `feature-${project.id}` }
         ];
     });
 
@@ -100,7 +100,7 @@ export default function Page() {
                             <FeatureReel
                                 key={item.key}
                                 featureType={item.featureType}
-                                projectTitle={item.projectTitle}
+                                project={item.data}
                             />
                         )
                     ))}
