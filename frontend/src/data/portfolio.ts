@@ -347,3 +347,116 @@ export const explorePosts = [
     }
 ];
 
+export type NotificationType = 'like' | 'follow' | 'comment' | 'mention' | 'follow_request';
+
+export interface Notification {
+    id: number;
+    type: NotificationType;
+    user: {
+        username: string;
+        avatar: string;
+    };
+    content?: string;
+    targetImage?: string;
+    time: string;
+    isFollowing?: boolean;
+    isRead: boolean;
+    multipleCount?: number;
+}
+
+export const notificationsData: { section: string; items: Notification[] }[] = [
+    {
+        section: 'Today',
+        items: [
+            {
+                id: 1,
+                type: 'like',
+                user: { username: 'design.studio', avatar: '/feedStories/photo-1555066931-4365d14bab8c.avif' },
+                targetImage: projects[0].image,
+                time: '5m',
+                isRead: false
+            },
+            {
+                id: 2,
+                type: 'follow',
+                user: { username: 'creative.minds', avatar: '/feedStories/photo-1434030216411-0b793f4b4173.avif' },
+                time: '15m',
+                isFollowing: false,
+                isRead: false
+            },
+            {
+                id: 3,
+                type: 'comment',
+                user: { username: 'art.lover', avatar: '/feedStories/photo-1516035069371-29a1b244cc32.avif' },
+                content: 'Amazing work! 🔥',
+                targetImage: projects[1].image,
+                time: '32m',
+                isRead: false
+            },
+            {
+                id: 4,
+                type: 'like',
+                user: { username: 'visual.designer', avatar: '/feedStories/photo-1460661419201-fd4cecdf8a8b.avif' },
+                multipleCount: 32,
+                targetImage: projects[2].image,
+                time: '1h',
+                isRead: true
+            },
+            {
+                id: 5,
+                type: 'mention',
+                user: { username: 'photo.enthusiast', avatar: '/feedStories/photo-1576091160550-2173dba999ef.avif' },
+                targetImage: projects[3].image,
+                time: '2h',
+                isRead: true
+            }
+        ]
+    },
+    {
+        section: 'This Week',
+        items: [
+            {
+                id: 6,
+                type: 'follow',
+                user: { username: 'minimal.designs', avatar: '/feedStories/photo-1519389950473-47ba0277781c.avif' },
+                time: '2d',
+                isFollowing: true,
+                isRead: true
+            },
+            {
+                id: 7,
+                type: 'like',
+                user: { username: 'color.theory', avatar: '/feedStories/photo-1471107340929-a87cd0f5b5f3.avif' },
+                targetImage: projects[4].image,
+                time: '3d',
+                isRead: true
+            },
+            {
+                id: 8,
+                type: 'comment',
+                user: { username: 'trendy.styles', avatar: '/feedStories/photo-1697051073851-684b4dfe8dc7.avif' },
+                content: 'Love this aesthetic! 💯',
+                targetImage: projects[0].image,
+                time: '4d',
+                isRead: true
+            },
+            {
+                id: 9,
+                type: 'follow_request',
+                user: { username: 'explore.world', avatar: '/feedStories/photo-1517694712202-14dd9538aa97.avif' },
+                time: '5d',
+                isRead: true
+            },
+            {
+                id: 10,
+                type: 'like',
+                user: { username: 'modern.artist', avatar: '/feedStories/photo-1555066931-4365d14bab8c.avif' },
+                multipleCount: 15,
+                targetImage: projects[1].image,
+                time: '6d',
+                isRead: true
+            }
+        ]
+    }
+];
+
