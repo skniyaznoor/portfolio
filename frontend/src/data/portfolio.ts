@@ -27,7 +27,8 @@ export const profile = {
             state: "Odisha",
             pin: 755008
         }
-    }
+    },
+    link: "https://www.skniyaznoorpoetryandlovestories.com/"
 };
 
 export interface Project {
