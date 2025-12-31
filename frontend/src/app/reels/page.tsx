@@ -1,13 +1,13 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Navigation from '@/components/layout/Navigation';
 import ReelItem from '@/components/reels/ReelItem';
 import FeatureReel from '@/components/reels/FeatureReel';
 import { projects } from '@/data/portfolio';
 
-export default function Page() {
+function ReelsContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const containerRef = useRef<HTMLDivElement>(null);
@@ -107,5 +107,17 @@ export default function Page() {
                 </div>
             </div>
         </main>
+    );
+}
+
+export default function Page() {
+    return (
+        <Suspense fallback={
+            <div className="flex bg-black h-screen w-screen items-center justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
+            </div>
+        }>
+            <ReelsContent />
+        </Suspense>
     );
 }
