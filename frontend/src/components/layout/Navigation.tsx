@@ -5,6 +5,7 @@ import { Home, Search, Compass, Film, MessageCircle, Heart, PlusSquare, User, Me
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useBotGuide } from '@/context/BotGuideContext';
+import { motion } from 'framer-motion';
 
 const navItems = [
     { icon: Home, label: 'Home', href: '/', id: 'nav-home' },
@@ -72,24 +73,29 @@ export default function Navigation() {
             <div className="mt-auto relative" ref={moreMenuRef}>
                 {/* More Popover */}
                 {isMoreOpen && (
-                    <div className="absolute bottom-full left-0 mb-2 w-full bg-[var(--card)] border border-[var(--border)] rounded-2xl shadow-2xl p-2 animate-fadeIn z-50 overflow-hidden">
+                    <div className="absolute bottom-full left-0 mb-4 w-full bg-[var(--card)]/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] p-2 animate-fadeIn z-50 overflow-hidden">
                         <div
-                            className="flex items-center justify-between p-3 rounded-xl hover:bg-[var(--hover-overlay)] transition-all cursor-pointer group"
+                            className="flex items-center justify-between p-3.5 rounded-xl hover:bg-white/5 transition-all cursor-pointer group active:scale-[0.98]"
                             onClick={handleToggleGuide}
                         >
                             <div className="flex items-center gap-3">
-                                <div className={`p-2 rounded-lg ${isGuideActive ? 'bg-[var(--accent)] text-white' : 'bg-[var(--hover-overlay)] text-[var(--foreground)]'}`}>
+                                <div className={`p-2 rounded-xl transition-all ${isGuideActive ? 'bg-[var(--accent)] text-white shadow-lg shadow-[var(--accent)]/30' : 'bg-white/5 text-[var(--foreground)]'}`}>
                                     <Bot size={20} className={isGuideActive ? 'animate-pulse' : ''} />
                                 </div>
-                                <span className="text-sm font-semibold">Bot Guide</span>
+                                <div className="flex flex-col">
+                                    <span className="text-sm font-bold leading-none mb-1">Bot Guide</span>
+                                    <span className="text-[10px] text-[var(--secondary)] font-medium">Interactive Tour</span>
+                                </div>
                             </div>
 
                             {/* Toggle Switch */}
                             <div
-                                className={`w-10 h-6 rounded-full p-1 transition-colors duration-300 ${isGuideActive ? 'bg-[var(--accent)]' : 'bg-[var(--border)]'}`}
+                                className={`w-9 h-5 rounded-full p-1 transition-all duration-300 relative ${isGuideActive ? 'bg-[var(--accent)]' : 'bg-[var(--border)]'}`}
                             >
-                                <div
-                                    className={`w-4 h-4 rounded-full bg-white transition-transform duration-300 ${isGuideActive ? 'translate-x-4' : 'translate-x-0'}`}
+                                <motion.div
+                                    animate={{ x: isGuideActive ? 16 : 0 }}
+                                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                                    className="w-3 h-3 rounded-full bg-white shadow-sm"
                                 />
                             </div>
                         </div>

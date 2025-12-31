@@ -96,27 +96,41 @@ export default function BotGuide() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute inset-0 bg-black/60 pointer-events-auto"
+                className="absolute inset-0 bg-black/70 backdrop-blur-[2px] pointer-events-auto"
                 style={{
-                    clipPath: `polygon(0% 0%, 0% 100%, ${coords.left}px 100%, ${coords.left}px ${coords.top}px, ${coords.left + coords.width}px ${coords.top}px, ${coords.left + coords.width}px ${coords.top + coords.height}px, ${coords.left}px ${coords.top + coords.height}px, ${coords.left}px 100%, 100% 100%, 100% 0%)`
+                    clipPath: `polygon(
+                        0% 0%, 
+                        0% 100%, 
+                        ${coords.left - 8}px 100%, 
+                        ${coords.left - 8}px ${coords.top - 8}px, 
+                        ${coords.left + coords.width + 8}px ${coords.top - 8}px, 
+                        ${coords.left + coords.width + 8}px ${coords.top + coords.height + 8}px, 
+                        ${coords.left - 8}px ${coords.top + coords.height + 8}px, 
+                        ${coords.left - 8}px 100%, 
+                        100% 100%, 
+                        100% 0%
+                    )`,
                 }}
                 onClick={stopGuide}
             />
 
-            {/* Target Highlight */}
+            {/* Target Highlight Ring */}
             <motion.div
                 animate={{
-                    top: coords.top - 4,
-                    left: coords.left - 4,
-                    width: coords.width + 8,
-                    height: coords.height + 8,
+                    top: coords.top - 12,
+                    left: coords.left - 12,
+                    width: coords.width + 24,
+                    height: coords.height + 24,
                 }}
-                className="absolute border-2 border-[var(--accent)] rounded-lg shadow-[0_0_15px_rgba(0,149,246,0.5)] pointer-events-none"
-            />
+                transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                className="absolute border-2 border-[var(--accent)]/50 rounded-xl pointer-events-none"
+            >
+                <div className="absolute inset-0 rounded-xl shadow-[0_0_30px_rgba(0,149,246,0.3)] animate-pulse" />
+            </motion.div>
 
             {/* Bot & Speech Bubble */}
             <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
+                initial={{ scale: 0.9, opacity: 0, y: 10 }}
                 animate={{
                     scale: 1,
                     opacity: 1,
@@ -127,78 +141,94 @@ export default function BotGuide() {
                     x: bubblePos.translateX || 0,
                     y: bubblePos.translateY || 0,
                 }}
-                transition={{ type: "spring", damping: 20, stiffness: 300 }}
-                className="absolute pointer-events-auto w-80"
+                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                className="absolute pointer-events-auto w-[340px]"
             >
-                <div className="bg-[var(--card)] border border-[var(--border)] rounded-2xl shadow-2xl p-5 flex flex-col gap-4 relative overflow-hidden">
-                    {/* Glow Effect */}
-                    <div className="absolute -top-10 -right-10 w-32 h-32 bg-[var(--accent)]/10 blur-3xl rounded-full" />
+                <div className="bg-[var(--card)]/80 backdrop-blur-xl border border-white/10 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-6 flex flex-col gap-5 relative overflow-hidden group">
+                    {/* Decorative Background Gradient */}
+                    <div className="absolute -top-20 -right-20 w-40 h-40 bg-[var(--accent)]/20 blur-[60px] rounded-full group-hover:bg-[var(--accent)]/30 transition-colors duration-500" />
 
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                            <div className="w-10 h-10 rounded-full bg-[var(--accent)]/20 flex items-center justify-center text-[var(--accent)] relative">
-                                <Bot size={24} />
+                    <div className="flex items-start justify-between relative z-10">
+                        <div className="flex items-center gap-3">
+                            <motion.div
+                                animate={{
+                                    y: [0, -5, 0],
+                                    rotate: [0, 5, -5, 0]
+                                }}
+                                transition={{
+                                    repeat: Infinity,
+                                    duration: 4,
+                                    ease: "easeInOut"
+                                }}
+                                className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[var(--accent)] to-[#4facfe] flex items-center justify-center text-white shadow-lg shadow-[var(--accent)]/20 relative"
+                            >
+                                <Bot size={28} />
                                 <motion.div
-                                    animate={{ scale: [1, 1.2, 1] }}
+                                    animate={{
+                                        scale: [1, 1.3, 1],
+                                        opacity: [0.5, 1, 0.5]
+                                    }}
                                     transition={{ repeat: Infinity, duration: 2 }}
-                                    className="absolute -top-1 -right-1"
+                                    className="absolute -top-2 -right-2 text-yellow-400"
                                 >
-                                    <Sparkles size={12} className="text-yellow-400" />
+                                    <Sparkles size={16} fill="currentColor" />
                                 </motion.div>
-                            </div>
+                            </motion.div>
                             <div>
-                                <h3 className="font-bold text-sm tracking-tight">{step.title}</h3>
-                                <p className="text-[10px] text-[var(--secondary)] uppercase tracking-widest font-bold">Step {currentStep + 1} of {steps.length}</p>
+                                <h3 className="font-bold text-base tracking-tight leading-none mb-1">{step.title}</h3>
+                                <div className="flex items-center gap-2">
+                                    <div className="h-1 w-12 bg-[var(--border)] rounded-full overflow-hidden">
+                                        <motion.div
+                                            initial={{ width: 0 }}
+                                            animate={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
+                                            className="h-full bg-[var(--accent)]"
+                                        />
+                                    </div>
+                                    <span className="text-[10px] text-[var(--secondary)] font-bold uppercase tracking-tighter">
+                                        Step {currentStep + 1} / {steps.length}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <button
                             onClick={stopGuide}
-                            className="p-1 hover:bg-[var(--hover-overlay)] rounded-full transition-colors text-[var(--secondary)]"
+                            className="p-2 hover:bg-white/10 rounded-xl transition-all text-[var(--secondary)] hover:text-[var(--foreground)] active:scale-90"
                         >
                             <X size={18} />
                         </button>
                     </div>
 
-                    <p className="text-sm leading-relaxed text-[var(--foreground)]/90">
+                    <p className="text-sm leading-relaxed text-[var(--foreground)]/80 font-medium relative z-10">
                         {step.content}
                     </p>
 
-                    <div className="flex items-center justify-between pt-2 border-t border-[var(--border)]">
-                        <div className="flex gap-1">
-                            {steps.map((_, i) => (
-                                <div
-                                    key={i}
-                                    className={`h-1 w-4 rounded-full transition-all ${i === currentStep ? 'bg-[var(--accent)] w-8' : 'bg-[var(--border)]'}`}
-                                />
-                            ))}
-                        </div>
-                        <div className="flex gap-2">
-                            <button
-                                onClick={prevStep}
-                                disabled={currentStep === 0}
-                                className={`p-2 rounded-lg border border-[var(--border)] transition-all ${currentStep === 0 ? 'opacity-30 cursor-not-allowed' : 'hover:bg-[var(--hover-overlay)] active:scale-95'}`}
-                            >
-                                <ChevronLeft size={18} />
-                            </button>
-                            <button
-                                onClick={nextStep}
-                                className="flex items-center gap-2 px-4 py-2 bg-[var(--accent)] text-white rounded-lg font-bold text-sm hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-[var(--accent)]/20"
-                            >
-                                {currentStep === steps.length - 1 ? 'Finish' : 'Next'}
-                                <ChevronRight size={18} />
-                            </button>
-                        </div>
+                    <div className="flex items-center gap-3 pt-2 relative z-10">
+                        <button
+                            onClick={prevStep}
+                            disabled={currentStep === 0}
+                            className={`p-3 rounded-2xl border border-white/5 bg-white/5 transition-all flex-1 flex justify-center items-center ${currentStep === 0 ? 'opacity-20 cursor-not-allowed' : 'hover:bg-white/10 hover:border-white/10 active:scale-95'
+                                }`}
+                        >
+                            <ChevronLeft size={20} />
+                        </button>
+                        <button
+                            onClick={nextStep}
+                            className="flex items-center justify-center gap-2 py-3 px-6 bg-[var(--accent)] text-white rounded-2xl font-bold text-sm hover:brightness-110 active:scale-95 transition-all shadow-xl shadow-[var(--accent)]/25 flex-[2]"
+                        >
+                            {currentStep === steps.length - 1 ? 'Finish Tour' : 'Next Step'}
+                            <ChevronRight size={20} />
+                        </button>
                     </div>
                 </div>
 
-                {/* Arrow */}
+                {/* Refined Arrow */}
                 <div
-                    className={`absolute w-4 h-4 bg-[var(--card)] border-l border-t border-[var(--border)] rotate-45 pointer-events-none`}
+                    className="absolute w-5 h-5 bg-[var(--card)]/80 backdrop-blur-xl border-l border-t border-white/10 rotate-45 pointer-events-none z-0"
                     style={{
-                        ...(step.position === 'right' ? { left: -8, top: '50%', transform: 'translateY(-50%) rotate(-45deg)', borderRight: 'none', borderBottom: 'none' } : {}),
-                        ...(step.position === 'left' ? { right: -8, top: '50%', transform: 'translateY(-50%) rotate(135deg)', borderRight: 'none', borderBottom: 'none' } : {}),
-                        ...(step.position === 'top' ? { bottom: -8, left: '50%', transform: 'translateX(-50%) rotate(225deg)', borderRight: 'none', borderBottom: 'none' } : {}),
-                        ...(step.position === 'bottom' ? { top: -8, left: '50%', transform: 'translateX(-50%) rotate(45deg)', borderRight: 'none', borderBottom: 'none' } : {}),
+                        ...(step.position === 'right' ? { left: -10, top: '50%', transform: 'translateY(-50%) rotate(-45deg)', borderRight: 'none', borderBottom: 'none' } : {}),
+                        ...(step.position === 'left' ? { right: -10, top: '50%', transform: 'translateY(-50%) rotate(135deg)', borderRight: 'none', borderBottom: 'none' } : {}),
+                        ...(step.position === 'top' ? { bottom: -10, left: '50%', transform: 'translateX(-50%) rotate(225deg)', borderRight: 'none', borderBottom: 'none' } : {}),
+                        ...(step.position === 'bottom' ? { top: -10, left: '50%', transform: 'translateX(-50%) rotate(45deg)', borderRight: 'none', borderBottom: 'none' } : {}),
                     }}
                 />
             </motion.div>

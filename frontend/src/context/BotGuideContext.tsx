@@ -24,73 +24,59 @@ interface BotGuideContextType {
 const steps: BotStep[] = [
     {
         targetId: 'guide-button',
-        title: 'Greetings!',
-        content: "Hi there! I'm your Portfolio Assistant. I'll walk you through Niyaz's amazing projects and features.",
+        title: 'Meet Your Assistant',
+        content: "I'm your digital concierge. I'll guide you through this high-performance portfolio. Ready to see what's possible?",
         position: 'right',
         path: '/'
     },
     {
         targetId: 'nav-home',
-        title: 'Main Feed',
-        content: "This is where you can see all the latest projects and updates. Everything is built with React and Next.js!",
+        title: 'Work Showcase',
+        content: "The heart of the experience. Browse detailed project deep-dives, live links, and the stories behind the code.",
         position: 'right',
         path: '/'
     },
     {
         targetId: 'nav-search',
-        title: 'Direct Search',
-        content: 'Quickly find specific skills like TypeScript, Python, or even your favorite project titles.',
+        title: 'Universal Search',
+        content: 'Find anything instantly. From specific tech stacks to project titles, our global search indexed every detail for you.',
         position: 'right',
         path: '/search'
     },
     {
         targetId: 'nav-explore',
-        title: 'Discover Content',
-        content: 'The Explore page helps you discover more of Niyaz\'s creative works and blog posts.',
+        title: 'Deep Discovery',
+        content: 'View full project bios and technical specifications. See the exact technology stacks powering our modern implementations.',
         position: 'right',
         path: '/explore'
     },
     {
         targetId: 'nav-reels',
-        title: 'Video Demos',
-        content: 'Check out the Reels section for live demos and short-form video content of the projects.',
+        title: 'Code In Motion',
+        content: 'A vertical experience for rapid discovery. Scroll through live project demos and high-impact feature highlights.',
         position: 'right',
         path: '/reels'
     },
     {
-        targetId: 'nav-messages',
-        title: 'Let\'s Connect',
-        content: 'Want to collaborate? Send a message directly through this feature-rich messaging system.',
-        position: 'right',
-        path: '/messages'
-    },
-    {
         targetId: 'nav-notifications',
         title: 'Activity Hub',
-        content: 'Keep track of all interactions, likes, and follows on the portfolio.',
+        content: 'Stay connected with the pulse of the portfolio. Real-time updates and community engagement metrics live here.',
         position: 'right',
         path: '/notifications'
     },
     {
         targetId: 'nav-create',
-        title: 'Creative Mode',
-        content: 'Explore how Niyaz creates content and manages the portfolio backend.',
+        title: 'AMA Interaction',
+        content: 'Have a burning question? Use our custom Ask Me Anything form to connect and collaborate directly.',
         position: 'right',
         path: '/create'
     },
     {
         targetId: 'nav-profile',
-        title: 'Full Biography',
-        content: 'View the detailed profile, professional history, education, and all social links.',
+        title: 'Identity & Vision',
+        content: 'Step into the designer\'s world. Explore the professional background, education, and social DNA behind the work.',
         position: 'right',
         path: '/profile'
-    },
-    {
-        targetId: 'more-button',
-        title: 'Settings',
-        content: 'Switch between Dark and Light mode, or find more options here. Enjoy your tour!',
-        position: 'right',
-        path: '/'
     }
 ];
 
