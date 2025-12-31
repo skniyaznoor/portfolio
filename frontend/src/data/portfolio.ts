@@ -125,7 +125,7 @@ A production-grade platform designed for live teaching, recorded courses, and re
         likes: 85210,
         comments: 45,
         date: "2024",
-        link: "https://klansity.com/"
+        // link: "https://klansity.com/"
     },
     {
         id: 4,
