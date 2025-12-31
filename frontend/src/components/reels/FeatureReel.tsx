@@ -116,7 +116,7 @@ const FeatureReel: React.FC<FeatureReelProps> = ({ featureType, project }) => {
             style={{ scrollSnapStop: 'always' }}
         >
             <div
-                className="relative w-full h-full aspect-[9/16] cursor-pointer touch-none select-none"
+                className="relative w-full h-full aspect-[9/16] cursor-pointer touch-none select-none group"
                 onClick={handleDoubleTap}
             >
                 <div className="absolute inset-0 p-4 md:p-8 flex items-center justify-center pointer-events-none">
@@ -213,7 +213,7 @@ const FeatureReel: React.FC<FeatureReelProps> = ({ featureType, project }) => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onClick={(e) => e.stopPropagation()}
-                                className="ml-2 px-4 py-1 rounded-md border border-white text-white text-[11px] font-bold hover:bg-white/10 transition-colors flex items-center shrink-0 uppercase tracking-wider"
+                                className="ml-2 px-4 py-1 rounded-md border border-white text-white text-[11px] font-bold hover:bg-white/10 transition-opacity flex items-center shrink-0 uppercase tracking-wider group-hover:opacity-0 group-hover:pointer-events-none duration-300"
                             >
                                 Navigate
                             </a>
