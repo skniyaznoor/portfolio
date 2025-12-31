@@ -1,13 +1,15 @@
-import Navigation from '@/components/layout/Navigation';
+"use client";
 
-export default function Page() {
+import Navigation from '@/components/layout/Navigation';
+import AMAForm from '@/components/create/AMAForm';
+
+export default function CreatePage() {
     return (
-        <main className="flex min-h-screen">
+        <main className="flex min-h-screen overflow-hidden relative">
             <Navigation />
-            <div className="flex-1 xl:ml-64 ml-20 flex justify-center">
-                <div className="max-w-[935px] w-full px-4 pt-8">
-                    <h1 className="text-2xl font-bold">Hello</h1>
-                </div>
+
+            <div className="flex-1 xl:ml-64 ml-20 flex flex-col items-center justify-center p-6 relative z-10">
+                <AMAForm />
             </div>
         </main>
     );
