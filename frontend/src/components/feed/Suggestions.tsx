@@ -48,7 +48,7 @@ export default function Suggestions() {
     }
 
     return (
-        <div className="hidden lg:block w-80 p-8 space-y-6">
+        <div className="hidden lg:block w-80 py-8 space-y-6">
             {/* User Profile */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">

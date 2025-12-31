@@ -18,6 +18,14 @@ export default function SearchContainer() {
     const [searchQuery, setSearchQuery] = useState('');
     const [recentSearches, setRecentSearches] = useState<UnifiedResult[]>([]);
     const [searchResults, setSearchResults] = useState<UnifiedResult[]>([]);
+    const [isFocused, setIsFocused] = useState(false);
+
+    const suggestions: UnifiedResult[] = [
+        { id: 'sugg-1', type: 'Skill', title: 'React', subtitle: 'Hashtag', isHashtag: true, link: '/explore?tag=React' },
+        { id: 'sugg-2', type: 'Skill', title: 'Next.js', subtitle: 'Hashtag', isHashtag: true, link: '/explore?tag=Next.js' },
+        { id: 'profile-sugg', type: 'Profile', title: profile.name, subtitle: `@${profile.username}`, image: `/${profile.avatar}`, link: '/profile' },
+        { id: 'sugg-3', type: 'Project', title: 'Dynamic Form', subtitle: 'Software Engineering', image: projects[0].image, link: projects[0].link }
+    ];
 
     useEffect(() => {
         const saved = localStorage.getItem('recentSearches');
@@ -119,7 +127,7 @@ export default function SearchContainer() {
     }, [searchQuery]);
 
     return (
-        <div className="max-w-[600px] w-full px-4 pt-12">
+        <div className="max-w-[935px] mx-auto px-4 w-full pt-12">
             <div className="relative mb-10 text-[var(--foreground)]">
                 <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
                     <SearchIcon className="w-5 h-5 text-[var(--secondary)]" />
@@ -129,6 +137,7 @@ export default function SearchContainer() {
                     placeholder="Search"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
+                    onFocus={() => setIsFocused(true)}
                     className="w-full bg-[var(--hover-overlay)] border-none rounded-xl py-3 pl-12 pr-4 text-base focus:outline-none placeholder:text-[var(--secondary)]"
                 />
                 {searchQuery && (
@@ -146,6 +155,31 @@ export default function SearchContainer() {
             <div className="flex flex-col gap-4">
                 {!searchQuery ? (
                     <>
+                        <div className="mb-6">
+                            <h2 className="text-lg font-bold text-[var(--foreground)] mb-4">Suggested</h2>
+                            <div className="flex flex-wrap gap-2">
+                                {suggestions.map((item) => (
+                                    <button
+                                        key={item.id}
+                                        onClick={() => {
+                                            saveRecent(item);
+                                            if (item.link) window.location.href = item.link;
+                                        }}
+                                        className="flex items-center gap-2 px-4 py-2 bg-[var(--hover-overlay)] border border-[var(--border)] rounded-full hover:bg-[var(--secondary)]/10 transition-colors"
+                                    >
+                                        {item.isHashtag ? (
+                                            <Hash className="w-4 h-4 text-[var(--foreground)]" />
+                                        ) : (
+                                            <div className="w-5 h-5 rounded-full overflow-hidden">
+                                                <img src={item.image} alt="" className="w-full h-full object-cover" />
+                                            </div>
+                                        )}
+                                        <span className="text-sm font-medium text-[var(--foreground)]">{item.title}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
                         <div className="flex items-center justify-between mb-2">
                             <h2 className="text-lg font-bold text-[var(--foreground)]">Recent</h2>
                             {recentSearches.length > 0 && (
@@ -157,7 +191,7 @@ export default function SearchContainer() {
                                 </button>
                             )}
                         </div>
-                        {recentSearches.length > 0 ? (
+                        {recentSearches.length > 0 && (
                             recentSearches.map((item) => (
                                 <div key={item.id} className="flex items-center justify-between group py-2">
                                     <div
@@ -186,10 +220,6 @@ export default function SearchContainer() {
                                     </button>
                                 </div>
                             ))
-                        ) : (
-                            <div className="text-center py-20 text-[var(--secondary)]">
-                                No recent searches.
-                            </div>
                         )}
                     </>
                 ) : (
