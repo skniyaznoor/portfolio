@@ -1,23 +1,46 @@
 "use client";
 
 import React from 'react';
-import { Home, Search, Compass, Film, MessageCircle, Heart, PlusSquare, User, Menu, Instagram } from 'lucide-react';
+import { Home, Search, Compass, Film, MessageCircle, Heart, PlusSquare, User, Menu, Instagram, Bot } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useBotGuide } from '@/context/BotGuideContext';
 
 const navItems = [
-    { icon: Home, label: 'Home', href: '/' },
-    { icon: Search, label: 'Search', href: '/search' },
-    { icon: Compass, label: 'Explore', href: '/explore' },
-    { icon: Film, label: 'Reels', href: '/reels' },
-    { icon: MessageCircle, label: 'Messages', href: '/messages' },
-    { icon: Heart, label: 'Notifications', href: '/notifications' },
-    { icon: PlusSquare, label: 'Create', href: '/create' },
-    { icon: User, label: 'Profile', href: '/profile' },
+    { icon: Home, label: 'Home', href: '/', id: 'nav-home' },
+    { icon: Search, label: 'Search', href: '/search', id: 'nav-search' },
+    { icon: Compass, label: 'Explore', href: '/explore', id: 'nav-explore' },
+    { icon: Film, label: 'Reels', href: '/reels', id: 'nav-reels' },
+    { icon: MessageCircle, label: 'Messages', href: '/messages', id: 'nav-messages' },
+    { icon: Heart, label: 'Notifications', href: '/notifications', id: 'nav-notifications' },
+    { icon: PlusSquare, label: 'Create', href: '/create', id: 'nav-create' },
+    { icon: User, label: 'Profile', href: '/profile', id: 'nav-profile' },
 ];
 
 export default function Navigation() {
     const pathname = usePathname();
+    const { startGuide, stopGuide, isActive: isGuideActive } = useBotGuide();
+    const [isMoreOpen, setIsMoreOpen] = React.useState(false);
+    const moreMenuRef = React.useRef<HTMLDivElement>(null);
+
+    React.useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (moreMenuRef.current && !moreMenuRef.current.contains(event.target as Node)) {
+                setIsMoreOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    const handleToggleGuide = () => {
+        if (isGuideActive) {
+            stopGuide();
+        } else {
+            startGuide();
+            setIsMoreOpen(false);
+        }
+    };
 
     return (
         <div className="fixed left-0 top-0 h-screen w-20 xl:w-64 border-r border-[var(--border)] bg-[var(--background)] p-4 flex flex-col transition-all duration-300 z-50">
@@ -35,6 +58,7 @@ export default function Navigation() {
                         <Link
                             key={index}
                             href={item.href}
+                            id={item.id}
                             className={`flex items-center gap-4 p-3 rounded-lg hover:bg-[var(--hover-overlay)] transition-colors group ${isActive ? 'font-bold' : 'font-normal'
                                 }`}
                         >
@@ -45,10 +69,40 @@ export default function Navigation() {
                 })}
             </nav>
 
-            <div className="mt-auto">
-                <button className="flex items-center gap-4 p-3 rounded-lg hover:bg-[var(--hover-overlay)] transition-colors w-full">
+            <div className="mt-auto relative" ref={moreMenuRef}>
+                {/* More Popover */}
+                {isMoreOpen && (
+                    <div className="absolute bottom-full left-0 mb-2 w-full bg-[var(--card)] border border-[var(--border)] rounded-2xl shadow-2xl p-2 animate-fadeIn z-50 overflow-hidden">
+                        <div
+                            className="flex items-center justify-between p-3 rounded-xl hover:bg-[var(--hover-overlay)] transition-all cursor-pointer group"
+                            onClick={handleToggleGuide}
+                        >
+                            <div className="flex items-center gap-3">
+                                <div className={`p-2 rounded-lg ${isGuideActive ? 'bg-[var(--accent)] text-white' : 'bg-[var(--hover-overlay)] text-[var(--foreground)]'}`}>
+                                    <Bot size={20} className={isGuideActive ? 'animate-pulse' : ''} />
+                                </div>
+                                <span className="text-sm font-semibold">Bot Guide</span>
+                            </div>
+
+                            {/* Toggle Switch */}
+                            <div
+                                className={`w-10 h-6 rounded-full p-1 transition-colors duration-300 ${isGuideActive ? 'bg-[var(--accent)]' : 'bg-[var(--border)]'}`}
+                            >
+                                <div
+                                    className={`w-4 h-4 rounded-full bg-white transition-transform duration-300 ${isGuideActive ? 'translate-x-4' : 'translate-x-0'}`}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                <button
+                    id="more-button"
+                    onClick={() => setIsMoreOpen(!isMoreOpen)}
+                    className={`flex items-center gap-4 p-3 rounded-lg hover:bg-[var(--hover-overlay)] transition-colors w-full ${isMoreOpen ? 'bg-[var(--hover-overlay)]' : ''}`}
+                >
                     <Menu className="w-7 h-7" />
-                    <span className="hidden xl:block text-lg">More</span>
+                    <span className="hidden xl:block text-lg font-medium">More</span>
                 </button>
             </div>
         </div>

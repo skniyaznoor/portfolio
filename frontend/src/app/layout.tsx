@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "Software Engineer & Writer Portfolio in Instagram Style",
 };
 
-import { ThemeProvider } from "@/context/ThemeContext";
+import { Providers } from "@/components/Providers";
 
 export default function RootLayout({
   children,
@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider>{children}</ThemeProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
