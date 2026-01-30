@@ -71,7 +71,6 @@ export default function Navigation() {
             </nav>
 
             <div className="mt-auto relative" ref={moreMenuRef}>
-                {/* More Popover */}
                 {isMoreOpen && (
                     <div className="absolute bottom-full left-0 mb-4 w-full bg-[var(--card)]/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] p-2 animate-fadeIn z-50 overflow-hidden">
                         <div
