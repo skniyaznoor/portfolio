@@ -75,11 +75,11 @@ export default function Navigation() {
                 {isMoreOpen && (
                     <div className="absolute bottom-full left-0 mb-4 w-full bg-[var(--card)]/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] p-2 animate-fadeIn z-50 overflow-hidden">
                         <div
-                            className="flex items-center justify-between p-3.5 rounded-xl hover:bg-white/5 transition-all cursor-pointer group active:scale-[0.98]"
+                            className="flex items-center justify-between min-w-5 rounded-xl hover:bg-white/5 transition-all cursor-pointer group active:scale-[0.98]"
                             onClick={handleToggleGuide}
                         >
                             <div className="flex items-center gap-3">
-                                <div className={`p-2 rounded-xl transition-all ${isGuideActive ? 'bg-[var(--accent)] text-white shadow-lg shadow-[var(--accent)]/30' : 'bg-white/5 text-[var(--foreground)]'}`}>
+                                <div className={`p-1 rounded-xl transition-all ${isGuideActive ? 'bg-[var(--accent)] text-white shadow-lg shadow-[var(--accent)]/30' : 'bg-white/5 text-[var(--foreground)]'}`}>
                                     <Bot size={20} className={isGuideActive ? 'animate-pulse' : ''} />
                                 </div>
                                 <div className="flex flex-col">
