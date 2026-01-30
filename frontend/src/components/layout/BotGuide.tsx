@@ -55,35 +55,38 @@ export default function BotGuide() {
 
     const getBubblePosition = () => {
         const margin = 20;
+
         switch (step.position) {
             case 'right':
                 return {
-                    top: coords.top + coords.height / 2,
+                    top: coords.top,
                     left: coords.left + coords.width + margin,
-                    translateY: '-50%'
+                    x: "0%",
+                    y: "0%"
                 };
             case 'left':
                 return {
-                    top: coords.top + coords.height / 2,
+                    top: coords.top,
                     left: coords.left - margin,
-                    translateX: '-100%',
-                    translateY: '-50%'
+                    x: "-100%",
+                    y: "0%"
                 };
             case 'top':
                 return {
                     top: coords.top - margin,
                     left: coords.left + coords.width / 2,
-                    translateX: '-50%',
-                    translateY: '-100%'
+                    x: "-50%",
+                    y: "-100%"
                 };
             case 'bottom':
                 return {
                     top: coords.top + coords.height + margin,
                     left: coords.left + coords.width / 2,
-                    translateX: '-50%'
+                    x: "-50%",
+                    y: "0%"
                 };
             default:
-                return { top: 0, left: 0 };
+                return { top: 0, left: 0, x: "0%", y: "0%" };
         }
     };
 
@@ -130,16 +133,14 @@ export default function BotGuide() {
 
             {/* Bot & Speech Bubble */}
             <motion.div
-                initial={{ scale: 0.9, opacity: 0, y: 10 }}
+                initial={{ scale: 0.9, opacity: 0 }}
                 animate={{
                     scale: 1,
                     opacity: 1,
                     top: bubblePos.top,
                     left: bubblePos.left,
-                }}
-                style={{
-                    x: bubblePos.translateX || 0,
-                    y: bubblePos.translateY || 0,
+                    x: bubblePos.x,
+                    y: bubblePos.y,
                 }}
                 transition={{ type: "spring", damping: 25, stiffness: 300 }}
                 className="absolute pointer-events-auto w-[340px]"
@@ -225,8 +226,8 @@ export default function BotGuide() {
                 <div
                     className="absolute w-5 h-5 bg-[var(--card)]/80 backdrop-blur-xl border-l border-t border-white/10 rotate-45 pointer-events-none z-0"
                     style={{
-                        ...(step.position === 'right' ? { left: -10, top: '50%', transform: 'translateY(-50%) rotate(-45deg)', borderRight: 'none', borderBottom: 'none' } : {}),
-                        ...(step.position === 'left' ? { right: -10, top: '50%', transform: 'translateY(-50%) rotate(135deg)', borderRight: 'none', borderBottom: 'none' } : {}),
+                        ...(step.position === 'right' ? { left: -10, top: coords.height / 2, transform: 'translateY(-50%) rotate(-45deg)', borderRight: 'none', borderBottom: 'none' } : {}),
+                        ...(step.position === 'left' ? { right: -10, top: coords.height / 2, transform: 'translateY(-50%) rotate(135deg)', borderRight: 'none', borderBottom: 'none' } : {}),
                         ...(step.position === 'top' ? { bottom: -10, left: '50%', transform: 'translateX(-50%) rotate(225deg)', borderRight: 'none', borderBottom: 'none' } : {}),
                         ...(step.position === 'bottom' ? { top: -10, left: '50%', transform: 'translateX(-50%) rotate(45deg)', borderRight: 'none', borderBottom: 'none' } : {}),
                     }}
