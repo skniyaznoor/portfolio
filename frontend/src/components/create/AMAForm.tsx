@@ -7,23 +7,54 @@ import EmojiPicker, { Theme } from 'emoji-picker-react';
 
 export default function AMAForm() {
     const { theme } = useTheme();
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
     const [question, setQuestion] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [charCount, setCharCount] = useState(0);
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
     const emojiPickerRef = useRef<HTMLDivElement>(null);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (question.trim()) {
-            setIsSubmitted(true);
-            setTimeout(() => {
-                setIsSubmitted(false);
-                setQuestion('');
-                setCharCount(0);
-            }, 4000);
+        if (question.trim() && name.trim() && email.trim()) {
+            setIsLoading(true);
+            try {
+                const response = await fetch('http://localhost:3002/contacts', {
+                    method: 'POST',
+
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        message: question,
+                    }),
+                });
+
+                if (response.ok) {
+                    setIsSubmitted(true);
+                    setTimeout(() => {
+                        setIsSubmitted(false);
+                        setQuestion('');
+                        setName('');
+                        setEmail('');
+                        setCharCount(0);
+                    }, 4000);
+                } else {
+                    alert('Something went wrong. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                alert('Could not connect to the backend. Is it running?');
+            } finally {
+                setIsLoading(false);
+            }
         }
     };
+
 
     const onEmojiClick = (emojiData: any) => {
         const newQuestion = question + emojiData.emoji;
@@ -59,12 +90,36 @@ export default function AMAForm() {
 
                 <div className={`relative glass-card bg-[var(--card)]/90 border-[var(--border)] rounded-[38px] p-8 backdrop-blur-xl transition-all duration-500`}>
                     <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="flex flex-col items-center gap-3 mb-8">
+                        <div className="flex flex-col items-center gap-3 mb-6">
                             <div className="text-center">
-                                <h2 className="text-xl font-bold text-[var(--foreground)] tracking-tight">Ask me anything!</h2>
+                                <h1 className="text-xl font-bold text-[var(--foreground)] tracking-tight">Ask me anything!</h1>
                                 <p className="text-xs text-[var(--secondary)] font-medium">I'm usually online and ready to chat</p>
                             </div>
                         </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="relative group">
+                                <input
+                                    type="text"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    placeholder="Your Name"
+                                    className="w-full bg-[var(--foreground)]/[0.03] border border-[var(--border)] rounded-2xl px-5 py-4 text-[var(--foreground)] text-sm placeholder:text-[var(--secondary)]/40 focus:outline-none focus:ring-2 focus:ring-[#0095f6]/30 focus:border-[#0095f6]/50 transition-all font-medium"
+                                    required
+                                />
+                            </div>
+                            <div className="relative group">
+                                <input
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="Your Email"
+                                    className="w-full bg-[var(--foreground)]/[0.03] border border-[var(--border)] rounded-2xl px-5 py-4 text-[var(--foreground)] text-sm placeholder:text-[var(--secondary)]/40 focus:outline-none focus:ring-2 focus:ring-[#0095f6]/30 focus:border-[#0095f6]/50 transition-all font-medium"
+                                    required
+                                />
+                            </div>
+                        </div>
+
 
                         <div className="relative group">
                             <textarea
@@ -119,15 +174,16 @@ export default function AMAForm() {
 
                         <button
                             type="submit"
-                            disabled={isSubmitted || !question.trim()}
+                            disabled={isSubmitted || isLoading || !question.trim() || !name.trim() || !email.trim()}
                             className="w-full group relative overflow-hidden bg-[var(--foreground)] text-[var(--background)] font-black text-lg py-5 rounded-[24px] transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:scale-100"
                         >
                             <div className="absolute inset-0 bg-gradient-to-r from-[#f09433] via-[#dc2743] to-[#bc1888] opacity-0 group-hover:opacity-10 transition-opacity"></div>
                             <div className="flex items-center justify-center gap-3">
-                                <span>Send Message</span>
-                                <Wand2 className="w-5 h-5 transition-transform group-hover:rotate-12 group-hover:scale-110" />
+                                <span>{isLoading ? 'Sending...' : 'Send Message'}</span>
+                                <Wand2 className={`w-5 h-5 transition-transform group-hover:rotate-12 group-hover:scale-110 ${isLoading ? 'animate-spin' : ''}`} />
                             </div>
                         </button>
+
                     </form>
                 </div>
 
