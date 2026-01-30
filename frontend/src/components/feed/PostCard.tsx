@@ -14,6 +14,8 @@ export default function PostCard({ post }: PostCardProps) {
     const [isLiked, setIsLiked] = useState(false);
     const [localLikes, setLocalLikes] = useState(post.likes);
     const [isExpanded, setIsExpanded] = useState(false);
+    const [showLikeHeart, setShowLikeHeart] = useState(false);
+    const [lastTap, setLastTap] = useState(0);
 
     const cleanDescription = (text: string) => {
         return text.replace(/\*\*/g, '').replace(/\*/g, '').trim();
@@ -22,10 +24,25 @@ export default function PostCard({ post }: PostCardProps) {
     const description = cleanDescription(post.fullDescription);
     const shortDescription = description.length > 280 ? `${description.slice(0, 280)}...` : description;
 
-    const handleLike = () => {
+    const handleDoubleTap = () => {
+        const now = Date.now();
+        const DOUBLE_TAP_DELAY = 300;
+        if (now - lastTap < DOUBLE_TAP_DELAY) {
+            handleLike();
+        }
+        setLastTap(now);
+    };
 
-        setIsLiked(!isLiked);
-        setLocalLikes(prev => isLiked ? prev - 1 : prev + 1);
+    const handleLike = () => {
+        if (!isLiked) {
+            setIsLiked(true);
+            setLocalLikes(prev => prev + 1);
+            setShowLikeHeart(true);
+            setTimeout(() => setShowLikeHeart(false), 1000);
+        } else {
+            setIsLiked(false);
+            setLocalLikes(prev => prev - 1);
+        }
     };
 
     const handleTitleClick = () => {
@@ -65,8 +82,18 @@ export default function PostCard({ post }: PostCardProps) {
             </div>
 
             {/* Image */}
-            <div className="rounded-sm overflow-hidden border border-[var(--border)] bg-[var(--card)]">
+            <div
+                className="rounded-sm overflow-hidden border border-[var(--border)] bg-[var(--card)] relative cursor-pointer select-none"
+                onClick={handleDoubleTap}
+            >
                 <img src={post.image} alt={post.title} className="w-full aspect-2/1 object-cover" />
+
+                {/* Double-tap Like Heart Animation */}
+                {showLikeHeart && (
+                    <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                        <Heart className="w-24 h-24 text-red-500 fill-red-500 animate-like-heart" />
+                    </div>
+                )}
             </div>
 
             {/* Actions */}
@@ -126,8 +153,19 @@ export default function PostCard({ post }: PostCardProps) {
             <StoryModal
                 isOpen={isStoryOpen}
                 onClose={() => setIsStoryOpen(false)}
-                quote="Code is like humor. When you have to explain it, it’s bad."
+                quote="Code is like humor. When you have to explain it, it's bad."
             />
+
+            <style jsx>{`
+                @keyframes like-heart {
+                    0% { transform: scale(0); opacity: 0; }
+                    50% { transform: scale(1.2); opacity: 1; }
+                    100% { transform: scale(1); opacity: 0; }
+                }
+                .animate-like-heart {
+                    animation: like-heart 0.8s ease-out forwards;
+                }
+            `}</style>
         </div>
     );
 }
