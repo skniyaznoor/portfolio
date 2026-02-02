@@ -21,7 +21,7 @@ export default function AMAForm() {
         if (question.trim() && name.trim() && email.trim()) {
             setIsLoading(true);
             try {
-                const response = await fetch('http://localhost:3002/contacts', {
+                const response = await fetch('/api/contact', {
                     method: 'POST',
 
                     headers: {
@@ -48,7 +48,7 @@ export default function AMAForm() {
                 }
             } catch (error) {
                 console.error('Error submitting form:', error);
-                alert('Could not connect to the backend. Is it running?');
+                alert('Failed to send message. Please try again later.');
             } finally {
                 setIsLoading(false);
             }
