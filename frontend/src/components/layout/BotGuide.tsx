@@ -45,7 +45,7 @@ export default function BotGuide() {
                     window.removeEventListener('resize', updateCoords);
                     window.removeEventListener('scroll', updateCoords);
                 };
-            }, 100); // Small delay to allow page to render
+            }, 100);
 
             return () => clearTimeout(timer);
         }
