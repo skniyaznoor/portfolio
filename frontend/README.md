@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sk Niyaz Noor — Portfolio
 
-## Getting Started
+Personal portfolio for a full-stack engineer and published novelist. It's one editorial-style page with
+case-study drawers, live GitHub data, a 3D book cover and a working contact form.
 
-First, run the development server:
+## Stack
+
+Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 · Framer Motion · Resend
+
+## Sections
+
+- **Hero**: role cycler, `~/now` status card, key numbers
+- **Selected work**: bento cards with hand-built illustrations. Each opens a full case study (bottom sheet on mobile, side drawer on desktop)
+- **Experience**: timeline, education and certifications
+- **The novel**: *Coffee?* with a flip-able 3D cover, store links and recent writing
+- **GitHub**: public repos and a language breakdown from the GitHub API, revalidated daily, with a static fallback
+- **Skills** and **Contact** (Resend-powered form with server-side validation and HTML escaping)
+
+All content lives in [`src/data/portfolio.ts`](src/data/portfolio.ts).
+
+## Development
 
 ```bash
+cp .env.example .env.local   # add your RESEND_API_KEY
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Resume
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The resume is written as print-tuned HTML in [`resume/resume.html`](resume/resume.html). To regenerate the PDF
+served at `/pdf/Sk-Niyaz-Noor-Resume.pdf` (needs Google Chrome):
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+./resume/build.sh
+```

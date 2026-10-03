@@ -1,63 +1,60 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend("re_3kBUQqcV_NJqofQGVrfNL3YY6wMKV4kL9");
+const TO = 'skniyaznoor23@gmail.com';
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function escapeHtml(value: string) {
+    return value
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
 
 export async function POST(request: Request) {
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
+        console.error('RESEND_API_KEY is not set');
+        return NextResponse.json({ error: 'Email service is not configured' }, { status: 500 });
+    }
+
     try {
-        const { name, email, message } = await request.json();
+        const body = await request.json();
+        const name = String(body.name ?? '').trim();
+        const email = String(body.email ?? '').trim();
+        const message = String(body.message ?? '').trim();
 
         if (!name || !email || !message) {
-            return NextResponse.json(
-                { error: 'Missing required fields' },
-                { status: 400 }
-            );
+            return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
         }
+        if (!EMAIL_RE.test(email) || name.length > 100 || email.length > 200 || message.length > 5000) {
+            return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
+        }
+
+        const safe = { name: escapeHtml(name), email: escapeHtml(email), message: escapeHtml(message) };
+        const resend = new Resend(apiKey);
 
         const { data, error } = await resend.emails.send({
             from: 'Portfolio Contact <onboarding@resend.dev>',
-            to: ['skniyaznoor23@gmail.com'],
-            subject: `New Message from ${name}`,
+            to: [TO],
+            subject: `New message from ${name.replace(/[\r\n]/g, ' ')}`,
             replyTo: email,
             html: `
         <!DOCTYPE html>
         <html>
-        <head>
-          <style>
-            body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f9f9f9; padding: 20px; }
-            .container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #eee; }
-            .header { background: linear-gradient(135deg, #f09433 0%, #dc2743 100%); padding: 30px; text-align: center; }
-            .header h1 { color: white; margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
-            .content { padding: 30px; }
-            .field { margin-bottom: 20px; }
-            .label { font-size: 12px; font-weight: 600; text-transform: uppercase; color: #888; margin-bottom: 5px; letter-spacing: 0.5px; }
-            .value { font-size: 16px; color: #111; background: #f4f6f8; padding: 12px 16px; border-radius: 8px; }
-            .message-box { background: #f4f6f8; padding: 20px; border-radius: 12px; white-space: pre-wrap; font-size: 16px; line-height: 1.6; color: #111; }
-            .footer { background: #f9f9f9; padding: 20px; text-align: center; font-size: 12px; color: #999; border-top: 1px solid #eee; }
-            .highlight { color: #dc2743; font-weight: 600; }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class="header">
-              <h1>New Contact Message</h1>
+        <body style="margin:0;padding:24px;background:#f4f1ec;font-family:Helvetica,Arial,sans-serif;color:#141210;">
+          <div style="max-width:600px;margin:0 auto;background:#ffffff;border:1px solid #e4ded6;border-radius:16px;overflow:hidden;">
+            <div style="background:#0b0a09;padding:28px 32px;">
+              <div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#e8b07a;">Portfolio · Contact</div>
+              <h1 style="margin:8px 0 0;font-size:24px;font-weight:600;color:#f3eee7;">New message from ${safe.name}</h1>
             </div>
-            <div class="content">
-              <div class="field">
-                <div class="label">Sender Name</div>
-                <div class="value">${name}</div>
-              </div>
-              <div class="field">
-                <div class="label">Sender Email</div>
-                <div class="value"><a href="mailto:${email}" style="color: #dc2743; text-decoration: none;">${email}</a></div>
-              </div>
-              <div class="field">
-                <div class="label">Message</div>
-                <div class="message-box">${message}</div>
-              </div>
-            </div>
-            <div class="footer">
-              <p>Sent from your portfolio contact form via <span class="highlight">Resend</span>.</p>
+            <div style="padding:28px 32px;">
+              <div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#6b645c;margin-bottom:6px;">Reply to</div>
+              <a href="mailto:${safe.email}" style="font-size:16px;color:#a85a1c;text-decoration:none;">${safe.email}</a>
+              <div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#6b645c;margin:24px 0 6px;">Message</div>
+              <div style="white-space:pre-wrap;font-size:16px;line-height:1.6;background:#faf8f5;border:1px solid #e4ded6;border-radius:12px;padding:18px;">${safe.message}</div>
             </div>
           </div>
         </body>
@@ -67,18 +64,12 @@ export async function POST(request: Request) {
 
         if (error) {
             console.error('Resend error:', error);
-            return NextResponse.json({ error: error.message }, { status: 500 });
+            return NextResponse.json({ error: 'Could not send message' }, { status: 502 });
         }
 
-        return NextResponse.json(
-            { message: 'Email sent successfully', data },
-            { status: 200 }
-        );
+        return NextResponse.json({ message: 'Email sent successfully', id: data?.id }, { status: 200 });
     } catch (error) {
         console.error('Error processing request:', error);
-        return NextResponse.json(
-            { error: 'Internal server error' },
-            { status: 500 }
-        );
+        return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }
 }
