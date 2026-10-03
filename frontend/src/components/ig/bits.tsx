@@ -12,7 +12,7 @@ export function Verified({ size = 14 }: { size?: number }) {
 }
 
 export function Wordmark({ className = "" }: { className?: string }) {
-    return <span className={`font-script text-[28px] leading-none ${className}`}>{account.brand}</span>;
+    return <span className={`font-script text-[36px] leading-none tracking-[0.01em] ${className}`}>{account.brand}</span>;
 }
 
 /** Circular avatar with an optional Instagram-style story ring */

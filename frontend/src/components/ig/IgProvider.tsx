@@ -4,13 +4,11 @@ import { createContext, useCallback, useContext, useMemo, useState, type ReactNo
 import { AnimatePresence, motion } from "framer-motion";
 import StoryViewer from "./StoryViewer";
 import PostModal from "./PostModal";
-import CreateModal from "./CreateModal";
 import Tour from "./Tour";
 
 interface IgContext {
     openStories: (ids: string[], start: number) => void;
     openPost: (slug: string) => void;
-    openCreate: () => void;
     startTour: () => void;
     toast: (msg: string) => void;
 }
@@ -26,7 +24,6 @@ export function useIg() {
 export default function IgProvider({ children }: { children: ReactNode }) {
     const [stories, setStories] = useState<{ ids: string[]; start: number } | null>(null);
     const [post, setPost] = useState<string | null>(null);
-    const [create, setCreate] = useState(false);
     const [tour, setTour] = useState(false);
     const [toastMsg, setToastMsg] = useState<string | null>(null);
 
@@ -39,7 +36,6 @@ export default function IgProvider({ children }: { children: ReactNode }) {
         () => ({
             openStories: (ids, start) => setStories({ ids, start }),
             openPost: setPost,
-            openCreate: () => setCreate(true),
             startTour: () => setTour(true),
             toast,
         }),
@@ -51,7 +47,6 @@ export default function IgProvider({ children }: { children: ReactNode }) {
             {children}
             {stories && <StoryViewer ids={stories.ids} start={stories.start} onClose={() => setStories(null)} />}
             <PostModal slug={post} onClose={() => setPost(null)} />
-            <CreateModal open={create} onClose={() => setCreate(false)} />
             {tour && <Tour onClose={() => setTour(false)} />}
             <AnimatePresence>
                 {toastMsg && (

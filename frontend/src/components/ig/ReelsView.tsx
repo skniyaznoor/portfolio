@@ -11,7 +11,6 @@ import { postMeta } from "@/data/instagram";
 import { Avatar, Verified } from "./bits";
 import { useIg } from "./IgProvider";
 import { useShare } from "./PostActions";
-import ProjectVisual from "./ProjectVisual";
 import { useLikes, useSaves } from "./store";
 
 function useTicker(active: boolean, length: number, ms = 2400) {
@@ -27,7 +26,7 @@ function useTicker(active: boolean, length: number, ms = 2400) {
 function Subtitles({ lines, active }: { lines: string[]; active: boolean }) {
     const i = useTicker(active, lines.length);
     return (
-        <div className="absolute inset-x-6 top-[58%] flex justify-center">
+        <div className="absolute top-[56%] right-16 left-4 flex justify-center">
             <AnimatePresence mode="wait">
                 <motion.p
                     key={i}
@@ -51,10 +50,11 @@ const chat = [
     { me: false, text: "Yes. A renewal email proposes a new display-rights clause. Review the diff?" },
 ];
 
-function AiScene({ active }: { active: boolean }) {
+function AiScene({ active, image }: { active: boolean; image: string }) {
     const n = useTicker(active, chat.length + 2, 1600);
     return (
-        <div className="absolute inset-0 flex flex-col justify-center gap-3 bg-[radial-gradient(circle_at_30%_20%,#3b2a8f,transparent_60%),linear-gradient(180deg,#0a0a1a,#000)] px-5 pb-40">
+        <div className="absolute inset-0 isolate flex flex-col justify-center gap-3 px-5 pb-40">
+            <Image src={image} alt="" fill sizes="480px" className="-z-10 scale-110 object-cover blur-md brightness-[0.35]" />
             <div className="mb-2 text-center font-mono text-[11px] tracking-widest text-white/50">CLAUDE · RAG · GROUNDED</div>
             {chat.slice(0, Math.min(n + 1, chat.length)).map((m, i) => (
                 <motion.div
@@ -77,51 +77,23 @@ function AiScene({ active }: { active: boolean }) {
     );
 }
 
-function GameScene() {
-    return (
-        <div className="absolute inset-0 overflow-hidden bg-[#0a0605]">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(255,106,43,0.45),transparent_60%)]" />
-            <svg viewBox="0 0 400 400" className="absolute top-[8%] left-1/2 w-[130%] -translate-x-1/2" aria-hidden>
-                <defs>
-                    <linearGradient id="reel-fire" x1="0" x2="1">
-                        <stop offset="0%" stopColor="#ffb347" />
-                        <stop offset="50%" stopColor="#ff5a1f" />
-                        <stop offset="100%" stopColor="#c81d11" />
-                    </linearGradient>
-                </defs>
-                <circle cx="200" cy="200" r="150" fill="#1a0b05" stroke="#3a2015" />
-                <g className="animate-spin-slow" style={{ transformOrigin: "200px 200px" }}>
-                    {[0, 30, 60, 90, 120, 150].map((r) => (
-                        <ellipse key={r} cx="200" cy="200" rx="150" ry="46" fill="none" stroke="#4a2818" strokeWidth="1" transform={`rotate(${r} 200 200)`} />
-                    ))}
-                    <ellipse cx="200" cy="200" rx="150" ry="56" fill="none" stroke="url(#reel-fire)" strokeWidth="5" strokeDasharray="8 6" transform="rotate(-18 200 200)" style={{ animation: "flicker 1.2s infinite" }} />
-                    <circle cx="340" cy="155" r="7" fill="#fff" />
-                    <circle cx="340" cy="155" r="18" fill="#ff8a3d" opacity="0.35" />
-                </g>
-            </svg>
-            <div className="absolute top-16 left-4 font-mono text-xs tracking-widest text-orange-300">LAP 3/5 · POS 1 · NITRO ▮▮▮▯</div>
-        </div>
-    );
-}
-
-function BookScene({ active }: { active: boolean }) {
+function ImageScene({ project, active }: { project: Project; active: boolean }) {
+    const i = useTicker(active, project.images.length, 3600);
     return (
         <div className="absolute inset-0 overflow-hidden bg-black">
-            <motion.div className="absolute inset-0" animate={active ? { scale: [1, 1.12], y: ["0%", "-4%"] } : { scale: 1 }} transition={{ duration: 14, ease: "linear" }}>
-                <Image src={book.front} alt={`${book.title} cover`} fill sizes="420px" className="object-cover" />
-            </motion.div>
-            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80" />
-        </div>
-    );
-}
-
-function GenericScene({ project }: { project: Project }) {
-    return (
-        <div className="absolute inset-0 overflow-hidden bg-card">
-            <div className="absolute inset-x-0 top-[12%] h-[44%]">
-                <ProjectVisual variant={project.visual} />
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80" />
+            <AnimatePresence>
+                <motion.div
+                    key={i}
+                    className="absolute inset-0"
+                    initial={{ opacity: 0, scale: 1.08 }}
+                    animate={{ opacity: 1, scale: active ? 1.18 : 1.08 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ opacity: { duration: 0.8 }, scale: { duration: 6, ease: "linear" } }}
+                >
+                    <Image src={project.images[i]} alt="" fill sizes="(max-width: 768px) 100vw, 480px" className="object-cover" priority={i === 0} />
+                </motion.div>
+            </AnimatePresence>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/85" />
         </div>
     );
 }
@@ -152,7 +124,7 @@ function Reel({ project, active }: { project: Project; active: boolean }) {
     return (
         <section className="relative h-full w-full snap-start snap-always overflow-hidden bg-black text-white md:rounded-lg" aria-label={project.title}>
             <div className="absolute inset-0" onClick={onTap}>
-                {project.visual === "ai" ? <AiScene active={active} /> : project.visual === "game" ? <GameScene /> : project.visual === "author" ? <BookScene active={active} /> : <GenericScene project={project} />}
+                {project.visual === "ai" ? <AiScene active={active} image={project.images[0]} /> : <ImageScene project={project} active={active} />}
                 {project.visual !== "ai" && <Subtitles lines={lines} active={active} />}
             </div>
 

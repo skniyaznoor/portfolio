@@ -7,8 +7,6 @@ import { projects } from "@/data/portfolio";
 import { Avatar } from "./bits";
 import { MobileHeader } from "./AppShell";
 import { useIg } from "./IgProvider";
-import ProjectVisual from "./ProjectVisual";
-import ScaledBox from "./ScaledBox";
 
 const groups: Activity["group"][] = ["This year", "2025", "Earlier"];
 
@@ -18,9 +16,7 @@ function Row({ a }: { a: Activity }) {
 
     const thumb = project ? (
         <span className="relative block h-11 w-11 shrink-0 overflow-hidden rounded-md bg-card">
-            <ScaledBox width={420} height={420}>
-                <ProjectVisual variant={project.visual} />
-            </ScaledBox>
+            <Image src={project.images[0]} alt="" fill sizes="88px" className="object-cover" />
         </span>
     ) : a.thumb ? (
         <span className="relative block h-11 w-11 shrink-0 overflow-hidden rounded-md bg-card">

@@ -12,8 +12,6 @@ import { MobileHeader } from "./AppShell";
 import { useIg } from "./IgProvider";
 import GridTile from "./GridTile";
 import StoryTray from "./StoryTray";
-import ScaledBox from "./ScaledBox";
-import ProjectVisual from "./ProjectVisual";
 import Sheet from "./Sheet";
 import { toggleTheme, useSaves, useSeenStories } from "./store";
 
@@ -155,9 +153,7 @@ export default function ProfileView({ repos }: { repos: Repo[] }) {
                     <div className="grid grid-cols-3 gap-[3px] md:gap-1">
                         {projects.map((p, i) => (
                             <Link key={p.slug} href={`/reels?i=${i}`} className="group relative block aspect-[9/16] overflow-hidden bg-black">
-                                <ScaledBox width={420} height={746}>
-                                    <ProjectVisual variant={p.visual} />
-                                </ScaledBox>
+                                <Image src={p.images[0]} alt="" fill sizes="(max-width:768px) 33vw, 310px" className="object-cover" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                                 <span className="absolute bottom-2 left-2 flex items-center gap-1 text-xs font-semibold text-white">
                                     <Play size={14} fill="white" /> {p.title}

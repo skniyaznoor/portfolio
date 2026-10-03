@@ -36,11 +36,25 @@ const tiles: Tile[] = [
 // Interleave writing between projects so the grid mixes content like Instagram's explore page
 const ordered = [0, 10, 1, 3, 11, 2, 4, 12, 5, 6, 9, 7, 8, 13, 14, 15].map((i) => tiles[i]).filter(Boolean);
 
-const writingBg = ["linear-gradient(160deg,#833ab4,#fd1d1d 60%,#fcb045)", "linear-gradient(160deg,#4f5bd5,#d62976)", "linear-gradient(160deg,#0f2027,#2c5364)", "linear-gradient(160deg,#11998e,#0f3d3e)", "linear-gradient(160deg,#1c1c1c,#4a4a4a)", "linear-gradient(160deg,#0b0806,#7a4a26)"];
+const writingBg = [
+    "linear-gradient(160deg,#833ab4,#fd1d1d 60%,#fcb045)",
+    "linear-gradient(160deg,#4f5bd5,#962fbf 55%,#d62976)",
+    "linear-gradient(160deg,#0b0806,#7a4a26 70%,#e8b07a)",
+    "linear-gradient(160deg,#11998e,#38ef7d)",
+    "linear-gradient(160deg,#fa7e1e,#d62976)",
+    "linear-gradient(160deg,#0f2027,#2c5364 60%,#5aa0c8)",
+];
 
-function TileView({ tile, tall, i }: { tile: Tile; tall: boolean; i: number }) {
-    const cls = tall ? "h-full min-h-full" : "aspect-[3/4]";
-    if (tile.kind === "project") return <GridTile project={tile.project} className={cls} />;
+/** Instagram's explore rhythm: blocks of five, with one tall tile alternating sides */
+function chunk<T>(arr: T[], n: number) {
+    const out: T[][] = [];
+    for (let i = 0; i < arr.length; i += n) out.push(arr.slice(i, i + n));
+    return out;
+}
+
+function TileView({ tile, i, cls }: { tile: Tile; i: number; cls: string }) {
+    // The novel has its own tile here, so show the website shot for the NiyazUnveiled post
+    if (tile.kind === "project") return <GridTile project={tile.project} className={cls} image={tile.project.slug === "niyazunveiled" ? 1 : 0} />;
     if (tile.kind === "book")
         return (
             <a href={book.stores[0].url} target="_blank" rel="noopener noreferrer" className={`group relative block overflow-hidden bg-black ${cls}`}>
@@ -107,15 +121,28 @@ export default function ExploreView() {
                 {filtered.length === 0 ? (
                     <p className="py-20 text-center text-sm text-muted">Nothing matches “{q}”. Try another word or category.</p>
                 ) : (
-                    <div className="mt-1 grid grid-flow-dense grid-cols-3 gap-[3px] md:mt-4 md:gap-1">
-                        {filtered.map((t, i) => {
-                            const tall = filtered.length > 4 && (i % 10 === 2 || i % 10 === 5);
-                            return (
-                                <div key={i} className={tall ? "row-span-2" : ""}>
-                                    <TileView tile={t} tall={tall} i={i} />
+                    <div className="mt-1 space-y-[3px] md:mt-4 md:space-y-1">
+                        {chunk(filtered, 5).map((group, gi) =>
+                            group.length === 5 ? (
+                                <div key={gi} className="grid aspect-[3/2] grid-flow-dense grid-cols-3 grid-rows-2 gap-[3px] md:gap-1">
+                                    {group.map((t, i) => {
+                                        const tall = gi % 2 === 0 ? i === 2 : i === 0;
+                                        const place = tall ? (gi % 2 === 0 ? "col-start-3 row-span-2 row-start-1" : "col-start-1 row-span-2 row-start-1") : "";
+                                        return (
+                                            <div key={i} className={`min-h-0 ${place}`}>
+                                                <TileView tile={t} i={gi * 5 + i} cls="h-full w-full" />
+                                            </div>
+                                        );
+                                    })}
                                 </div>
-                            );
-                        })}
+                            ) : (
+                                <div key={gi} className="grid grid-cols-3 gap-[3px] md:gap-1">
+                                    {group.map((t, i) => (
+                                        <TileView key={i} tile={t} i={gi * 5 + i} cls="aspect-square w-full" />
+                                    ))}
+                                </div>
+                            )
+                        )}
                     </div>
                 )}
             </div>

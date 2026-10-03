@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import { ChevronLeft, ChevronRight, Github, Globe, Heart } from "lucide-react";
 import type { Project } from "@/data/portfolio";
 import { postMeta } from "@/data/instagram";
@@ -15,8 +16,14 @@ const slideBg: Record<Project["kind"], string> = {
 function Slides({ project }: { project: Project }) {
     const meta = postMeta[project.slug];
     const slides = [
-        <div key="cover" className="h-full w-full bg-card">
+        ...project.images.map((src, i) => (
+            <div key={src} className="relative h-full w-full bg-black">
+                <Image src={src} alt={`${project.title} ${i + 1}`} fill sizes="(max-width: 768px) 100vw, 470px" className="object-cover" priority={i === 0} />
+            </div>
+        )),
+        <div key="mockup" className="relative h-full w-full bg-card">
             <ProjectVisual variant={project.visual} />
+            <span className="absolute bottom-3 left-3 rounded-full bg-black/60 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur">How it works</span>
         </div>,
         <div key="highlights" className="flex h-full w-full flex-col justify-center p-7 text-white sm:p-10" style={{ background: slideBg[project.kind] }}>
             <div className="text-xs font-semibold tracking-[0.2em] text-white/70 uppercase">{project.kind} · {project.period}</div>

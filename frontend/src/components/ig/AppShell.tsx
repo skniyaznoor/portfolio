@@ -11,7 +11,7 @@ import IgProvider, { useIg } from "./IgProvider";
 import SearchResults from "./SearchResults";
 import { toggleTheme } from "./store";
 
-type NavItem = { id: string; label: string; icon: typeof Home; href?: string; action?: "search" | "create" };
+type NavItem = { id: string; label: string; icon: typeof Home; href?: string; action?: "search" };
 
 const nav: NavItem[] = [
     { id: "home", label: "Home", icon: Home, href: "/" },
@@ -20,7 +20,7 @@ const nav: NavItem[] = [
     { id: "reels", label: "Reels", icon: Clapperboard, href: "/reels" },
     { id: "messages", label: "Messages", icon: MessageCircle, href: "/messages" },
     { id: "notifications", label: "Notifications", icon: Heart, href: "/notifications" },
-    { id: "create", label: "Create", icon: PlusSquare, action: "create" },
+    { id: "create", label: "Create", icon: PlusSquare, href: "/create" },
 ];
 
 function MoreMenu({ onClose }: { onClose: () => void }) {
@@ -54,7 +54,6 @@ function MoreMenu({ onClose }: { onClose: () => void }) {
 
 function Sidebar({ searchOpen, setSearchOpen }: { searchOpen: boolean; setSearchOpen: (v: boolean) => void }) {
     const pathname = usePathname();
-    const { openCreate } = useIg();
     const [more, setMore] = useState(false);
     const moreRef = useRef<HTMLDivElement>(null);
     const compact = searchOpen || pathname.startsWith("/messages");
@@ -88,8 +87,6 @@ function Sidebar({ searchOpen, setSearchOpen }: { searchOpen: boolean; setSearch
                     );
                     if (n.action === "search")
                         return <button key={n.id} data-tour={n.id} onClick={() => setSearchOpen(!searchOpen)} className={item(active)}>{content}</button>;
-                    if (n.action === "create")
-                        return <button key={n.id} data-tour={n.id} onClick={() => { setSearchOpen(false); openCreate(); }} className={item(false)}>{content}</button>;
                     return <Link key={n.id} data-tour={n.id} href={n.href!} onClick={() => setSearchOpen(false)} className={item(active)}>{content}</Link>;
                 })}
                 <Link data-tour="profile" href="/profile" onClick={() => setSearchOpen(false)} className={item(pathname === "/profile")}>
@@ -147,7 +144,6 @@ function SearchPanel({ open, onClose }: { open: boolean; onClose: () => void }) 
 
 function MobileBars() {
     const pathname = usePathname();
-    const { openCreate } = useIg();
     const onReels = pathname.startsWith("/reels");
     const tab = (active: boolean) => `flex flex-1 items-center justify-center py-3 ${active ? "" : "opacity-90"}`;
 
@@ -168,7 +164,7 @@ function MobileBars() {
             <nav className={`fixed inset-x-0 bottom-0 z-40 flex h-[50px] items-center border-t md:hidden ${onReels ? "border-white/10 bg-black text-white" : "border-line bg-bg"}`} aria-label="Main">
                 <Link href="/" data-tour="home" className={tab(pathname === "/")} aria-label="Home"><Home size={24} strokeWidth={pathname === "/" ? 2.6 : 1.9} /></Link>
                 <Link href="/explore" data-tour="explore" className={tab(pathname === "/explore")} aria-label="Explore"><Search size={24} strokeWidth={pathname === "/explore" ? 2.8 : 1.9} /></Link>
-                <button onClick={openCreate} data-tour="create" className={tab(false)} aria-label="Create"><PlusSquare size={24} strokeWidth={1.9} /></button>
+                <Link href="/create" data-tour="create" className={tab(pathname === "/create")} aria-label="Create"><PlusSquare size={24} strokeWidth={pathname === "/create" ? 2.6 : 1.9} /></Link>
                 <Link href="/reels" data-tour="reels" className={tab(onReels)} aria-label="Reels"><Clapperboard size={24} strokeWidth={onReels ? 2.6 : 1.9} /></Link>
                 <Link href="/profile" data-tour="profile" className={tab(pathname === "/profile")} aria-label="Profile">
                     <span className={`rounded-full ${pathname === "/profile" ? "ring-2 ring-fg ring-offset-1 ring-offset-bg" : ""}`}><Avatar size={24} /></span>

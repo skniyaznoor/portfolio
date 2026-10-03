@@ -24,7 +24,41 @@ export default function MessagesView() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const notes = useRef<string[]>([]);
+    // Full transcript, so the notification email shows the whole conversation
+    const log = useRef<string[]>([]);
+    const pending = useRef(false);
+    const partialSent = useRef(false);
+    const who = useRef({ name: "", email: "" });
     const endRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        who.current = { name, email };
+    }, [name, email]);
+
+    // If the visitor leaves before sharing an email, still deliver what they wrote
+    useEffect(() => {
+        const flush = () => {
+            if (!pending.current || partialSent.current || !notes.current.length) return;
+            partialSent.current = true;
+            const body = JSON.stringify({
+                partial: true,
+                source: "messages",
+                name: who.current.name,
+                email: EMAIL_RE.test(who.current.email) ? who.current.email : "",
+                about: about?.title ?? "",
+                message: log.current.join("\n"),
+            });
+            navigator.sendBeacon("/api/contact", new Blob([body], { type: "text/plain" }));
+        };
+        const onVisibility = () => document.visibilityState === "hidden" && flush();
+        window.addEventListener("pagehide", flush);
+        document.addEventListener("visibilitychange", onVisibility);
+        return () => {
+            flush();
+            window.removeEventListener("pagehide", flush);
+            document.removeEventListener("visibilitychange", onVisibility);
+        };
+    }, [about]);
 
     const say = (lines: Msg[], delay = 650) =>
         new Promise<void>((resolve) => {
@@ -38,6 +72,7 @@ export default function MessagesView() {
                 setTyping(true);
                 setTimeout(() => {
                     const line = lines[i++];
+                    log.current.push(`Niyaz (auto-reply): ${line.text}`);
                     setMsgs((m) => [...m, line]);
                     nextLine();
                 }, delay);
@@ -62,7 +97,7 @@ export default function MessagesView() {
         endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
     }, [msgs, typing]);
 
-    async function deliver(n: string, e: string) {
+    async function deliver(n: string, e: string, followUp = false) {
         setStep("sending");
         setTyping(true);
         try {
@@ -70,13 +105,16 @@ export default function MessagesView() {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
+                    source: "messages",
                     name: n,
                     email: e,
-                    message: (about ? `[About: ${about.title}]\n\n` : "") + notes.current.join("\n\n"),
+                    about: about?.title ?? "",
+                    message: followUp ? `Follow-up message:\n\n${notes.current.join("\n\n")}` : log.current.join("\n"),
                 }),
             });
             if (!res.ok) throw new Error();
             notes.current = [];
+            pending.current = false;
             setTyping(false);
             setStep("done");
             await say([
@@ -95,11 +133,13 @@ export default function MessagesView() {
         if (!t || typing || step === "sending") return;
         setInput("");
         setMsgs((m) => [...m, { from: "me", text: t }]);
+        log.current.push(`Visitor: ${t}`);
 
         if (step === "message" || step === "done") {
             notes.current.push(t);
+            pending.current = true;
             if (step === "done" && name && email) {
-                await deliver(name, email);
+                await deliver(name, email, true);
                 return;
             }
             if (notes.current.length === 1) {

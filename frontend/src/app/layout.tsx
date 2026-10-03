@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Grand_Hotel, Inter, Instrument_Serif } from "next/font/google";
+import { Cookie, Inter, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import AppShell from "@/components/ig/AppShell";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const grand = Grand_Hotel({ subsets: ["latin"], weight: "400", variable: "--font-grand" });
+const grand = Cookie({ subsets: ["latin"], weight: "400", variable: "--font-grand" });
 const instrument = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--font-instrument" });
 
 const description = "Sk Niyaz Noor (@skniyaznoor): full-stack engineer building AI products with NestJS, Next.js and Claude, and author of the novel Coffee?.";
