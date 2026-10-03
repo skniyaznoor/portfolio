@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Sk Niyaz Noor — Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: Inter, Helvetica, Arial, sans-serif; color: #111; font-size: 8.5pt; line-height: 1.38; background: #fff; }
+  a { color: inherit; text-decoration: none; }
+
+  .page { width: 210mm; height: 297mm; padding: 11mm 14mm 12mm; position: relative; overflow: hidden; page-break-after: always; }
+  .page:last-child { page-break-after: auto; }
+
+  /* Header */
+  header { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 8mm; padding-bottom: 4mm; border-bottom: 2.2pt solid #111; }
+  h1 { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; font-size: 38pt; line-height: 0.9; letter-spacing: -0.5pt; }
+  h1 em { font-style: italic; }
+  .title { margin-top: 2.5mm; font-family: "JetBrains Mono", monospace; font-size: 8pt; letter-spacing: 1.6pt; text-transform: uppercase; color: #444; }
+  .contact { text-align: right; font-size: 8.2pt; line-height: 1.6; }
+  .contact b { font-weight: 600; }
+  .contact .mono { font-family: "JetBrains Mono", monospace; font-size: 7.6pt; }
+
+  /* Summary + numbers */
+  .summary { margin-top: 4mm; font-size: 9.1pt; line-height: 1.5; color: #222; }
+  .summary strong { color: #000; font-weight: 600; }
+  .numbers { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 4mm; border: 0.8pt solid #111; }
+  .numbers > div { padding: 2mm 3.4mm; border-right: 0.8pt solid #111; }
+  .numbers > div:last-child { border-right: 0; }
+  .numbers .n { font-family: "Instrument Serif", serif; font-size: 17pt; line-height: 1; }
+  .numbers .l { margin-top: 1mm; font-size: 7pt; color: #444; line-height: 1.3; }
+
+  /* Sections */
+  section { margin-top: 4.2mm; }
+  h2 { display: flex; align-items: center; gap: 3mm; font-family: "JetBrains Mono", monospace; font-weight: 500; font-size: 7.6pt; letter-spacing: 2.4pt; text-transform: uppercase; margin-bottom: 3mm; }
+  h2::after { content: ""; flex: 1; height: 0.8pt; background: #111; }
+  h2 .idx { color: #888; }
+
+  .role { margin-bottom: 3.6mm; }
+  .role-head { display: grid; grid-template-columns: 1fr auto; align-items: baseline; }
+  .role-head h3 { font-family: "Instrument Serif", serif; font-weight: 400; font-size: 14.5pt; line-height: 1.1; }
+  .role-head h3 span { font-family: Inter, sans-serif; font-size: 8.8pt; font-weight: 500; color: #333; }
+  .when { font-family: "JetBrains Mono", monospace; font-size: 7.6pt; color: #333; }
+
+  .project { margin-top: 2.4mm; padding-left: 3.4mm; border-left: 1.6pt solid #111; }
+  .project.thin { border-left-width: 0.8pt; border-left-color: #999; }
+  .p-head { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
+  .p-name { font-weight: 700; font-size: 9.4pt; }
+  .p-name em { font-style: normal; font-weight: 400; color: #444; }
+  .p-link { font-family: "JetBrains Mono", monospace; font-size: 7.2pt; color: #333; white-space: nowrap; }
+  .stack { margin-top: 0.6mm; font-family: "JetBrains Mono", monospace; font-size: 7.1pt; color: #555; }
+
+  ul { list-style: none; margin-top: 1.4mm; }
+  li { position: relative; padding-left: 3.6mm; margin-bottom: 0.7mm; color: #1a1a1a; }
+  li::before { content: ""; position: absolute; left: 0.4mm; top: 0.62em; width: 1.5mm; height: 0.8pt; background: #111; }
+  li b { font-weight: 600; color: #000; }
+
+  .group-label { font-family: "JetBrains Mono", monospace; font-size: 7pt; letter-spacing: 1.6pt; text-transform: uppercase; color: #666; margin: 2.6mm 0 1mm; }
+
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
+  .skills { display: grid; grid-template-columns: 26mm 1fr; row-gap: 1.5mm; column-gap: 3mm; }
+  .skills dt { font-weight: 600; font-size: 8.2pt; }
+  .skills dd { color: #222; font-size: 8.4pt; }
+
+  .edu-item { margin-bottom: 2.2mm; }
+  .edu-item .d { font-weight: 600; }
+  .edu-item .s { color: #444; }
+
+  .book { display: grid; grid-template-columns: auto 1fr; gap: 5mm; align-items: center; padding: 3mm 4mm; border: 0.8pt solid #111; margin-top: 1mm; }
+  .book .t { font-family: "Instrument Serif", serif; font-style: italic; font-size: 24pt; line-height: 1; }
+  .book p { color: #222; }
+
+  footer { position: absolute; bottom: 7mm; left: 14mm; right: 14mm; display: flex; justify-content: space-between; font-family: "JetBrains Mono", monospace; font-size: 6.8pt; color: #888; }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div class="page">
+  <header>
+    <div>
+      <h1>Sk Niyaz <em>Noor</em></h1>
+      <div class="title">Full-Stack Engineer · AI / LLM Systems · Published Author</div>
+    </div>
+    <div class="contact">
+      <div>Bhubaneswar, Odisha, India</div>
+      <div><b>+91 63722 71191</b></div>
+      <div><a href="mailto:skniyaznoor23@gmail.com"><b>skniyaznoor23@gmail.com</b></a></div>
+      <div class="mono"><a href="https://github.com/skniyaznoor">github.com/skniyaznoor</a></div>
+      <div class="mono"><a href="https://in.linkedin.com/in/sk-niyaz-noor-814810217">linkedin.com/in/sk-niyaz-noor-814810217</a></div>
+      <div class="mono"><a href="https://www.niyazunveiled.com">niyazunveiled.com</a></div>
+    </div>
+  </header>
+
+  <p class="summary">
+    Full-stack engineer who ships <strong>production AI features end to end</strong>: Claude-powered assistants with RAG and
+    citation grounding, LLM pipelines that read vendor mail and propose contract changes, and real-time systems on
+    <strong>NestJS, Next.js, PostgreSQL, Redis and Socket.IO</strong>. Comfortable from Prisma schemas and BullMQ workers to
+    WebGL shaders. Also a published novelist, which shows in how I write prompts, docs and product copy.
+  </p>
+
+  <div class="numbers">
+    <div><div class="n">414</div><div class="l">commits (~52K lines) on one AI platform in 4 months</div></div>
+    <div><div class="n">2+ yrs</div><div class="l">building production full-stack software</div></div>
+    <div><div class="n">17</div><div class="l">ES modules in a ~4K-line solo WebGL racing game</div></div>
+    <div><div class="n">1</div><div class="l">published novel, <i>Coffee?</i> (Notion Press, 2026)</div></div>
+  </div>
+
+  <section>
+    <h2><span class="idx">01</span> Experience</h2>
+
+    <div class="role">
+      <div class="role-head">
+        <h3>HyScaler <span>· Junior Technical Programmer (Full-Stack)</span></h3>
+        <div class="when">Oct 2024 — Present · Bhubaneswar</div>
+      </div>
+
+      <div class="project">
+        <div class="p-head">
+          <div class="p-name">AI Data Intelligence Platform <em>· vendor data-licence &amp; contract governance</em></div>
+        </div>
+        <div class="stack">NestJS · Next.js · React · TypeScript · Prisma · PostgreSQL · Redis · BullMQ · Socket.IO · Anthropic Claude API · Microsoft Graph</div>
+        <ul>
+          <li><b>Built a Microsoft Graph mail integration from scratch:</b> OAuth2 with proactive token refresh and server-side token storage, webhook subscriptions for real-time new-mail alerts, and a threaded inbox with cursor pagination, $search and sandboxed mail rendering.</li>
+          <li><b>Built an ingestion pipeline</b> that converts mail and attachments (PDF, DOCX, CSV) to Markdown with Pandoc and Claude. It detects file type from magic bytes and skips duplicates. A BullMQ worker bulk-syncs attachments and backfills gaps.</li>
+          <li><b>Built LLM contract matching and change detection:</b> the model links emails to contracts and proposes edits, which reviewers accept, reject, edit or undo in a diff viewer before regenerating the contract with pause, cancel and revert, all streamed live over Socket.IO.</li>
+          <li><b>Built the main features of the Claude-powered Global Chat:</b> RAG retrieval with phrase-level ranking, anti-hallucination grounding rules, and <b>citations highlighted in the source document</b> with the CSS Custom Highlight API.</li>
+          <li><b>Built a semantic query cache in Redis:</b> an LLM normalises each query to a canonical form with a confidence score, to cut repeat LLM calls. Added invalidation, an admin <i>/clearcache</i> command and a greeting fast path.</li>
+          <li><b>Made chat streaming more reliable:</b> chat runs separately from the HTTP request, with cancellation, concurrency guards, rate-limit auto-recovery, socket retry and message version history. Added @mention context injection and a prompt context budget.</li>
+          <li><b>Built MCP-style analyst tools</b> with SQL timeouts, partition-filter checks and date-range query splitting. Wrote JSON-schema extraction prompts for pricing and usage rights, with selective re-extraction and batched LLM categorisation.</li>
+          <li><b>Built Global Audit Logs and per-user activity timelines</b> with RBAC, advanced filters and AI-operation logging. Replaced polling with WebSockets, made the app responsive on mobile, and set up the first backend unit tests (Jest ESM).</li>
+        </ul>
+      </div>
+
+      <div class="group-label">Earlier client &amp; internal projects</div>
+      <div class="project thin">
+        <ul>
+          <li><b>Live Broadcast &amp; Course Platform</b> (Next.js, Node.js, Socket.IO): integrated Google / YouTube Live for stream creation, scheduling and analytics with latency and bitrate tuning, plus real-time chat, Q&amp;A and role-based course management.</li>
+          <li><b>Healthcare &amp; Telemedicine App</b> (Next.js, Laravel): built scheduling with real-time doctor availability, EHR and e-prescriptions, and encrypted data from authorised health APIs, designed around HIPAA / GDPR principles.</li>
+          <li><b>Secure Online Exam Portal</b> (React, Laravel, JWT): added tab-switch detection, server-enforced timers with auto-submit, per-session question randomisation and instant grading.</li>
+          <li><b>Filament Quick Form</b> (Laravel, Filament): wrote an open-source package that renders and validates forms from runtime schemas with conditional fields, removing duplicated form code and most per-form migrations.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="role" style="margin-bottom:0">
+      <div class="role-head">
+        <h3>Bourntec Solutions <span>· Junior Developer (Intern)</span></h3>
+        <div class="when">Apr 2024 — Aug 2024 · Bhubaneswar</div>
+      </div>
+      <ul>
+        <li>Designed, built and deployed a <b>Flask</b> web application solo, owning both frontend and backend. Built a <b>React + Django</b> app with REST APIs, serializers and models, tuned for cross-browser performance.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer><span>Sk Niyaz Noor · Resume</span><span>1 / 2</span></footer>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+  <section style="margin-top:0">
+    <h2><span class="idx">02</span> Selected Projects</h2>
+
+    <div class="project">
+      <div class="p-head">
+        <div class="p-name">HellBall <em>· 3D browser racing game · solo · Aug–Sep 2026</em></div>
+      </div>
+      <div class="stack">JavaScript (ES Modules) · Three.js · WebGL / GLSL · GSAP · Web Audio API · Vite</div>
+      <ul>
+        <li><b>Wrote custom physics for riding inside a sphere:</b> riders stay on the wall only while v²/r beats gravity. Also models slopes, nitro, drag and speed-dependent steering, on a track modelled in its own coordinate system (distance along track plus offset from centre).</li>
+        <li><b>Built AI rivals that score lanes by cost:</b> they predict saw-blade positions and flame-jet timing, go for pickups, use nitro tactically and adjust their pace to keep races close.</li>
+        <li><b>Wrote GLSL shaders</b> (simplex and layered noise) for fire, plus GPU particles, ACES tone mapping and a 9-state cinematic game flow with GSAP-driven cameras. All audio is generated in code with the Web Audio API.</li>
+        <li><b>Kept rendering fast</b> with instanced meshes, shared materials, a capped pixel ratio and vector reuse to avoid GC stalls. About 4,000 lines in 17 modules.</li>
+      </ul>
+    </div>
+
+    <div class="project" style="margin-top:3.4mm">
+      <div class="p-head">
+        <div class="p-name">NiyazUnveiled <em>· author platform &amp; book launch site</em></div>
+        <div class="p-link">niyazunveiled.com · github.com/skniyaznoor/niyazunveiled</div>
+      </div>
+      <div class="stack">Next.js 16 (App Router) · React 19 · Firebase Auth / Firestore / Admin SDK · Resend · Vercel Cron · remark</div>
+      <ul>
+        <li><b>Built a file-based Markdown CMS</b> (gray-matter, remark) that detects series and episodes and pre-renders 25+ stories with generateStaticParams and per-page SEO. Migrated the legacy Blogger archive automatically with turndown.</li>
+        <li><b>Added Google sign-in with Firebase Auth and real-time Firestore comments</b> (onSnapshot, client-side sorting so no composite index is needed), plus a reader feedback wall and book pre-orders.</li>
+        <li><b>Automated transactional and launch email:</b> Resend sends confirmations on pre-order, and a Bearer-protected Vercel Cron route reads pre-orders through Firebase Admin and sends the launch-day email.</li>
+        <li>Designed a <b>Coffee Brew purchase flow</b> (an SVG cup that fills with an eased rAF animation and respects reduced-motion), plus a 3D CSS book flip, a countdown and a reading-progress bar.</li>
+      </ul>
+    </div>
+
+    <div class="two" style="margin-top:3.4mm; gap:5mm">
+      <div class="project">
+        <div class="p-head"><div class="p-name">DocIntel AI <em>· legal-doc simplifier</em></div></div>
+        <div class="stack">FastAPI · Next.js · Hugging Face · Docker</div>
+        <ul>
+          <li>Built OCR for images and scanned PDFs (TrOCR), language detection for 100+ languages, and NLLB-200 translation.</li>
+          <li>Generated plain-language summaries (Flan-T5) and classified documents zero-shot (BART-MNLI).</li>
+        </ul>
+      </div>
+      <div class="project">
+        <div class="p-head"><div class="p-name">BRR Hallmark Developers <em>· freelance</em></div></div>
+        <div class="stack">brrhallmarkdevelopers.in</div>
+        <ul>
+          <li>Built a lead-generating site for a Bangalore real-estate developer, with a completed / ongoing / upcoming project showcase.</li>
+          <li>Added site-visit booking and enquiry forms, WhatsApp chat, FAQ and RERA / legal pages, with responsive WebP images.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="idx">03</span> Technical Skills</h2>
+    <dl class="skills">
+      <dt>Languages</dt><dd>TypeScript, JavaScript (ES6+), Python, PHP, SQL, GLSL, Java, C / C++</dd>
+      <dt>Frontend</dt><dd>React 19, Next.js (App Router, SSG / ISR), Tailwind CSS, Framer Motion, Three.js, GSAP, Web Audio API</dd>
+      <dt>Backend</dt><dd>NestJS, Node.js, Laravel + Filament, FastAPI, Django, Flask, REST, WebSockets / Socket.IO</dd>
+      <dt>AI / LLM</dt><dd>Anthropic Claude API, RAG, prompt engineering, citation grounding, semantic caching, MCP-style tools, JSON-schema extraction, Hugging Face</dd>
+      <dt>Data &amp; Infra</dt><dd>PostgreSQL, Prisma, Redis, BullMQ, MySQL, Firebase, Docker, Vercel (Cron, serverless)</dd>
+      <dt>Integrations</dt><dd>Microsoft Graph, OAuth2, webhooks, Google / YouTube APIs, Resend, Jest (unit &amp; E2E)</dd>
+    </dl>
+  </section>
+
+  <div class="two">
+    <section>
+      <h2><span class="idx">04</span> Education</h2>
+      <div class="edu-item"><div class="role-head"><span class="d">Master of Computer Applications (MCA)</span><span class="when">2022 — 2024</span></div><div class="s">Silicon Institute of Technology, Silicon University</div></div>
+      <div class="edu-item"><div class="role-head"><span class="d">B.Sc. Physics</span><span class="when">2018 — 2021</span></div><div class="s">Dharmasala Mahavidyalaya, Utkal University</div></div>
+    </section>
+    <section>
+      <h2><span class="idx">05</span> Certifications &amp; Internships</h2>
+      <div class="edu-item"><div class="role-head"><span class="d">NPTEL: Internet of Things</span><span class="when">2023</span></div></div>
+      <div class="edu-item"><div class="role-head"><span class="d">ACCSA: Software Application, CTTC</span><span class="when">2021</span></div></div>
+      <div class="edu-item"><div class="role-head"><span class="d">Web Dev Intern, MEAN / MERN, SIT</span><span class="when">2023</span></div></div>
+      <div class="edu-item"><div class="role-head"><span class="d">Sales &amp; Marketing Intern, HighRadius</span><span class="when">2024</span></div></div>
+    </section>
+  </div>
+
+  <section>
+    <h2><span class="idx">06</span> Writing</h2>
+    <div class="book">
+      <div class="t">Coffee?</div>
+      <p>
+        <b>Debut novel: <i>Coffee?</i> A Slice-of-Life Love Story</b> (Notion Press, 2026), in paperback and hardcover on Amazon, Flipkart and Notion Press.
+        Since 2020 I have published 24+ short stories, serialised fiction and poems on <b>niyazunveiled.com</b>, a platform I built and run, where I also grow the readership through SEO and social media.
+      </p>
+    </div>
+  </section>
+
+  <footer><span>skniyaznoor23@gmail.com · github.com/skniyaznoor</span><span>2 / 2</span></footer>
+</div>
+
+</body>
+</html>

@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sk Niyaz Noor — Portfolio (Niyazion)
 
-## Getting Started
+An Instagram-style portfolio for a full-stack engineer and published novelist. Every Instagram feature is
+a working part of the portfolio:
 
-First, run the development server:
+| Instagram | Portfolio |
+| --- | --- |
+| **Feed** | Each project is a carousel post (cover, highlights, stack, links). Double-tap to like, save, share |
+| **Stories** | Full-screen viewer with progress bars, tap or hold controls and seen state: what I'm building now, *Coffee?*, AI work, HellBall, experience, stack |
+| **Post** | The full case study shown as pinned comments. Shareable at `/p/[slug]` |
+| **Profile** | Bio, story highlights, and Posts / Reels / GitHub (live API) / Saved / Writing tabs, plus a resume download |
+| **Reels** | Animated, vertically snapping reels per project |
+| **Explore & Search** | Filterable grid and a slide-out search across projects, skills and stories |
+| **Messages** | A DM chat that collects your name and email and delivers the message through Resend |
+| **Notifications** | Career milestones as an activity feed |
+| **Create** | "Ask me anything" composer with a live post preview |
+
+Also included: light/dark mode, a guided tour (More → Take the tour), and a mobile layout with Instagram's
+bottom tab bar.
+
+The editorial (non-Instagram) design lives on the `new-portfolio` branch.
+
+## Stack
+
+Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 · Framer Motion · Resend
+
+Content lives in [`src/data/portfolio.ts`](src/data/portfolio.ts) (projects, experience, skills, book) and
+[`src/data/instagram.ts`](src/data/instagram.ts) (stories, highlights, activity).
+
+## Development
 
 ```bash
+cp .env.example .env.local   # add your RESEND_API_KEY
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Resume
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The resume is written as print-tuned HTML in [`resume/resume.html`](resume/resume.html). To regenerate
+`public/pdf/Sk-Niyaz-Noor-Resume.pdf` (needs Google Chrome):
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+./resume/build.sh
+```

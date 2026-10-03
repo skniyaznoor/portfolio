@@ -1,17 +1,11 @@
-import Navigation from '@/components/layout/Navigation';
-import ProfileHeader from '@/components/profile/ProfileHeader';
-import ProfileGrid from '@/components/profile/ProfileGrid';
+import type { Metadata } from "next";
+import ProfileView from "@/components/ig/ProfileView";
+import { getRepos } from "@/lib/github";
 
-export default function ProfilePage() {
-    return (
-        <main className="flex min-h-screen">
-            <Navigation />
-            <div className="flex-1 xl:ml-64 ml-20">
-                <div className="w-full py-8">
-                    <ProfileHeader />
-                    <ProfileGrid />
-                </div>
-            </div>
-        </main>
-    );
+export const revalidate = 86400;
+export const metadata: Metadata = { title: "Profile" };
+
+export default async function ProfilePage() {
+    const repos = await getRepos();
+    return <ProfileView repos={repos} />;
 }
