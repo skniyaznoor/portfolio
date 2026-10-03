@@ -21,7 +21,7 @@ export const profile = {
 
 export const stats = [
     { value: "2+", label: "Years shipping production code" },
-    { value: "414", label: "Commits in 4 months on one AI platform" },
+    { value: "2,100+", label: "Commits across 10 client codebases" },
     { value: "24+", label: "Stories & poems published" },
     { value: "1", label: "Published novel" },
 ];
@@ -39,11 +39,11 @@ export interface Experience {
 export const experience: Experience[] = [
     {
         company: "HyScaler",
-        role: "Junior Technical Programmer · Full-Stack",
+        role: "SDE-1 · Full-Stack & AI",
         period: "Oct 2024 — Present",
         location: "Bhubaneswar",
         summary:
-            "Full-stack engineer on client and internal products, from an AI data-intelligence platform to live streaming, healthcare and assessment systems.",
+            "Software Development Engineer on client and internal products, from an AI data-intelligence platform to live streaming, healthcare, billing and assessment systems. 2,100+ commits and ~244K lines across 10 client codebases since April 2025.",
         points: [
             "Built the AI layer of a vendor-contract governance platform: Claude chat with RAG and citation grounding, Redis semantic caching, and Microsoft Graph mail intelligence.",
             "Shipped a real-time live-broadcast and course platform on Google / YouTube Live APIs with Socket.IO chat and Q&A.",
@@ -109,7 +109,7 @@ export const projects: Project[] = [
         visual: "ai",
         featured: true,
         summary:
-            "An AI-powered platform that reads vendor mail, links it to the right contracts, proposes contract changes, and answers questions with cited sources. I wrote 414 commits (about 52K lines) across the NestJS backend and Next.js frontend in 4 months.",
+            "An AI-powered platform that reads vendor mail, links it to the right contracts, proposes contract changes, and answers questions with cited sources. I wrote 415 commits (about 52K lines) across the NestJS backend and Next.js frontend in 4 months.",
         stack: ["NestJS", "Next.js", "React", "TypeScript", "Prisma", "PostgreSQL", "Redis", "BullMQ", "Socket.IO", "Claude API", "Microsoft Graph"],
         highlights: [
             "Claude chat with RAG and citation highlighting",
